@@ -10,7 +10,7 @@ function DoorScene(props) {
     let { sWidth, sHeight, doorHandleVisible, doorType } = props
     var positionX=0
     if(doorType===3){
-        positionX=0.8
+        positionX=1
     }
     // Nested DoorHandle function
     function DoorHandle() {
@@ -86,7 +86,7 @@ function DoorScene(props) {
             if (doorType === 3) {
                 const topFramePosition = [0, sHeight / 2 + thickness.top / 2, 0]
 
-                return <Box args={[sWidth * 2 + thickness.top * 2, thickness.top, frameDepth + 0.01]}
+                return <Box args={[sWidth * 2.3 + thickness.top * 2, thickness.top, frameDepth + 0.01]}
                     position={[...topFramePosition]}>
                     <meshStandardMaterial color="black" />
                 </Box>

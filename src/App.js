@@ -18,7 +18,7 @@ function App() {
     }
     function convertMmToDoorWidth(widthInMm) {
         const originalWidth = 1000;
-        const convertedWidth = 2.5;
+        const convertedWidth = 2.8;
         const conversionFactor = convertedWidth / originalWidth;
         return widthInMm * conversionFactor;
     }
