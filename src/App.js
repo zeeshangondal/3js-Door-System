@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useState, useEffect, createContext, useContext } from 'react'
-import Door1Scene from './components/Door1Scene';
-import Door2Scene from './components/Door2Scene';
+import DoorScene from './components/DoorScene';
 
 import Form1 from './components/Form1';
 
@@ -35,28 +34,15 @@ function App() {
         setWidth(Width)
     }
 
-    const Door = () => {
-        if (doorType === 1) {
-            return <Door1Scene
-                sWidth={convertMmToDoorWidth(width)}
-                sHeight={convertMmToDoorHeight(length)}
-                doorHandleVisible={true}
-            />
-        }
-        if (doorType === 2) {
-            return <Door2Scene
-                sWidth={convertMmToDoorWidth(width)}
-                sHeight={convertMmToDoorHeight(length)}
-                doorHandleVisible={false}
-            />
-        }
-
-    }
 
     return (
         <div className='d-flex mt-3'>
             <div className='col-9 container p-2 m-1' style={{ backgroundColor: 'gray', borderRadius: "2%" }}>
-                {Door()}
+                <DoorScene
+                    sWidth={convertMmToDoorWidth(width)}
+                    sHeight={convertMmToDoorHeight(length)}
+                    doorHandleVisible={true}
+                />
             </div>
             <div className='col-3 shadow container' style={{ backgroundColor: 'white', fontWeight: 'bold', paddingLeft: '17px' }}>
                 <div>
@@ -65,7 +51,6 @@ function App() {
                         width={width}
                         handleLengthChange={handleLengthChange}
                         handleWidthChange={handleWidthChange}
-
                         doorType={doorType}
                         setDoorType={setDoorType}
                     />

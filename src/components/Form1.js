@@ -56,7 +56,7 @@ function Form1(props) {
             </div>
             <div className="row">
                 {/* Grids */}
-                {['Grid 1', 'Grid 2', 'Grid 3', 'Grid 4'].map((grid, index) => (
+                {['Type 1', 'Type 2', 'Type 3', 'Type 4'].map((grid, index) => (
                     <div
                         key={index}
                         className="grid-hover grid-hover-hover col-6 d-flex align-items-center justify-content-center"
