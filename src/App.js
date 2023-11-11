@@ -37,11 +37,12 @@ function App() {
 
     return (
         <div className='d-flex mt-3'>
-            <div className='col-9 container p-2 m-1' style={{ backgroundColor: 'gray', borderRadius: "2%" }}>
+            <div className='col-9 container p-2 m-1' style={{ height:'100vh', backgroundColor: 'gray', borderRadius: "2%" }}>
                 <DoorScene
                     sWidth={convertMmToDoorWidth(width)}
                     sHeight={convertMmToDoorHeight(length)}
                     doorHandleVisible={true}
+                    doorType={doorType}
                 />
             </div>
             <div className='col-3 shadow container' style={{ backgroundColor: 'white', fontWeight: 'bold', paddingLeft: '17px' }}>
