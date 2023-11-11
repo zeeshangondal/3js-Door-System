@@ -26,25 +26,29 @@ function DoorScene({ sWidth, sHeight, doorHandleVisible }) {
         );
     }
 
-    // Nested GlassRectangle function
     function GlassRectangle() {
-        const frameThickness = 0.08;
-        const frameDepth = 0.08;
+        return (
+            <Box args={[sWidth, sHeight, 0.07]} position={[0, 0, 0]}>
+                <meshPhysicalMaterial
+                    attach="material"
+                    color="lightgray"
+                    transmission={0.9}
+                    roughness={0.1}
+                    metalness={0.1}
+                    reflectivity={0.5}
+                    clearcoat={1.0}
+                    side={DoubleSide}
+                />
+            </Box>
+        );
+    }
 
+    function Frame() {
+        const frameThickness = 0.08; // Define thickness once and pass it to the Frame component
+        const frameDepth = 0.08;     // Define depth once and pass it to the Frame component
+    
         return (
             <>
-                <Box args={[sWidth, sHeight, 0.07]} position={[0, 0, 0]}>
-                    <meshPhysicalMaterial
-                        attach="material"
-                        color="lightgray"
-                        transmission={0.9}
-                        roughness={0.1}
-                        metalness={0.1}
-                        reflectivity={0.5}
-                        clearcoat={1.0}
-                        side={DoubleSide}
-                    />
-                </Box>
                 <Box args={[sWidth + frameThickness * 2, frameThickness, frameDepth]} position={[0, sHeight / 2 + frameThickness / 2, 0]}>
                     <meshStandardMaterial color="black" />
                 </Box>
@@ -60,7 +64,6 @@ function DoorScene({ sWidth, sHeight, doorHandleVisible }) {
             </>
         );
     }
-
     // Nested LimitedOrbitControls function
     function LimitedOrbitControls() {
         const { camera, gl } = useThree();
@@ -86,6 +89,7 @@ function DoorScene({ sWidth, sHeight, doorHandleVisible }) {
     // Main scene render function
     const lightRef = useRef();
 
+    
     return (
         <Canvas>
             <ambientLight intensity={0.9} />
@@ -93,6 +97,7 @@ function DoorScene({ sWidth, sHeight, doorHandleVisible }) {
             <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" />
 
             <GlassRectangle />
+            <Frame/>
             <DoorHandle />
             <LimitedOrbitControls />
         </Canvas>
