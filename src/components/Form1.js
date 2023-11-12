@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 
 function Form1(props) {
-    let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType } = props
-    const [active, setActive] = useState(1); // State to manage active grid
+    let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType,numberOfDoors, handleNumberOfDoorsChange } = props
     const [toggle, setToggle] = useState(false); // State to manage toggle for direction
 
-    const handleClick = (number) => {
-        setActive(number);
-    };
 
     const handleToggle = () => {
         setToggle(!toggle);
@@ -15,6 +11,7 @@ function Form1(props) {
 
     // Styles
     const activeStyle = {
+        cursor:'pointer',
         backgroundColor: '#1f2937',
         color: 'white',
         padding: '5px',
@@ -22,6 +19,7 @@ function Form1(props) {
     };
 
     const defaultStyle = {
+        cursor:'pointer',
         backgroundColor: 'white',
         color: 'black',
         padding: '5px',
@@ -74,17 +72,17 @@ function Form1(props) {
                     <div className='d-flex'>
                         <div className='d-flex flex-column' style={{ fontWeight: "normal" }}>
                             <small>Lengte</small>
-                            <input type="number" value={length} placeholder='2500' onChange={(e) => handleLengthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
+                            <input type="number" value={length}  onChange={(e) => handleLengthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
                         </div>
                         <div className='d-flex flex-column' style={{ fontWeight: "normal" }}>
                             <small>Breedte</small>
-                            <input type="number" value={width} placeholder='1000' onChange={(e) => handleWidthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
+                            <input type="number" value={width}  onChange={(e) => handleWidthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <div className='mt-1'>
+                <div className='mt-2'>
                     <p>Aantal</p>
                     <div>
                         <div className="d-flex" style={{ marginTop: '-9px' }}>
@@ -92,8 +90,8 @@ function Form1(props) {
                             {[1, 2, 3, 4].map((number) => (
                                 <div
                                     key={number}
-                                    style={active === number ? activeStyle : defaultStyle}
-                                    onClick={() => handleClick(number)}
+                                    style={numberOfDoors === number ? activeStyle : defaultStyle}
+                                    onClick={() => handleNumberOfDoorsChange(number)}
                                     className={`px-3 py-2 ${number === 1 ? 'rounded-left' : ''} ${number === 4 ? 'rounded-right' : ''}`}
                                 >
                                     {number}

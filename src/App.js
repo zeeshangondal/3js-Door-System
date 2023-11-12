@@ -5,35 +5,41 @@ import DoorScene from './components/DoorScene';
 import Form1 from './components/Form1';
 
 function App() {
-    const [length, setLength] = useState(2500)
-    const [width, setWidth] = useState(1000)
+    const BaseWidth=1000
+    const BaseLength=3000
+    
+    const [length, setLength] = useState(BaseLength)
+    const [width, setWidth] = useState(BaseWidth)
     const [doorType, setDoorType] = useState(1)
+    const [numberOfDoors,setNumberOfDoors]=useState(1)
 
 
     function convertMmToDoorHeight(lengthInMm) {
-        const originalLength = 2500;
-        const convertedLength = 6;
+        const originalLength = BaseLength;
+        const convertedLength = 6.5;
         const conversionFactor = convertedLength / originalLength;
         return lengthInMm * conversionFactor;
     }
     function convertMmToDoorWidth(widthInMm) {
-        const originalWidth = 1000;
-        const convertedWidth = 2.8;
+        const originalWidth = BaseWidth;
+        const convertedWidth = 2.9;
         const conversionFactor = convertedWidth / originalWidth;
         return widthInMm * conversionFactor;
     }
 
     const handleLengthChange = (Length) => {
-        if (Length > 2500)
-            Length = 2500
+        if (Length > BaseLength)
+            Length = BaseLength
         setLength(Length)
     }
     const handleWidthChange = (Width) => {
-        if (Width > 1000)
-            Width = 1000
+        if (Width > BaseWidth)
+            Width = BaseWidth
         setWidth(Width)
     }
-
+    const handleNumberOfDoorsChange = (number) => {
+        setNumberOfDoors(number)
+    }
 
     return (
         <div className='d-flex mt-3'>
@@ -54,6 +60,8 @@ function App() {
                         handleWidthChange={handleWidthChange}
                         doorType={doorType}
                         setDoorType={setDoorType}
+                        numberOfDoors={numberOfDoors}
+                        handleNumberOfDoorsChange={handleNumberOfDoorsChange}
                     />
                 </div>
             </div>
