@@ -39,6 +39,7 @@ function App() {
     }
     const handleNumberOfDoorsChange = (number) => {
         setNumberOfDoors(number)
+
     }
 
     return (
@@ -49,6 +50,7 @@ function App() {
                     sHeight={convertMmToDoorHeight(length)}
                     doorHandleVisible={true}
                     doorType={doorType}
+                    numberOfDoors={numberOfDoors}
                 />
             </div>
             <div className='col-3 shadow container' style={{ backgroundColor: 'white', fontWeight: 'bold', paddingLeft: '17px' }}>

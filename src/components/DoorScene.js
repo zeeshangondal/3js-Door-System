@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, useThree, extend } from '@react-three/fiber';
 import { Box, OrbitControls } from '@react-three/drei';
 import { MeshPhysicalMaterial, DoubleSide, DirectionalLight, MeshStandardMaterial } from 'three';
@@ -7,17 +7,20 @@ import { MeshPhysicalMaterial, DoubleSide, DirectionalLight, MeshStandardMateria
 extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
-    let { sWidth, sHeight, doorHandleVisible, doorType } = props
+    let { sWidth, sHeight, doorHandleVisible, doorType, numberOfDoors } = props
+
+    let [zoom,setZoom] = useState(1)
+
     var positionX = 0
     if (doorType === 3) {
         positionX = 1
     }
     // Nested DoorHandle function
     function DoorHandle(xPosition) {
-        const handleWidth = 0.08;
+        const handleWidth = 0.1;
         const handleHeight = 0.53;
         const handleDepth = 0.2;
-        const handlePositionX = xPosition + sWidth / 2 + handleWidth / 2 - handleWidth / 3;
+        const handlePositionX = xPosition -0.025*numberOfDoors + sWidth / 2 + handleWidth / 2 - handleWidth / 3 ;
 
         if (!doorHandleVisible || doorType === 4) {
             return null;
@@ -127,16 +130,15 @@ function DoorScene(props) {
                 {BottomFrame()}
                 {LeftFrame}
                 {RightFrame}
-                {doorType === 3 ? DoorHandle(1) : DoorHandle(0)}
             </>
         );
     }
+    
 
     // Nested LimitedOrbitControls function
     function LimitedOrbitControls() {
         const { camera, gl } = useThree();
-        camera.zoom = 1
-
+        camera.zoom = zoom
         camera.updateProjectionMatrix(); // Apply the zoom change.
 
         const controlsRef = useRef();
@@ -157,24 +159,52 @@ function DoorScene(props) {
         return <OrbitControls ref={controlsRef} args={[camera, gl.domElement]} />;
     }
 
+    useEffect(()=>{
+        if(numberOfDoors<3){
+            setZoom(1)    
+            return
+        }
+        let zoomLevel=1/(1+0.2*numberOfDoors)
+        setZoom(zoomLevel)
+    },[numberOfDoors])
 
     // Main scene render function
     const lightRef = useRef();
 
-    function CreateDoor() {
+    function CreateDoor(xPosition,handleVisible) {
         return <>
-            {doorType===3 ? Frame(1) : Frame(0)}
-            {GlassRectangle(0)}
+            {doorType===3 ? Frame(1) : Frame(xPosition)}
+            {/* {doorType === 3 ? DoorHandle(1) : DoorHandle(xPosition)} */}
+            {handleVisible ? DoorHandle(xPosition):''}
+            {GlassRectangle(xPosition)}
         </>
     }
-
+    function GenerateDoors(n) {
+        if(n===1){
+            return CreateDoor(0,true)
+        }
+        const doors=[]
+        let startX= -(n*sWidth)/(3) 
+        let handleVisible=true
+        for(let i=0;i<n;i++){
+            if(i%2==0)
+                handleVisible=true
+            else
+                handleVisible=false
+            doors.push(CreateDoor(startX,handleVisible))
+            startX=startX+sWidth
+        }
+        return <>{doors}</>
+    }
+    
     return (
         <Canvas>
             <ambientLight intensity={0.9} />
             <directionalLight ref={lightRef} position={[0, 0, 5]} intensity={2} color="white" />
             <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" />
 
-            <CreateDoor />
+            {GenerateDoors(numberOfDoors)}
+            
             <LimitedOrbitControls />
         </Canvas>
     );
