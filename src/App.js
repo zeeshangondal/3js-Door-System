@@ -12,6 +12,7 @@ function App() {
     const [width, setWidth] = useState(BaseWidth)
     const [doorType, setDoorType] = useState(1)
     const [numberOfDoors,setNumberOfDoors]=useState(1)
+    const [doorHandleDirection,setDoorHandleDirection]=useState(false)    //false means left and true means right 
 
 
     function convertMmToDoorHeight(lengthInMm) {
@@ -44,13 +45,15 @@ function App() {
 
     return (
         <div className='d-flex mt-3'>
-            <div className='col-9 container p-2 m-1' style={{ height:'100vh', backgroundColor: 'gray', borderRadius: "2%" }}>
+            <div className='col-9 container p-2 m-1' style={{ height:'100vh', width:"150vh", backgroundColor: 'gray', borderRadius: "2%" }}>
                 <DoorScene
                     sWidth={convertMmToDoorWidth(width)}
                     sHeight={convertMmToDoorHeight(length)}
                     doorHandleVisible={true}
                     doorType={doorType}
                     numberOfDoors={numberOfDoors}
+                    doorHandleDirection={doorHandleDirection}
+
                 />
             </div>
             <div className='col-3 shadow container' style={{ backgroundColor: 'white', fontWeight: 'bold', paddingLeft: '17px' }}>
@@ -64,6 +67,8 @@ function App() {
                         setDoorType={setDoorType}
                         numberOfDoors={numberOfDoors}
                         handleNumberOfDoorsChange={handleNumberOfDoorsChange}
+                        doorHandleDirection={doorHandleDirection}
+                        setDoorHandleDirection={setDoorHandleDirection}
                     />
                 </div>
             </div>

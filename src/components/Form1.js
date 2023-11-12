@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Form1(props) {
-    let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType,numberOfDoors, handleNumberOfDoorsChange } = props
-    const [toggle, setToggle] = useState(false); // State to manage toggle for direction
-
-
-    const handleToggle = () => {
-        setToggle(!toggle);
-    };
-
+    let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType,numberOfDoors, handleNumberOfDoorsChange ,doorHandleDirection, setDoorHandleDirection} = props
+    const [showingNumberOfDoors,setShowingNumberOfDoors]=useState([1,2,3,4])
+    useEffect(()=>{
+        if(doorType===3){
+            setShowingNumberOfDoors([1,2])
+            if(numberOfDoors>2){
+                handleNumberOfDoorsChange(2)
+            }
+        }else{
+            setShowingNumberOfDoors([1,2,3,4])
+        }
+        
+    },[doorType])
+ 
     // Styles
     const activeStyle = {
         cursor:'pointer',
@@ -29,8 +35,8 @@ function Form1(props) {
     const toggleStyle = {
         container: {
             display: 'flex',
-            justifyContent: toggle ? 'flex-end' : 'flex-start',
-            backgroundColor: toggle ? 'green' : 'red',
+            justifyContent: doorHandleDirection ? 'flex-end' : 'flex-start',
+            backgroundColor:  'black',
             borderRadius: '20px',
             width: '50px',
             padding: '2px',
@@ -87,7 +93,7 @@ function Form1(props) {
                     <div>
                         <div className="d-flex" style={{ marginTop: '-9px' }}>
                             {/* Number selectors */}
-                            {[1, 2, 3, 4].map((number) => (
+                            {showingNumberOfDoors.map((number) => (
                                 <div
                                     key={number}
                                     style={numberOfDoors === number ? activeStyle : defaultStyle}
@@ -105,11 +111,11 @@ function Form1(props) {
                 <div className='mt-2'>
                     <p>Draairichting</p>
                     <div className='d-flex align-items-center' style={{ fontWeight: 'normal', marginTop: '-10px' }}>
-                        <small>Links</small>
-                        <div className='m-2' style={toggleStyle.container} onClick={handleToggle}>
+                        <small>Left</small>
+                        <div className='m-2' style={toggleStyle.container} onClick={()=>setDoorHandleDirection(prev=>!prev)}>
                             <div style={toggleStyle.circle}></div>
                         </div>
-                        <small>Rechts</small>
+                        <small>Right</small>
                     </div>
                 </div>
             </div>

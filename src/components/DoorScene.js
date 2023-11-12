@@ -7,21 +7,23 @@ import { MeshPhysicalMaterial, DoubleSide, DirectionalLight, MeshStandardMateria
 extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
-    let { sWidth, sHeight, doorHandleVisible, doorType, numberOfDoors } = props
+    let { sWidth, sHeight, doorHandleVisible, doorType, numberOfDoors ,doorHandleDirection} = props
 
-    let [zoom,setZoom] = useState(1)
+    let [zoom,setZoom] = useState(0.5)
 
-    var positionX = 0
-    if (doorType === 3) {
-        positionX = 1
-    }
+    
     // Nested DoorHandle function
     function DoorHandle(xPosition) {
-        const handleWidth = 0.1;
-        const handleHeight = 0.53;
+        const handleWidth = 0.09;
+        const handleHeight = 0.53+numberOfDoors*0.04;
         const handleDepth = 0.2;
-        const handlePositionX = xPosition -0.025*numberOfDoors + sWidth / 2 + handleWidth / 2 - handleWidth / 3 ;
+        var handlePositionX = xPosition  + sWidth / 2 + handleWidth / 2 - handleWidth / 3 ;
+        if(doorHandleDirection){
+            handlePositionX=handlePositionX-sWidth+0.025*numberOfDoors
+        }else{
+            handlePositionX=handlePositionX-0.025*numberOfDoors
 
+        }
         if (!doorHandleVisible || doorType === 4) {
             return null;
         }
@@ -35,9 +37,6 @@ function DoorScene(props) {
 
     function GlassRectangle(xPosition) {
         let position = [xPosition, 0, 0]
-        if (doorType === 3) {
-            position = [positionX, 0, 0]
-        }
         return (
             <Box args={[sWidth, sHeight, 0.07]} position={[...position]}>
                 <meshPhysicalMaterial
@@ -56,13 +55,13 @@ function DoorScene(props) {
 
     function Frame(xPosition) {
         var thickness = { left: 0.1, right: 0.1, top: 0.1, bottom: 0.1 }
-        var frameDepth = 0.09;     // Define depth once and pass it to the Frame component
+        var frameDepth = 0.09 ;     
         if (doorType === 1) {
             thickness = { left: 0.07, right: 0.07, top: 0.07, bottom: 0.07 }
             frameDepth = 0.09;
         }
         if (doorType === 2) {
-            thickness = { left: 0.04, right: 0.05, top: 0.2, bottom: 0.2 }
+            thickness = { left: 0.04, right: 0.05, top: 0.2+numberOfDoors*0.008, bottom: 0.2+numberOfDoors*0.008 }
             frameDepth = 0.07;
         }
         if (doorType === 3) {
@@ -73,7 +72,7 @@ function DoorScene(props) {
             thickness = { left: 0.05, right: 0.05, top: 0.05, bottom: 0.05 }
             frameDepth = 0.07;
         }
-
+        frameDepth=frameDepth+numberOfDoors*0.008
         const TopFrame = () => {
             if (doorType === 1 || doorType === 3 || doorType === 4)
                 return <Box args={[sWidth + thickness.top * 2, thickness.top, frameDepth]}
@@ -89,8 +88,8 @@ function DoorScene(props) {
         }
         const TopDoorType3Frame = () => {
             const topFrameThickness = 0.15
-            const topFramePosition = [0, sHeight / 2 + thickness.top / 2, 0]
-            return <Box args={[sWidth * 2.3 + topFrameThickness * 2, topFrameThickness, frameDepth + 0.01]}
+            const topFramePosition = [-0.6+(numberOfDoors==1?0.5:0), sHeight / 2 + thickness.top / 2, 0]
+            return <Box args={[1.6*sWidth+ 0.8*sWidth *numberOfDoors , topFrameThickness, frameDepth + 0.01]}
                 position={[...topFramePosition]}>
                 <meshStandardMaterial color="black" />
             </Box>
@@ -173,21 +172,30 @@ function DoorScene(props) {
 
     function CreateDoor(xPosition,handleVisible) {
         return <>
-            {doorType===3 ? Frame(1) : Frame(xPosition)}
+            {doorType===3 ? Frame(xPosition) : Frame(xPosition)}
             {/* {doorType === 3 ? DoorHandle(1) : DoorHandle(xPosition)} */}
             {handleVisible ? DoorHandle(xPosition):''}
             {GlassRectangle(xPosition)}
         </>
     }
     function GenerateDoors(n) {
+        if(n===1 && doorType===3){
+            return CreateDoor(1,true)
+        }
         if(n===1){
             return CreateDoor(0,true)
         }
+
+        var remainder=0
+        if(doorHandleDirection)
+            remainder=1
+        
         const doors=[]
         let startX= -(n*sWidth)/(3) 
         let handleVisible=true
+
         for(let i=0;i<n;i++){
-            if(i%2==0)
+            if(i%2==remainder)
                 handleVisible=true
             else
                 handleVisible=false
