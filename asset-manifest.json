@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/3js-Door-System/static/css/main.a074ec65.css",
+    "main.js": "/3js-Door-System/static/js/main.5c8687b8.js",
+    "static/js/787.cda612ba.chunk.js": "/3js-Door-System/static/js/787.cda612ba.chunk.js",
+    "index.html": "/3js-Door-System/index.html",
+    "main.a074ec65.css.map": "/3js-Door-System/static/css/main.a074ec65.css.map",
+    "main.5c8687b8.js.map": "/3js-Door-System/static/js/main.5c8687b8.js.map",
+    "787.cda612ba.chunk.js.map": "/3js-Door-System/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a074ec65.css",
+    "static/js/main.5c8687b8.js"
+  ]
+}
