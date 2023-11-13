@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import doorType1SVG from '../SVGs/type1.svg'
+import doorType2SVG from '../SVGs/type2.svg'
+import doorType3SVG from '../SVGs/type3.svg'
+import doorType4SVG from '../SVGs/type4.svg'
+
+
 
 function Form1(props) {
     let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType,numberOfDoors, handleNumberOfDoorsChange ,doorHandleDirection, setDoorHandleDirection} = props

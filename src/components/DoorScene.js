@@ -213,7 +213,7 @@ function DoorScene(props) {
 
             {GenerateDoors(numberOfDoors)}
             
-            <LimitedOrbitControls />
+            {/* <LimitedOrbitControls /> */}
         </Canvas>
     );
 }
