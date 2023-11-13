@@ -51,7 +51,7 @@ function Form1(props) {
     };
 
     return (
-        <div>
+        <div className='col-11'>
             <div>
                 <h2 style={{ fontWeight: 'bold' }}>Deur</h2>
             </div>
@@ -63,8 +63,8 @@ function Form1(props) {
                 {['Type 1', 'Type 2', 'Type 3', 'Type 4'].map((grid, index) => (
                     <div
                         key={index}
-                        className="grid-hover grid-hover-hover col-6 d-flex align-items-center justify-content-center"
-                        style={{ background: '#f8f9fa', border: '1px solid #dee2e6', height: '100px' }}
+                        className="grid-hover grid-hover-hover col-6 shadow d-flex align-items-center justify-content-center"
+                        style={{ background: '#f8f9fa', border: '1px none #dee2e6', height: '100px' }}
                         onClick={() => setDoorType(index + 1)} // Passes the corresponding grid number to setDoorType
                     >
                         {grid}
