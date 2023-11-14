@@ -100,6 +100,7 @@ function App() {
         }
         if (stepNumber === 2) {
             return (<Form2
+                doorType={doorType}
                 handleGoBack={handleGoBack}
                 handleGoNext={handleGoNext}
                 panelTypePosition={panelTypePosition}
@@ -116,8 +117,6 @@ function App() {
                 setLeftPanelWidth={setLeftPanelForm2Width}
                 rightPanelWidth={rightPanelForm2Width}
                 setRightPanelWidth={setRightPanelForm2Width}
-                
-
             />)
         }
     }
