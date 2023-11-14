@@ -5,11 +5,12 @@ import doorType3SVG from '../SVGs/type3.svg'
 import doorType4SVG from '../SVGs/type4.svg'
 import ToggleSwitch from './ToggleSwitch';
 import BackNextComp from './BackNextComp';
+import LabelWithRange from './LabelWithRange';
 
 
 
 function Form1(props) {
-    let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType, numberOfDoors, handleNumberOfDoorsChange, doorHandleDirection, setDoorHandleDirection , handleGoBack, handleGoNext} = props
+    let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType, numberOfDoors, handleNumberOfDoorsChange, doorHandleDirection, setDoorHandleDirection, handleGoBack, handleGoNext } = props
     const doorTypeImages = [doorType1SVG, doorType2SVG, doorType3SVG, doorType4SVG]
     const [showingNumberOfDoors, setShowingNumberOfDoors] = useState([1, 2, 3, 4])
     useEffect(() => {
@@ -24,22 +25,7 @@ function Form1(props) {
 
     }, [doorType])
 
-    // Styles
-    const activeStyle = {
-        cursor: 'pointer',
-        backgroundColor: '#1f2937',
-        color: 'white',
-        padding: '5px',
-        border: 'none',
-    };
 
-    const defaultStyle = {
-        cursor: 'pointer',
-        backgroundColor: 'white',
-        color: 'black',
-        padding: '5px',
-        border: 'none',
-    };
 
     return (
         <div className='col-11'>
@@ -79,25 +65,9 @@ function Form1(props) {
                 </div>
             </div>
             <div>
-                <div className='mt-2'>
-                    <p>Aantal</p>
-                    <div>
-                        <div className="d-flex" style={{ marginTop: '-9px' }}>
-                            {/* Number selectors */}
-                            {showingNumberOfDoors.map((number) => (
-                                <div
-                                    key={number}
-                                    style={numberOfDoors === number ? activeStyle : defaultStyle}
-                                    onClick={() => handleNumberOfDoorsChange(number)}
-                                    className={`px-3 py-2 ${number === 1 ? 'rounded-left' : ''} ${number === 4 ? 'rounded-right' : ''}`}
-                                >
-                                    {number}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                <LabelWithRange label="Aantal" number={numberOfDoors} setNumber={handleNumberOfDoorsChange} />
             </div>
+
             <div>
                 <div className='mt-2'>
                     <p>Draairichting</p>
@@ -111,7 +81,7 @@ function Form1(props) {
                 </div>
             </div>
             <div>
-                <BackNextComp onGoBack={handleGoBack} onGoNext={handleGoNext} backDisabled={true}/>
+                <BackNextComp onGoBack={handleGoBack} onGoNext={handleGoNext} backDisabled={true} />
             </div>
         </div>
     );
