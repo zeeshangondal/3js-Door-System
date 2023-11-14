@@ -66,6 +66,20 @@ function App() {
         });
     }
 
+
+    //States for Form 2
+    const [panelTypePosition,setPanelTypePosition] = useState(1)  // 1 to 4 respectively
+    const [topPanelForm2,setTopPanelForm2] = useState(false)  // false means no. true means yes
+    const [bottomSteelPanelForm2,setBottomSteelPanelForm2] = useState(false)  // false means no. true means yes
+    const [topPanelForm2Length,setTopPanelForm2Length] = useState(0)  // length
+    const [bottomSteelPanelForm2Length,setBottomSteelPanelForm2Length] = useState(0)  // length     
+
+    const [leftPanelForm2Width,setLeftPanelForm2Width] = useState(0)  // Left panel width
+    const [rightPanelForm2Width,setRightPanelForm2Width] = useState(0)  // Right panel width
+    
+    
+
+
     const getForm = () => {
         if (stepNumber === 1) {
             return (<Form1
@@ -88,13 +102,29 @@ function App() {
             return (<Form2
                 handleGoBack={handleGoBack}
                 handleGoNext={handleGoNext}
+                panelTypePosition={panelTypePosition}
+                setPanelTypePosition={setPanelTypePosition}
+                topPanel={topPanelForm2}
+                setTopPanel={setTopPanelForm2}
+                bottomSteelPanel={bottomSteelPanelForm2}
+                setBottomSteelPanel={setBottomSteelPanelForm2}
+                topPanelLength={topPanelForm2Length}
+                setTopPanelLength={setTopPanelForm2Length}
+                bottomSteelPanelLength={bottomSteelPanelForm2Length}
+                setBottomSteelPanelLength={setBottomSteelPanelForm2Length}
+                leftPanelWidth={leftPanelForm2Width}
+                setLeftPanelWidth={setLeftPanelForm2Width}
+                rightPanelWidth={rightPanelForm2Width}
+                setRightPanelWidth={setRightPanelForm2Width}
+                
 
             />)
         }
     }
+    //height: 'calc(100vh - 4rem)',
     return (
         <div className='d-flex flex-column flex-md-row mt-3'>
-            <div className='col-12 col-md-9 p-2 m-1' style={{ height: 'calc(100vh - 4rem)', backgroundColor: 'gray', borderRadius: "2%" }}>
+            <div className='col-12 col-md-9 p-2 m-1' style={{  backgroundColor: 'gray', borderRadius: "2%" }}>
                 <DoorScene
                     sWidth={convertMmToDoorWidth(width)}
                     sHeight={convertMmToDoorHeight(length)}
@@ -104,7 +134,7 @@ function App() {
                     doorHandleDirection={doorHandleDirection}
                 />
             </div>
-            <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ height: 'calc(100vh - 4rem)',backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>
+            <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>
                 {getForm()}
             </div>
         </div>

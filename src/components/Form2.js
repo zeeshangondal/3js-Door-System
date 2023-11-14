@@ -5,8 +5,13 @@ import LabelWithInput from './LabelWithInput';
 
 
 
-function Form2({ handleGoBack, handleGoNext }) {
-
+function Form2(props) {
+    let { handleGoBack, handleGoNext, panelTypePosition, setPanelTypePosition, 
+        topPanel, setTopPanel, bottomSteelPanel, setBottomSteelPanel ,topPanelLength, 
+        setTopPanelLength,bottomSteelPanelLength, setBottomSteelPanelLength,
+        leftPanelWidth,setLeftPanelWidth,rightPanelWidth,setRightPanelWidth
+    }=props
+    
     return (
         <div className='col-11' >
             <div>
@@ -20,38 +25,53 @@ function Form2({ handleGoBack, handleGoNext }) {
             </div>
             <div className="container">
                 <div className="row">
-                    <div className="col-6 d-flex justify-content-center align-items-center" style={{ border: '1px solid black', height: '6vh', borderTopLeftRadius: "10%" }}>
+                    <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 1 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(1)} style={{ border: '1px solid black', height: '6vh', borderTopLeftRadius: "10%", cursor: "pointer" }}>
                         Geen
                     </div>
-                    <div className="col-6 d-flex justify-content-center align-items-center" style={{ border: '1px solid black', height: '6vh', borderTopRightRadius: "10%" }}>
+                    <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 2 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(2)} style={{ border: '1px solid black', height: '6vh', borderTopRightRadius: "10%", cursor: "pointer" }}>
                         Links
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-6 d-flex justify-content-center align-items-center" style={{ border: '1px solid black', height: '6vh', borderBottomLeftRadius: "10%" }}>
+                    <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 3 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(3)} style={{ border: '1px solid black', height: '6vh', borderBottomLeftRadius: "10%", cursor: "pointer" }}>
                         Rechts
                     </div>
-                    <div className="col-6 d-flex justify-content-center align-items-center" style={{ border: '1px solid black', height: '6vh', borderBottomRightRadius: "10%" }}>
+                    <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 4 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(4)} style={{ border: '1px solid black', height: '6vh', borderBottomRightRadius: "10%", cursor: "pointer" }}>
                         Beide
                     </div>
                 </div>
             </div>
-            <div className='mt-2'>
-                <LabelWithInput label="Left side panel width"/>
-            </div>
-
+            {panelTypePosition === 2 || panelTypePosition === 4 ?
+                <div className='mt-2'>
+                    <LabelWithInput label="Left side panel width" value={leftPanelWidth} setValue={setLeftPanelWidth} />
+                </div>
+                :
+                ''}
+            {panelTypePosition === 3 || panelTypePosition === 4 ?
+                <div className='mt-2'>
+                    <LabelWithInput label="Right side panel width" value={rightPanelWidth} setValue={setRightPanelWidth}/>
+                </div>
+                :
+                ''}
             <div className='mt-4'>
                 <p>Top Panel</p>
-                <ToggleSwitch />
+                <ToggleSwitch isOn={topPanel} onToggle={() => setTopPanel(pre => !pre)} />
+                {topPanel ?
+                    <LabelWithInput label="Length" value={topPanelLength} setValue={setTopPanelLength} />
+                    : ''}
+
             </div>
             <div className='mt-3'>
                 <p>Bottom Steel Panel</p>
-                <ToggleSwitch />
+                <ToggleSwitch isOn={bottomSteelPanel} onToggle={() => setBottomSteelPanel(pre => !pre)} />
+                {bottomSteelPanel ?
+                    <LabelWithInput label="Length" value={bottomSteelPanelLength} setValue={setBottomSteelPanelLength}/>
+                    : ''}
+
             </div>
-            
+
             <div>
                 <BackNextComp onGoBack={handleGoBack} onGoNext={handleGoNext} nextDisabled={true} />
-
             </div>
         </div>
     );

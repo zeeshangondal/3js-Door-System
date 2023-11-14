@@ -48,3 +48,8 @@
   background-color: gray !important; /* Background color on hover */
 }
 
+
+.black-background-white-text {
+  background-color: black;
+  color: white;
+}
