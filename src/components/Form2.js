@@ -12,6 +12,24 @@ function Form2(props) {
         leftPanelWidth,setLeftPanelWidth,rightPanelWidth,setRightPanelWidth
     }=props
     
+
+    function handlePanelLengthAutoFixing(){
+        if(panelTypePosition===1){
+            setLeftPanelWidth(0)
+            setRightPanelWidth(0)
+        }
+        if(panelTypePosition===2){
+            setRightPanelWidth(0)
+        }
+        if(panelTypePosition===3){
+            setLeftPanelWidth(0)
+        }        
+    }
+
+    handlePanelLengthAutoFixing()
+    
+    
+
     return (
         <div className='col-11' >
             <div>
@@ -55,7 +73,7 @@ function Form2(props) {
                 ''}
             <div className='mt-4'>
                 <p>Top Panel</p>
-                <ToggleSwitch isOn={topPanel} onToggle={() => setTopPanel(pre => !pre)} />
+                <ToggleSwitch isOn={topPanel} onToggle={() => {setTopPanel(pre => {if(pre){setTopPanelLength(0) }; return !pre})}} />
                 {topPanel ?
                     <LabelWithInput label="Length" value={topPanelLength} setValue={setTopPanelLength} />
                     : ''}
@@ -63,7 +81,7 @@ function Form2(props) {
             </div>
             <div className='mt-3'>
                 <p>Bottom Steel Panel</p>
-                <ToggleSwitch isOn={bottomSteelPanel} onToggle={() => setBottomSteelPanel(pre => !pre)} />
+                <ToggleSwitch isOn={bottomSteelPanel} onToggle={() => {setBottomSteelPanel(pre => {if(pre){setBottomSteelPanelLength(0) }; return !pre})}} />
                 {bottomSteelPanel ?
                     <LabelWithInput label="Length" value={bottomSteelPanelLength} setValue={setBottomSteelPanelLength}/>
                     : ''}
