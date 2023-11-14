@@ -208,8 +208,8 @@ function DoorScene(props) {
     return (
         <Canvas>
             <ambientLight intensity={0.9} />
-            <directionalLight ref={lightRef} position={[0, 0, 5]} intensity={2} color="white" />
-            <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" />
+            {/* <directionalLight ref={lightRef} position={[0, 0, 5]} intensity={2} color="white" />
+            <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
 
             {GenerateDoors(numberOfDoors)}
             
