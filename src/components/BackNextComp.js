@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function BackNextComp({onGoBack,onGoNext,backDisabled=false,nextDisabled=false , middleLabel}) {
+export default function BackNextComp({onGoBack,onGoNext,backDisabled=false,nextDisabled=false , middleLabel , nextButtonLabel="Next Step"}) {
     
     return (
         <div className='mt-2 container'>
@@ -9,7 +9,7 @@ export default function BackNextComp({onGoBack,onGoNext,backDisabled=false,nextD
                 <div>
                     <h5 className='mt-2' style={{fontWeight:'normal'}}>{middleLabel}</h5>
                 </div>
-                <button className='btn-primary' onClick={onGoNext} disabled={nextDisabled}  style={{ fontWeight: "bold", width: "40%", padding: "5px", backgroundColor: nextDisabled? 'lightgray' : '#1f2937', border: 'none', borderRadius: "7%" }}>Next Step</button>
+                <button className='btn-primary' onClick={onGoNext} disabled={nextDisabled}  style={{ fontWeight: "bold", width: "40%", padding: "5px", backgroundColor: nextDisabled? 'lightgray' : '#1f2937', border: 'none', borderRadius: "7%" }}>{nextButtonLabel}</button>
             </div>
         </div>
     )
