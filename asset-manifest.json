@@ -1,19 +1,40 @@
 {
   "files": {
     "main.css": "/3js-Door-System/static/css/main.e30650bd.css",
-    "main.js": "/3js-Door-System/static/js/main.346a23a9.js",
+    "main.js": "/3js-Door-System/static/js/main.2bdaeaa6.js",
+    "static/js/139.94d54406.chunk.js": "/3js-Door-System/static/js/139.94d54406.chunk.js",
+    "static/js/50.7404948e.chunk.js": "/3js-Door-System/static/js/50.7404948e.chunk.js",
+    "static/js/631.6ad646a5.chunk.js": "/3js-Door-System/static/js/631.6ad646a5.chunk.js",
+    "static/js/363.5f2e9d2f.chunk.js": "/3js-Door-System/static/js/363.5f2e9d2f.chunk.js",
+    "static/js/253.6a42b1a2.chunk.js": "/3js-Door-System/static/js/253.6a42b1a2.chunk.js",
+    "static/js/399.4b8a6881.chunk.js": "/3js-Door-System/static/js/399.4b8a6881.chunk.js",
+    "static/js/761.8c97553b.chunk.js": "/3js-Door-System/static/js/761.8c97553b.chunk.js",
+    "static/js/610.c7664913.chunk.js": "/3js-Door-System/static/js/610.c7664913.chunk.js",
+    "static/js/418.fd952be5.chunk.js": "/3js-Door-System/static/js/418.fd952be5.chunk.js",
+    "static/js/3.36c6b832.chunk.js": "/3js-Door-System/static/js/3.36c6b832.chunk.js",
+    "static/js/338.07bc2f19.chunk.js": "/3js-Door-System/static/js/338.07bc2f19.chunk.js",
+    "static/js/403.5a6c5434.chunk.js": "/3js-Door-System/static/js/403.5a6c5434.chunk.js",
     "static/js/787.cda612ba.chunk.js": "/3js-Door-System/static/js/787.cda612ba.chunk.js",
+    "static/media/3.jpg": "/3js-Door-System/static/media/3.7371d9cbe1fd4f328a2a.jpg",
+    "static/media/5.jpg": "/3js-Door-System/static/media/5.410d32c1650b4ff6578f.jpg",
+    "static/media/1.jpg": "/3js-Door-System/static/media/1.b050bb0244ed97b93548.jpg",
+    "static/media/4.jpg": "/3js-Door-System/static/media/4.cc81322a7cec47afb970.jpg",
+    "static/media/11.jpg": "/3js-Door-System/static/media/11.5f8af76da1defc814d5b.jpg",
+    "static/media/2.jpg": "/3js-Door-System/static/media/2.54b340949d2fddafe540.jpg",
+    "static/media/6.jpg": "/3js-Door-System/static/media/6.129bd3b1d06cd2f61200.jpg",
+    "static/media/7.jpg": "/3js-Door-System/static/media/7.d745343b333f6ccc76c6.jpg",
+    "static/media/8.jpg": "/3js-Door-System/static/media/8.2bbe33598fb199271669.jpg",
     "index.html": "/3js-Door-System/index.html",
     "static/media/type2.svg": "/3js-Door-System/static/media/type2.e22ebcc8e137edf1711ba1f2fcc15a1a.svg",
     "static/media/type3.svg": "/3js-Door-System/static/media/type3.e2e41f841c22b30e4fd21402ef6cab56.svg",
     "static/media/type1.svg": "/3js-Door-System/static/media/type1.27c8f39eb9e087431e6c4c9f19e17183.svg",
     "static/media/type4.svg": "/3js-Door-System/static/media/type4.81421d11138cb543a484987401676ed1.svg",
     "main.e30650bd.css.map": "/3js-Door-System/static/css/main.e30650bd.css.map",
-    "main.346a23a9.js.map": "/3js-Door-System/static/js/main.346a23a9.js.map",
+    "main.2bdaeaa6.js.map": "/3js-Door-System/static/js/main.2bdaeaa6.js.map",
     "787.cda612ba.chunk.js.map": "/3js-Door-System/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e30650bd.css",
-    "static/js/main.346a23a9.js"
+    "static/js/main.2bdaeaa6.js"
   ]
 }
