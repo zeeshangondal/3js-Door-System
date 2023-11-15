@@ -23,6 +23,7 @@ let doorObj = {
     leftRightPanelHBars:0,
     leftRightPanelVBars:0,
     frameColor:"black",
+    glassColor:"#C0C2C9",
     leftPanel:{
         width:0
     },

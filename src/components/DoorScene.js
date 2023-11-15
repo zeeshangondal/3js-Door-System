@@ -8,7 +8,7 @@ extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
     let { sWidth, sHeight, doorHandleVisible, doorSpecs} = props
-    let {doorType, numberOfDoors ,doorHandleDirection, frameColor}= doorSpecs
+    let {doorType, numberOfDoors ,doorHandleDirection, frameColor, glassColor}= doorSpecs
     let [zoom,setZoom] = useState(0.5)
 
     
@@ -41,11 +41,11 @@ function DoorScene(props) {
             <Box args={[sWidth, sHeight, 0.07]} position={[...position]}>
                 <meshPhysicalMaterial
                     attach="material"
-                    color="lightgray"
+                    color={glassColor}
                     transmission={0.9}
                     roughness={0.1}
                     metalness={0.1}
-                    reflectivity={0.5}
+                    reflectivity={0.1}
                     clearcoat={1.0}
                     side={DoubleSide}
                 />
