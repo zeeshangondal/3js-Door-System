@@ -8,7 +8,17 @@ import LabelWithRange from './LabelWithRange';
 
 function Form2(props) {
     let { handleGoBack, handleGoNext, doorSpecs, setDoorSpecs } = props
-
+    function setNumberOfDoorHBars(number){
+        setDoorSpecs(pre=>{
+            return {...pre, numberOfHBars:number}
+        })
+    }
+    function setNumberOfDoorVBars(number){
+        setDoorSpecs(pre=>{
+            return {...pre, numberOfVBars:number}
+        })
+    }
+    
     return (
         <div className='col-11' >
             <div>
@@ -19,8 +29,8 @@ function Form2(props) {
             <div>
                 <div className='mt-3'>
                     <b><h5>Door</h5></b>
-                    <LabelWithRange label="Liggers" number={0} range={[0, 1, 2, 3, 4]} />
-                    <LabelWithRange label="Staanders" number={0} range={[0, 1, 2, 3, 4]} />
+                    <LabelWithRange label="Liggers" number={doorSpecs.numberOfHBars}   setNumber={setNumberOfDoorHBars}  range={[0, 1, 2, 3, 4]} />
+                    <LabelWithRange label="Staanders" number={doorSpecs.numberOfVBars} setNumber={setNumberOfDoorVBars} range={[0, 1, 2, 3, 4]} />
                 </div>
                 {doorSpecs.leftPanel.width > 0 || doorSpecs.rightPanel.width > 0 ?
                     <div className='mt-3'>

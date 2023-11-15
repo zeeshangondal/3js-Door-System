@@ -13,6 +13,7 @@ function Form1(props) {
     let {doorSpecs,setDoorSpecs, handleLengthChange, handleWidthChange, handleNumberOfDoorsChange, handleGoBack, handleGoNext } = props
     const doorTypeImages = [doorType1SVG, doorType2SVG, doorType3SVG, doorType4SVG]
     const [showingNumberOfDoors, setShowingNumberOfDoors] = useState([1, 2, 3, 4])
+
     useEffect(() => {
         if (doorSpecs.doorType === 3) {
             setShowingNumberOfDoors([1, 2])
@@ -65,7 +66,7 @@ function Form1(props) {
                 </div>
             </div>
             <div>
-                <LabelWithRange range={[1,2,3,4]} label="Aantal" number={doorSpecs.numberOfDoors} setNumber={handleNumberOfDoorsChange} />
+                <LabelWithRange range={showingNumberOfDoors} label="Aantal" number={doorSpecs.numberOfDoors} setNumber={handleNumberOfDoorsChange} />
             </div>
 
             <div>

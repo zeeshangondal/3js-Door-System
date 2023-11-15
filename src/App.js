@@ -91,11 +91,6 @@ function App() {
     }
 
 
-
-
-
-
-
     const getForm = () => {
         if (stepNumber === 1) {
             return (<Form1
