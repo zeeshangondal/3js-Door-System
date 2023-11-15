@@ -6,7 +6,7 @@ import LabelWithInput from './LabelWithInput';
 
 
 function Form2(props) {
-    let { doorType, handleGoBack, handleGoNext, panelTypePosition, setPanelTypePosition,
+    let { doorSpecs,setDoorSpecs, handleGoBack, handleGoNext,
         topPanel, setTopPanel, bottomSteelPanel, setBottomSteelPanel, topPanelLength,
         setTopPanelLength, bottomSteelPanelLength, setBottomSteelPanelLength,
         leftPanelWidth, setLeftPanelWidth, rightPanelWidth, setRightPanelWidth
@@ -14,17 +14,17 @@ function Form2(props) {
 
 
     function handlePanelLengthAutoFixing() {
-        if (panelTypePosition === 1) {
+        if (doorSpecs.panelTypePosition === 1) {
             setLeftPanelWidth(0)
             setRightPanelWidth(0)
         }
-        if (panelTypePosition === 2) {
+        if (doorSpecs.panelTypePosition === 2) {
             setRightPanelWidth(0)
         }
-        if (panelTypePosition === 3) {
+        if (doorSpecs.panelTypePosition === 3) {
             setLeftPanelWidth(0)
         }
-        if(doorType===3){
+        if(doorSpecs.doorType===3){
             setLeftPanelWidth(0)
             setRightPanelWidth(0)
             setTopPanelLength(0)            
@@ -33,6 +33,11 @@ function Form2(props) {
 
     handlePanelLengthAutoFixing()
 
+    function setPanelTypePosition(newPosition){
+        setDoorSpecs(pre=>{
+            return {...pre,panelTypePosition:newPosition}
+        })
+    }
 
 
     return (
@@ -40,7 +45,7 @@ function Form2(props) {
             <div>
                 <h1 style={{ fontWeight: 'bold' }}>Panels</h1>
             </div>
-            {doorType === 3 ?
+            {doorSpecs.doorType === 3 ?
                 <i><small style={{ fontWeight: 'normal' }}>A sliding door cannot be mounted on a side or top panel. However, extra fixed panels can be installed. Please contact our sales department to discuss further possibilities</small></i>
                 :
                 <div>
@@ -52,29 +57,29 @@ function Form2(props) {
                     </div>
                     <div className="container">
                         <div className="row">
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 1 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(1)} style={{ border: '1px solid black', height: '6vh', borderTopLeftRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 1 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(1)} style={{ border: '1px solid black', height: '6vh', borderTopLeftRadius: "10%", cursor: "pointer" }}>
                                 Geen
                             </div>
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 2 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(2)} style={{ border: '1px solid black', height: '6vh', borderTopRightRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 2 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(2)} style={{ border: '1px solid black', height: '6vh', borderTopRightRadius: "10%", cursor: "pointer" }}>
                                 Links
                             </div>
                         </div>
                         <div className="row">
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 3 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(3)} style={{ border: '1px solid black', height: '6vh', borderBottomLeftRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 3 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(3)} style={{ border: '1px solid black', height: '6vh', borderBottomLeftRadius: "10%", cursor: "pointer" }}>
                                 Rechts
                             </div>
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${panelTypePosition === 4 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(4)} style={{ border: '1px solid black', height: '6vh', borderBottomRightRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 4 ? 'black-background-white-text' : 'grid-hover grid-hover-hover'}`} onClick={() => setPanelTypePosition(4)} style={{ border: '1px solid black', height: '6vh', borderBottomRightRadius: "10%", cursor: "pointer" }}>
                                 Beide
                             </div>
                         </div>
                     </div>
-                    {panelTypePosition === 2 || panelTypePosition === 4 ?
+                    {doorSpecs.panelTypePosition === 2 || doorSpecs.panelTypePosition === 4 ?
                         <div className='mt-2'>
                             <LabelWithInput label="Left side panel width" value={leftPanelWidth} setValue={setLeftPanelWidth} />
                         </div>
                         :
                         ''}
-                    {panelTypePosition === 3 || panelTypePosition === 4 ?
+                    {doorSpecs.panelTypePosition === 3 || doorSpecs.panelTypePosition === 4 ?
                         <div className='mt-2'>
                             <LabelWithInput label="Right side panel width" value={rightPanelWidth} setValue={setRightPanelWidth} />
                         </div>

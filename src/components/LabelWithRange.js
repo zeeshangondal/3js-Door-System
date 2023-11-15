@@ -1,7 +1,6 @@
 import React from 'react'
 
-export default function LabelWithRange({label, number,setNumber}) {
-    let range=[1,2,3,4]
+export default function LabelWithRange({label, number,setNumber, range}) {
         // Styles
         const activeStyle = {
             cursor: 'pointer',
@@ -19,6 +18,8 @@ export default function LabelWithRange({label, number,setNumber}) {
             border: 'none',
         };
     
+    
+
     return (
         <div>
             <div className='mt-2'>
@@ -26,12 +27,12 @@ export default function LabelWithRange({label, number,setNumber}) {
                 <div>
                     <div className="d-flex" style={{ marginTop: '-9px' }}>
                         {/* Number selectors */}
-                        {range.map((n) => (
+                        {range.map((n,index) => (
                             <div
                                 key={n}
                                 style={number === n ? activeStyle : defaultStyle}
                                 onClick={() => setNumber(n)}
-                                className={`px-3 py-2 ${n === 1 ? 'rounded-left' : ''} ${n === 4 ? 'rounded-right' : ''}`}
+                                className={`px-3 py-2 ${index === 0 ? 'left-round-style' : ''} ${index === range.length-1 ? 'right-round-style' : ''}`}
                             >
                                 {n}
                             </div>

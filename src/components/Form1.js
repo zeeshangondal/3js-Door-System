@@ -10,20 +10,20 @@ import LabelWithRange from './LabelWithRange';
 
 
 function Form1(props) {
-    let { length, width, handleLengthChange, handleWidthChange, doorType, setDoorType, numberOfDoors, handleNumberOfDoorsChange, doorHandleDirection, setDoorHandleDirection, handleGoBack, handleGoNext } = props
+    let {doorSpecs,setDoorSpecs, handleLengthChange, handleWidthChange, handleNumberOfDoorsChange, handleGoBack, handleGoNext } = props
     const doorTypeImages = [doorType1SVG, doorType2SVG, doorType3SVG, doorType4SVG]
     const [showingNumberOfDoors, setShowingNumberOfDoors] = useState([1, 2, 3, 4])
     useEffect(() => {
-        if (doorType === 3) {
+        if (doorSpecs.doorType === 3) {
             setShowingNumberOfDoors([1, 2])
-            if (numberOfDoors > 2) {
+            if (doorSpecs.numberOfDoors > 2) {
                 handleNumberOfDoorsChange(2)
             }
         } else {
             setShowingNumberOfDoors([1, 2, 3, 4])
         }
 
-    }, [doorType])
+    }, [doorSpecs.doorType])
 
 
 
@@ -42,7 +42,7 @@ function Form1(props) {
                         key={index}
                         className="grid-hover grid-hover-hover col-6 shadow d-flex align-items-center justify-content-center"
                         style={{ background: 'white', border: '2px none #dee2e6', height: '110px', borderRadius: "5%" }}
-                        onClick={() => setDoorType(index + 1)} // Passes the corresponding grid number to setDoorType
+                        onClick={() => setDoorSpecs(pre=> {return {...pre,doorType:index + 1}}) } // Passes the corresponding grid number to setDoorType
                     >
                         <img src={img} alt="My SVG Image" />
                     </div>
@@ -55,17 +55,17 @@ function Form1(props) {
                     <div className='d-flex'>
                         <div className='d-flex flex-column' style={{ fontWeight: "normal" }}>
                             <small>Lengte</small>
-                            <input type="number" value={length} onChange={(e) => handleLengthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
+                            <input type="number" value={doorSpecs.length} onChange={(e) => handleLengthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
                         </div>
                         <div className='d-flex flex-column' style={{ fontWeight: "normal" }}>
                             <small>Breedte</small>
-                            <input type="number" value={width} onChange={(e) => handleWidthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
+                            <input type="number" value={doorSpecs.width} onChange={(e) => handleWidthChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%" }} />
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <LabelWithRange label="Aantal" number={numberOfDoors} setNumber={handleNumberOfDoorsChange} />
+                <LabelWithRange range={[0,1,2,3,4]} label="Aantal" number={doorSpecs.numberOfDoors} setNumber={handleNumberOfDoorsChange} />
             </div>
 
             <div>
@@ -74,7 +74,7 @@ function Form1(props) {
                     <div className='d-flex align-items-center' style={{ fontWeight: 'normal', marginTop: '-10px' }}>
                         <small>Left</small>
                         <div className='m-2'>
-                            <ToggleSwitch isOn={doorHandleDirection} onToggle={() => setDoorHandleDirection(prev => !prev)} />
+                            <ToggleSwitch isOn={ doorSpecs.doorHandleDirection} onToggle={() => setDoorSpecs(pre=>{return {...pre,doorHandleDirection:!pre.doorHandleDirection}})} />
                         </div>
                         <small>Right</small>
                     </div>
