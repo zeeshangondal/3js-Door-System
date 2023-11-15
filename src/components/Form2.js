@@ -6,12 +6,84 @@ import LabelWithInput from './LabelWithInput';
 
 
 function Form2(props) {
-    let { doorSpecs,setDoorSpecs, handleGoBack, handleGoNext,
-        topPanel, setTopPanel, bottomSteelPanel, setBottomSteelPanel, topPanelLength,
-        setTopPanelLength, bottomSteelPanelLength, setBottomSteelPanelLength,
-        leftPanelWidth, setLeftPanelWidth, rightPanelWidth, setRightPanelWidth
+    let { doorSpecs, setDoorSpecs, handleGoBack, handleGoNext,
+        // topPanel, setTopPanel, bottomSteelPanel, setBottomSteelPanel, topPanelLength,
+        // setTopPanelLength, bottomSteelPanelLength, setBottomSteelPanelLength,
     } = props
 
+
+    function setLeftPanelWidth(Width) {
+        setDoorSpecs(pre => {
+            return {
+                ...pre,
+                leftPanel: {
+                    ...pre.leftPanel,
+                    width: Width
+                }
+            }
+        })
+    }
+    function setRightPanelWidth(Width) {
+        setDoorSpecs(pre => {
+            return {
+                ...pre,
+                rightPanel: {
+                    ...pre.rightPanel,
+                    width: Width
+                }
+            }
+        })
+    }
+    function setTopPanelLength(Length) {
+        setDoorSpecs(pre => {
+            return {
+                ...pre,
+                topPanel: {
+                    ...pre.topPanel,
+                    length: Length
+                }
+            }
+        })
+    }
+    function setBottomSteelPanelLength(Length) {
+        setDoorSpecs(pre => {
+            return {
+                ...pre,
+                bottomSteelPanel: {
+                    ...pre.bottomSteelPanel,
+                    length: Length
+                }
+            }
+        })
+    }
+    function filpTopPanelInclude() {
+        if (doorSpecs.topPanel.include) {
+            setTopPanelLength(0)
+        }
+        setDoorSpecs(pre => {
+            return {
+                ...pre,
+                topPanel: {
+                    ...pre.topPanel,
+                    include: !pre.topPanel.include
+                }
+            }
+        })
+    }
+    function filpBottomSteelPanelInclude() {
+        if (doorSpecs.bottomSteelPanel.include) {
+            setBottomSteelPanelLength(0)
+        }
+        setDoorSpecs(pre => {
+            return {
+                ...pre,
+                bottomSteelPanel: {
+                    ...pre.bottomSteelPanel,
+                    include: !pre.bottomSteelPanel.include
+                }
+            }
+        })
+    }
 
     function handlePanelLengthAutoFixing() {
         if (doorSpecs.panelTypePosition === 1) {
@@ -24,18 +96,20 @@ function Form2(props) {
         if (doorSpecs.panelTypePosition === 3) {
             setLeftPanelWidth(0)
         }
-        if(doorSpecs.doorType===3){
+        if (doorSpecs.doorType === 3) {
             setLeftPanelWidth(0)
             setRightPanelWidth(0)
-            setTopPanelLength(0)            
+            setTopPanelLength(0)
         }
     }
 
-    handlePanelLengthAutoFixing()
+    useEffect(() => {
+        handlePanelLengthAutoFixing()
+    }, [doorSpecs.panelTypePosition, doorSpecs.doorType])
 
-    function setPanelTypePosition(newPosition){
-        setDoorSpecs(pre=>{
-            return {...pre,panelTypePosition:newPosition}
+    function setPanelTypePosition(newPosition) {
+        setDoorSpecs(pre => {
+            return { ...pre, panelTypePosition: newPosition }
         })
     }
 
@@ -75,31 +149,30 @@ function Form2(props) {
                     </div>
                     {doorSpecs.panelTypePosition === 2 || doorSpecs.panelTypePosition === 4 ?
                         <div className='mt-2'>
-                            <LabelWithInput label="Left side panel width" value={leftPanelWidth} setValue={setLeftPanelWidth} />
+                            <LabelWithInput label="Left side panel width" value={doorSpecs.leftPanel.width} setValue={setLeftPanelWidth} />
                         </div>
                         :
                         ''}
                     {doorSpecs.panelTypePosition === 3 || doorSpecs.panelTypePosition === 4 ?
                         <div className='mt-2'>
-                            <LabelWithInput label="Right side panel width" value={rightPanelWidth} setValue={setRightPanelWidth} />
+                            <LabelWithInput label="Right side panel width" value={doorSpecs.rightPanel.width} setValue={setRightPanelWidth} />
                         </div>
                         :
                         ''}
                     <div className='mt-4'>
                         <p>Top Panel</p>
-                        <ToggleSwitch isOn={topPanel} onToggle={() => { setTopPanel(pre => { if (pre) { setTopPanelLength(0) }; return !pre }) }} />
-                        {topPanel ?
-                            <LabelWithInput label="Length" value={topPanelLength} setValue={setTopPanelLength} />
+                        <ToggleSwitch isOn={doorSpecs.topPanel.include} onToggle={ ()=>filpTopPanelInclude()} />
+                        {doorSpecs.topPanel.include?
+                            <LabelWithInput label="Length" value={doorSpecs.topPanel.length} setValue={setTopPanelLength} />
                             : ''}
-
                     </div>
                 </div>
             }
             <div className='mt-3'>
                 <p>Bottom Steel Panel</p>
-                <ToggleSwitch isOn={bottomSteelPanel} onToggle={() => { setBottomSteelPanel(pre => { if (pre) { setBottomSteelPanelLength(0) }; return !pre }) }} />
-                {bottomSteelPanel ?
-                    <LabelWithInput label="Length" value={bottomSteelPanelLength} setValue={setBottomSteelPanelLength} />
+                <ToggleSwitch isOn={doorSpecs.bottomSteelPanel.include} onToggle={() =>  filpBottomSteelPanelInclude()} />
+                {doorSpecs.bottomSteelPanel.include ?
+                    <LabelWithInput label="Length" value={doorSpecs.bottomSteelPanel.length} setValue={setBottomSteelPanelLength} />
                     : ''}
 
             </div>

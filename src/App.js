@@ -8,13 +8,30 @@ import Form2 from './components/Form2';
 const BaseWidth = 1000
 const BaseLength = 3000
 
+
 let doorObj = {
     length: BaseLength,
     width: BaseWidth,
     doorType: 1,
     numberOfDoors: 1,
     doorHandleDirection: false,
-    panelTypePosition:1  // 1 to 4 respectively
+    panelTypePosition:1,  // 1 to 4 respectively
+    leftPanel:{
+        width:0
+    },
+    rightPanel:{
+        width:0
+    },
+    topPanel:{
+        include:false,
+        length:0
+    },
+    bottomSteelPanel:{
+        include:false,
+        length:0
+    },
+    
+    
 }
 
 function App() {
@@ -71,14 +88,7 @@ function App() {
     }
 
 
-    //States for Form 2
-    const [topPanelForm2, setTopPanelForm2] = useState(false)  // false means no. true means yes
-    const [bottomSteelPanelForm2, setBottomSteelPanelForm2] = useState(false)  // false means no. true means yes
-    const [topPanelForm2Length, setTopPanelForm2Length] = useState(0)  // length
-    const [bottomSteelPanelForm2Length, setBottomSteelPanelForm2Length] = useState(0)  // length     
 
-    const [leftPanelForm2Width, setLeftPanelForm2Width] = useState(0)  // Left panel width
-    const [rightPanelForm2Width, setRightPanelForm2Width] = useState(0)  // Right panel width
 
 
 
@@ -103,18 +113,7 @@ function App() {
 
                 handleGoBack={handleGoBack}
                 handleGoNext={handleGoNext}
-                topPanel={topPanelForm2}
-                setTopPanel={setTopPanelForm2}
-                bottomSteelPanel={bottomSteelPanelForm2}
-                setBottomSteelPanel={setBottomSteelPanelForm2}
-                topPanelLength={topPanelForm2Length}
-                setTopPanelLength={setTopPanelForm2Length}
-                bottomSteelPanelLength={bottomSteelPanelForm2Length}
-                setBottomSteelPanelLength={setBottomSteelPanelForm2Length}
-                leftPanelWidth={leftPanelForm2Width}
-                setLeftPanelWidth={setLeftPanelForm2Width}
-                rightPanelWidth={rightPanelForm2Width}
-                setRightPanelWidth={setRightPanelForm2Width}
+
             />)
         }
     }

@@ -65,7 +65,7 @@ function Form1(props) {
                 </div>
             </div>
             <div>
-                <LabelWithRange range={[0,1,2,3,4]} label="Aantal" number={doorSpecs.numberOfDoors} setNumber={handleNumberOfDoorsChange} />
+                <LabelWithRange range={[1,2,3,4]} label="Aantal" number={doorSpecs.numberOfDoors} setNumber={handleNumberOfDoorsChange} />
             </div>
 
             <div>
