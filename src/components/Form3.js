@@ -18,7 +18,29 @@ function Form2(props) {
             return {...pre, numberOfVBars:number}
         })
     }
+    function setNumberOfTopPanelHBars(number){
+        setDoorSpecs(pre=>{
+            return {...pre, topPanel:{...pre.topPanel, numberOfHBars:number}}
+        })
+    }
+    function setNumberOfTopPanelVBars(number){
+        setDoorSpecs(pre=>{
+            return {...pre, topPanel:{...pre.topPanel, numberOfVBars:number}}
+        })
+    }
+    function setNumberOfLeftRightPanelHBars(number){
+        setDoorSpecs(pre=>{
+            return {...pre, leftRightPanelHBars:number}
+        })
+    }
+    function setNumberOfLeftRightPanelVBars(number){
+        setDoorSpecs(pre=>{
+            return {...pre, leftRightPanelVBars:number}
+        })
+    }
     
+    
+        
     return (
         <div className='col-11' >
             <div>
@@ -35,23 +57,22 @@ function Form2(props) {
                 {doorSpecs.leftPanel.width > 0 || doorSpecs.rightPanel.width > 0 ?
                     <div className='mt-3'>
                         <b><h5>Zig Panel</h5></b>
-                        <LabelWithRange label="Liggers" number={0} range={[0, 1, 2, 3, 4]} />
-                        <LabelWithRange label="Staanders" number={0} range={[0, 1, 2, 3, 4]} />
+                        <LabelWithRange label="Liggers" number={doorSpecs.leftRightPanelHBars} setNumber={setNumberOfLeftRightPanelHBars} range={[0, 1, 2, 3, 4]} />
+                        <LabelWithRange label="Staanders" number={doorSpecs.leftRightPanelVBars} setNumber={setNumberOfLeftRightPanelVBars} range={[0, 1, 2, 3, 4]} />
                     </div>
                     : ''}
                 {doorSpecs.topPanel.include && doorSpecs.topPanel.length>0 ?
                     <div className='mt-3'>
                         <b><h5>Top Panel</h5></b>
-                        <LabelWithRange label="Liggers" number={0} range={[0, 1, 2, 3, 4]} />
-                        <LabelWithRange label="Staanders" number={0} range={[0, 1, 2, 3, 4]} />
+                        <LabelWithRange label="Liggers" number={doorSpecs.topPanel.numberOfHBars} setNumber={setNumberOfTopPanelHBars} range={[0, 1, 2, 3, 4]} />
+                        <LabelWithRange label="Staanders" number={doorSpecs.topPanel.numberOfVBars} setNumber={setNumberOfTopPanelVBars} range={[0, 1, 2, 3, 4]} />
                     </div>
                     : ''}
-
 
             </div>
 
             <div>
-                <BackNextComp middleLabel="3/4" onGoBack={handleGoBack} onGoNext={handleGoNext} nextDisabled={true} />
+                <BackNextComp middleLabel="3/4" onGoBack={handleGoBack} onGoNext={handleGoNext}  />
             </div>
         </div>
     );

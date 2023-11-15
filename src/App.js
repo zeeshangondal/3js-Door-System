@@ -5,6 +5,7 @@ import DoorScene from './components/DoorScene';
 import Form1 from './components/Form1';
 import Form2 from './components/Form2';
 import Form3 from './components/Form3';
+import Form4 from './components/Form4';
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -19,6 +20,9 @@ let doorObj = {
     panelTypePosition:1,  // 1 to 4 respectively
     numberOfHBars:0,
     numberOfVBars:0,
+    leftRightPanelHBars:0,
+    leftRightPanelVBars:0,
+    frameColor:"black",
     leftPanel:{
         width:0
     },
@@ -27,7 +31,9 @@ let doorObj = {
     },
     topPanel:{
         include:false,
-        length:0
+        length:0,
+        numberOfHBars:0,
+        numberOfVBars:0,    
     },
     bottomSteelPanel:{
         include:false,
@@ -42,7 +48,7 @@ function App() {
     const [doorSpecs, setDoorSpecs] = useState(doorObj)
     //For which Form to render
     let [stepNumber, setStepNumber] = useState(1)
-
+    console.log(doorSpecs.frameColor)
 
     function convertMmToDoorHeight(lengthInMm) {
         const originalLength = BaseLength;
@@ -74,16 +80,15 @@ function App() {
     const handleGoBack = () => {
         setStepNumber(prevStepNumber => {
             if (prevStepNumber > 1) {
-                console.log("Back", prevStepNumber - 1);
                 return prevStepNumber - 1;
             }
             return prevStepNumber;
         });
     }
+
     const handleGoNext = () => {
         setStepNumber(prevStepNumber => {
             if (prevStepNumber < 5) {
-                console.log("Next", prevStepNumber + 1);
                 return prevStepNumber + 1;
             }
             return prevStepNumber;
@@ -120,6 +125,15 @@ function App() {
                 handleGoNext={handleGoNext}
             />)
         }
+        if (stepNumber === 4) {
+            return (<Form4
+                doorSpecs={doorSpecs}
+                setDoorSpecs={setDoorSpecs}
+                handleGoBack={handleGoBack}
+                handleGoNext={handleGoNext}
+            />)
+        }
+        
         
     }
     //height: 'calc(100vh - 4rem)',
@@ -130,9 +144,7 @@ function App() {
                     sWidth={convertMmToDoorWidth(doorSpecs.width)}
                     sHeight={convertMmToDoorHeight(doorSpecs.length)}
                     doorHandleVisible={true}
-                    doorType={doorSpecs.doorType}
-                    numberOfDoors={doorSpecs.numberOfDoors}
-                    doorHandleDirection={doorSpecs.doorHandleDirection}
+                    doorSpecs={doorSpecs}
                 />
             </div>
             <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>

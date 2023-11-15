@@ -7,8 +7,8 @@ import { MeshPhysicalMaterial, DoubleSide, DirectionalLight, MeshStandardMateria
 extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
-    let { sWidth, sHeight, doorHandleVisible, doorType, numberOfDoors ,doorHandleDirection} = props
-
+    let { sWidth, sHeight, doorHandleVisible, doorSpecs} = props
+    let {doorType, numberOfDoors ,doorHandleDirection, frameColor}= doorSpecs
     let [zoom,setZoom] = useState(0.5)
 
     
@@ -30,7 +30,7 @@ function DoorScene(props) {
 
         return (
             <Box args={[handleWidth, handleHeight, handleDepth]} position={[handlePositionX, 0, 0]}>
-                <meshStandardMaterial color="black" />
+                <meshStandardMaterial color={frameColor} />
             </Box>
         );
     }
@@ -77,12 +77,12 @@ function DoorScene(props) {
             if (doorType === 1 || doorType === 3 || doorType === 4)
                 return <Box args={[sWidth + thickness.top * 2, thickness.top, frameDepth]}
                     position={[xPosition, sHeight / 2 + thickness.top / 2, 0]}>
-                    <meshStandardMaterial color="black" />
+                    <meshStandardMaterial color={frameColor} />
                 </Box>
             if (doorType === 2)
                 return <Box args={[sWidth + thickness.top * 2 - 0.4, thickness.top, frameDepth + 0.01]}
                     position={[xPosition, sHeight / 2 + thickness.top / 2 - thickness.top, 0]}>
-                    <meshStandardMaterial color="black" />
+                    <meshStandardMaterial color={frameColor} />
                 </Box>
 
         }
@@ -91,36 +91,36 @@ function DoorScene(props) {
             const topFramePosition = [-0.6+(numberOfDoors==1?0.5:0), sHeight / 2 + thickness.top / 2, 0]
             return <Box args={[1.6*sWidth+ 0.8*sWidth *numberOfDoors , topFrameThickness, frameDepth + 0.01]}
                 position={[...topFramePosition]}>
-                <meshStandardMaterial color="black" />
+                <meshStandardMaterial color={frameColor} />
             </Box>
         }
         const BottomFrame = () => {
             if (doorType === 1 || doorType === 4)
                 return <Box args={[sWidth + thickness.bottom * 2, thickness.bottom, frameDepth]}
                     position={[xPosition, -sHeight / 2 - thickness.bottom / 2, 0]}>
-                    <meshStandardMaterial color="black" />
+                    <meshStandardMaterial color={frameColor} />
                 </Box>
             if (doorType === 2)
                 return <Box args={[sWidth + thickness.bottom * 2 - 0.4, thickness.bottom, frameDepth + 0.01]}
                     position={[xPosition, -sHeight / 2 - thickness.bottom / 2 + thickness.bottom, 0]}>
-                    <meshStandardMaterial color="black" />
+                    <meshStandardMaterial color={frameColor} />
                 </Box>
             if (doorType === 3)
                 return <Box args={[sWidth + thickness.bottom * 2, thickness.bottom, frameDepth]}
                     position={[xPosition, -sHeight / 2 - thickness.bottom / 2, 0]}>
-                    <meshStandardMaterial color="black" />
+                    <meshStandardMaterial color={frameColor} />
                 </Box>
 
         }
         const LeftFrame =
             <Box args={[thickness.left, sHeight, frameDepth]}
                 position={[xPosition + -sWidth / 2 - thickness.left / 2, 0, 0]}>
-                <meshStandardMaterial color="black" />
+                <meshStandardMaterial color={frameColor} />
             </Box>
         const RightFrame =
             <Box args={[thickness.right, sHeight, frameDepth]}
                 position={[xPosition + sWidth / 2 + thickness.right / 2, 0, 0]}>
-                <meshStandardMaterial color="black" />
+                <meshStandardMaterial color={frameColor} />
             </Box>
         return (
             <>
