@@ -100,6 +100,9 @@ function Form2(props) {
             setLeftPanelWidth(0)
             setRightPanelWidth(0)
             setTopPanelLength(0)
+            setDoorSpecs(pre=>{
+                return {...pre,topPanel:{...pre.topPanel,include:false}}
+            })
         }
     }
 
@@ -124,7 +127,7 @@ function Form2(props) {
                 :
                 <div>
                     <div className='mt-3'>
-                        <p>Zig Panels</p>
+                        <b><h5>Zig Panels</h5></b>
                     </div>
                     <div className='mt-2'>
                         <h6>Position</h6>
@@ -160,17 +163,17 @@ function Form2(props) {
                         :
                         ''}
                     <div className='mt-4'>
-                        <p>Top Panel</p>
-                        <ToggleSwitch isOn={doorSpecs.topPanel.include} onToggle={ ()=>filpTopPanelInclude()} />
-                        {doorSpecs.topPanel.include?
+                        <b><h5>Top Panel</h5></b>
+                        <ToggleSwitch isOn={doorSpecs.topPanel.include} onToggle={() => filpTopPanelInclude()} />
+                        {doorSpecs.topPanel.include ?
                             <LabelWithInput label="Length" value={doorSpecs.topPanel.length} setValue={setTopPanelLength} />
                             : ''}
                     </div>
                 </div>
             }
             <div className='mt-3'>
-                <p>Bottom Steel Panel</p>
-                <ToggleSwitch isOn={doorSpecs.bottomSteelPanel.include} onToggle={() =>  filpBottomSteelPanelInclude()} />
+                <b><h5>Bottom Steel Panel</h5></b>
+                <ToggleSwitch isOn={doorSpecs.bottomSteelPanel.include} onToggle={() => filpBottomSteelPanelInclude()} />
                 {doorSpecs.bottomSteelPanel.include ?
                     <LabelWithInput label="Length" value={doorSpecs.bottomSteelPanel.length} setValue={setBottomSteelPanelLength} />
                     : ''}
@@ -178,7 +181,7 @@ function Form2(props) {
             </div>
 
             <div>
-                <BackNextComp onGoBack={handleGoBack} onGoNext={handleGoNext} nextDisabled={true} />
+                <BackNextComp middleLabel="2/4" onGoBack={handleGoBack} onGoNext={handleGoNext} />
             </div>
         </div>
     );

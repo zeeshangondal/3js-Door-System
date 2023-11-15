@@ -4,6 +4,7 @@ import DoorScene from './components/DoorScene';
 
 import Form1 from './components/Form1';
 import Form2 from './components/Form2';
+import Form3 from './components/Form3';
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -16,6 +17,8 @@ let doorObj = {
     numberOfDoors: 1,
     doorHandleDirection: false,
     panelTypePosition:1,  // 1 to 4 respectively
+    numberOfHBars:0,
+    numberOfVBars:0,
     leftPanel:{
         width:0
     },
@@ -110,12 +113,19 @@ function App() {
             return (<Form2
                 doorSpecs={doorSpecs}
                 setDoorSpecs={setDoorSpecs}
-
                 handleGoBack={handleGoBack}
                 handleGoNext={handleGoNext}
-
             />)
         }
+        if (stepNumber === 3) {
+            return (<Form3
+                doorSpecs={doorSpecs}
+                setDoorSpecs={setDoorSpecs}
+                handleGoBack={handleGoBack}
+                handleGoNext={handleGoNext}
+            />)
+        }
+        
     }
     //height: 'calc(100vh - 4rem)',
     return (

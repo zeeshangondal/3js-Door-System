@@ -23,10 +23,9 @@ export default function LabelWithRange({label, number,setNumber, range}) {
     return (
         <div>
             <div className='mt-2'>
-                <p>{label}</p>
+                <h6>{label}</h6>
                 <div>
-                    <div className="d-flex" style={{ marginTop: '-9px' }}>
-                        {/* Number selectors */}
+                    <div className="d-flex" >
                         {range.map((n,index) => (
                             <div
                                 key={n}
