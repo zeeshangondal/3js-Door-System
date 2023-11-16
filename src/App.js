@@ -24,7 +24,7 @@ let doorObj = {
     leftRightPanelVBars:0,
     frameColor:"black",
     glassColor:"gray",
-    texture:'',
+    textureImage:'',
     leftPanel:{
         width:0
     },

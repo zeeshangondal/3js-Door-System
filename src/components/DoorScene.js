@@ -19,31 +19,31 @@ function DoorScene(props) {
     let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight } = props
     let { doorType, numberOfDoors, doorHandleDirection, frameColor, glassColor } = doorSpecs
     let [zoom, setZoom] = useState(0.5)
-    const [texture, setTexture] = useState(doorSpecs.texture)
+    const [texture, setTexture] = useState('')
     // const [allTextures,setAllTextures]= {"listral.jpg":'',"cathedral.jpg":'',"clear.png":'',"fluted.jpg":'',"steel-wire-color.png":''}
     
 
     function getTextureImage(){
-        if(texture=="listral.jpg"){
+        if(doorSpecs.textureImage=="listral.jpg"){
             return listeralTexture
         }
-        if(texture=="cathedral.jpg"){
+        if(doorSpecs.textureImage=="cathedral.jpg"){
             return cathedralTexture
         }
-        if(texture=="clear.png"){
+        if(doorSpecs.textureImage=="clear.png"){
             return clearTexture
         }
-        if(texture=="fluted.jpg"){
+        if(doorSpecs.textureImage=="fluted.jpg"){
             return flutedTexture
         }
-        if(texture=="steel-wire-color.png"){
+        if(doorSpecs.textureImage=="steel-wire-color.png"){
             return steelWireColorTexture
         }
         
     }
 
     useEffect(() => {
-        if(texture.length==0)
+        if(doorSpecs.textureImage.length==0)
             return;
         const textureLoader = new TextureLoader();
         textureLoader.load(
@@ -63,7 +63,7 @@ function DoorScene(props) {
             function (error) {
             }
         );
-    }, [texture, doorSpecs.numberOfDoors])
+    }, [doorSpecs.textureImage, doorSpecs.numberOfDoors])
 
     // Nested DoorHandle function
     function DoorHandle(xPosition) {
@@ -95,8 +95,8 @@ function DoorScene(props) {
             <Box args={[sWidth, sHeight, 0.07]} position={[...position]}>
                 <meshPhysicalMaterial
                     attach="material"
-                    map={texture}
-                    color={glassColor}
+                    map={doorSpecs.textureImage.length>0 ? texture:null}
+                    color={glassColor.length>0 ? glassColor:'gray'}
                     transmission={4.9}
                     roughness={1.0}
                     metalness={0.0}

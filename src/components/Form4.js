@@ -36,15 +36,15 @@ function Form4(props) {
     }
 
     function handleGlassColorCodeChange(code) {
-        setGlassTexture('')
+        handleGlassTexture('')
         setGlassColor(code)
     }
-    function setGlassTexture(glassTexture) {
+    function handleGlassTexture(glassTexture) {
         setGlassColor('')
         setDoorSpecs(pre=>{
             return{
                 ...pre,
-                texture:glassTexture,
+                textureImage:glassTexture,
             }
         })
     }
@@ -79,13 +79,13 @@ function Form4(props) {
                 <b><h5>Glass Types</h5></b>
                 <div className='d-flex flex-row' >
                     <CircularImage size="80px" glassType="10" label="Transparent" onClick={()=>{handleGlassColorCodeChange("gray")}}/>
-                    <CircularImage size="80px" glassType="2" label="Flutes"  />
-                    <CircularImage size="80px" glassType="3" label="Listral D" />
-                    <CircularImage size="80px" glassType="4" label="Kathderaal Max" />
+                    <CircularImage size="80px" glassType="2" label="Flutes"  onClick={()=>{handleGlassTexture("fluted.jpg")}} />
+                    <CircularImage size="80px" glassType="3" label="Listral D"  onClick={()=>{handleGlassTexture("listral.jpg")}}/>
+                    <CircularImage size="80px" glassType="4" label="Kathderaal Max" onClick={()=>{handleGlassTexture("cathedral.jpg")}} />
                 </div>
                 <div className='d-flex flex-row' >
 
-                    <CircularImage size="80px" glassType="5" label="Visiosun" />
+                    <CircularImage size="80px" glassType="5" label="Visiosun" onClick={()=>{handleGlassTexture("clear.png")}}/>
                     <CircularImage size="80px" glassType="6" label="Fume Grijis" onClick={()=>{handleGlassColorCodeChange("#4e5660")}} />
                     <CircularImage size="80px" glassType="7" label="Fume Bruin" onClick={()=>{handleGlassColorCodeChange("#908377")}} />
                     <CircularImage size="80px" glassType="8" label="Dark Gray" onClick={()=>{handleGlassColorCodeChange("#383c44")}} />
