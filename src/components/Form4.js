@@ -36,13 +36,18 @@ function Form4(props) {
     }
 
     function handleGlassColorCodeChange(code) {
-        let colorCode = code
-        if (code[0] != '#') {
-            colorCode = '#' + code
-        }
-        setGlassColor(colorCode)
+        setGlassTexture('')
+        setGlassColor(code)
     }
-
+    function setGlassTexture(glassTexture) {
+        setGlassColor('')
+        setDoorSpecs(pre=>{
+            return{
+                ...pre,
+                texture:glassTexture,
+            }
+        })
+    }
 
 
 
@@ -73,24 +78,24 @@ function Form4(props) {
             <div>
                 <b><h5>Glass Types</h5></b>
                 <div className='d-flex flex-row' >
-                    <CircularImage size="80px" glassType="10" label="Transparent" />
-                    <CircularImage size="80px" glassType="2" label="Flutes" />
+                    <CircularImage size="80px" glassType="10" label="Transparent" onClick={()=>{handleGlassColorCodeChange("gray")}}/>
+                    <CircularImage size="80px" glassType="2" label="Flutes"  />
                     <CircularImage size="80px" glassType="3" label="Listral D" />
                     <CircularImage size="80px" glassType="4" label="Kathderaal Max" />
                 </div>
                 <div className='d-flex flex-row' >
 
                     <CircularImage size="80px" glassType="5" label="Visiosun" />
-                    <CircularImage size="80px" glassType="6" label="Fume Grijis" />
-                    <CircularImage size="80px" glassType="7" label="Fume Bruin" />
-                    <CircularImage size="80px" glassType="8" label="Dark Gray" />
+                    <CircularImage size="80px" glassType="6" label="Fume Grijis" onClick={()=>{handleGlassColorCodeChange("#4e5660")}} />
+                    <CircularImage size="80px" glassType="7" label="Fume Bruin" onClick={()=>{handleGlassColorCodeChange("#908377")}} />
+                    <CircularImage size="80px" glassType="8" label="Dark Gray" onClick={()=>{handleGlassColorCodeChange("#383c44")}} />
                 </div>
                 <div className='d-flex flex-row' >
 
-                    <CircularImage size="80px" glassType="9" label="Melk" />
-                    <CircularImage size="80px" glassType="1" label="Staaldraad" />
-                    <CircularImage size="80px" glassType="11" label="Black" />
-                    <CircularImage size="80px" glassType="12" label="White" />
+                    <CircularImage size="80px" glassType="9" label="Melk" onClick={()=>{handleGlassColorCodeChange("#979da2")}} />
+                    <CircularImage size="80px" glassType="1" label="Staaldraad" onClick={()=>{handleGlassColorCodeChange("#868e97")}} />
+                    <CircularImage size="80px" glassType="11" label="Black"  onClick={()=>{handleGlassColorCodeChange("#070708")}}/>
+                    <CircularImage size="80px" glassType="12" label="White" onClick={()=>{handleGlassColorCodeChange("#959ca8")}} />
 
                 </div>
                 {/* <div className='d-flex row' >

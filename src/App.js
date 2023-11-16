@@ -23,7 +23,8 @@ let doorObj = {
     leftRightPanelHBars:0,
     leftRightPanelVBars:0,
     frameColor:"black",
-    glassColor:"#C0C2C9",
+    glassColor:"gray",
+    texture:'',
     leftPanel:{
         width:0
     },
@@ -49,7 +50,6 @@ function App() {
     const [doorSpecs, setDoorSpecs] = useState(doorObj)
     //For which Form to render
     let [stepNumber, setStepNumber] = useState(1)
-    console.log(doorSpecs.frameColor)
 
     function convertMmToDoorHeight(lengthInMm) {
         const originalLength = BaseLength;
@@ -146,6 +146,8 @@ function App() {
                     sHeight={convertMmToDoorHeight(doorSpecs.length)}
                     doorHandleVisible={true}
                     doorSpecs={doorSpecs}
+                    convertMmToDoorHeight={convertMmToDoorHeight}
+                    convertMmToDoorWidth={convertMmToDoorWidth}
                 />
             </div>
             <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>

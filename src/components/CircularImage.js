@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CircularImage = ({ size, glassType, label }) => {
+const CircularImage = ({ size, glassType, label ,onClick}) => {
   const [imagePath, setImagePath] = useState('');
 
   useEffect(() => {
@@ -15,7 +15,8 @@ const CircularImage = ({ size, glassType, label }) => {
     borderRadius: '50%',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundImage: `url(${imagePath})`
+    backgroundImage: `url(${imagePath})`,
+    cursor:'pointer'
   };
 
   const labelStyle = {
@@ -26,7 +27,7 @@ const CircularImage = ({ size, glassType, label }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin:'1vh' }}>
-      <div style={imageStyle} />
+      <div style={imageStyle} onClick={onClick}/>
       <div style={labelStyle}>{label}</div>
     </div>
   );
