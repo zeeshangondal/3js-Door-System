@@ -26,6 +26,23 @@ function Form1(props) {
 
     }, [doorSpecs.doorType])
 
+    function handleDoorTypeChange(typeNumber){
+        if(typeNumber==3){
+            setDoorSpecs(pre=> {
+                return {
+                    ...pre,doorType:typeNumber,
+                    leftPanel:{...pre.leftPanel, width:0},
+                    rightPanel:{...pre.rightPanel,width:0}
+                }
+            })
+        }else{
+            setDoorSpecs(pre=> {
+                return {
+                    ...pre,doorType:typeNumber,
+                }
+            }) 
+        }
+    }
 
 
     return (
@@ -43,7 +60,7 @@ function Form1(props) {
                         key={index}
                         className="grid-hover grid-hover-hover col-6 shadow d-flex align-items-center justify-content-center"
                         style={{ background: 'white', border: '2px none #dee2e6', height: '110px', borderRadius: "5%" }}
-                        onClick={() => setDoorSpecs(pre=> {return {...pre,doorType:index + 1}}) } // Passes the corresponding grid number to setDoorType
+                        onClick={() => handleDoorTypeChange(index+1)} // Passes the corresponding grid number to setDoorType
                     >
                         <img src={img} alt="My SVG Image" />
                     </div>

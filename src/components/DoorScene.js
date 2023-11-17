@@ -21,40 +21,40 @@ function DoorScene(props) {
     let [zoom, setZoom] = useState(0.5)
     const [texture, setTexture] = useState('')
     // const [allTextures,setAllTextures]= {"listral.jpg":'',"cathedral.jpg":'',"clear.png":'',"fluted.jpg":'',"steel-wire-color.png":''}
-    
 
-    function getTextureImage(){
-        if(doorSpecs.textureImage=="listral.jpg"){
+
+    function getTextureImage() {
+        if (doorSpecs.textureImage == "listral.jpg") {
             return listeralTexture
         }
-        if(doorSpecs.textureImage=="cathedral.jpg"){
+        if (doorSpecs.textureImage == "cathedral.jpg") {
             return cathedralTexture
         }
-        if(doorSpecs.textureImage=="clear.png"){
+        if (doorSpecs.textureImage == "clear.png") {
             return clearTexture
         }
-        if(doorSpecs.textureImage=="fluted.jpg"){
+        if (doorSpecs.textureImage == "fluted.jpg") {
             return flutedTexture
         }
-        if(doorSpecs.textureImage=="steel-wire-color.png"){
+        if (doorSpecs.textureImage == "steel-wire-color.png") {
             return steelWireColorTexture
         }
-        
+
     }
 
     useEffect(() => {
-        if(doorSpecs.textureImage.length==0)
+        if (doorSpecs.textureImage.length == 0)
             return;
         const textureLoader = new TextureLoader();
         textureLoader.load(
-            getTextureImage(), 
+            getTextureImage(),
             function (texture) {
                 const renderer = new THREE.WebGLRenderer();
                 texture.encoding = THREE.sRGBEncoding;
                 texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
                 texture.wrapS = THREE.RepeatWrapping;
                 texture.wrapT = THREE.RepeatWrapping;
-                texture.repeat.set(90*doorSpecs.numberOfDoors*doorSpecs.numberOfDoors, 90*doorSpecs.numberOfDoors*doorSpecs.numberOfDoors); // This will repeat the texture 4 times on each axis
+                texture.repeat.set(90 * doorSpecs.numberOfDoors * doorSpecs.numberOfDoors, 90 * doorSpecs.numberOfDoors * doorSpecs.numberOfDoors); // This will repeat the texture 4 times on each axis
                 texture.minFilter = THREE.NearestFilter;
                 texture.magFilter = THREE.NearestFilter;
                 setTexture(texture)
@@ -95,8 +95,8 @@ function DoorScene(props) {
             <Box args={[sWidth, sHeight, 0.07]} position={[...position]}>
                 <meshPhysicalMaterial
                     attach="material"
-                    map={doorSpecs.textureImage.length>0 ? texture:null}
-                    color={glassColor.length>0 ? glassColor:'gray'}
+                    map={doorSpecs.textureImage.length > 0 ? texture : null}
+                    color={glassColor.length > 0 ? glassColor : 'gray'}
                     transmission={4.9}
                     roughness={1.0}
                     metalness={0.0}
@@ -188,28 +188,28 @@ function DoorScene(props) {
         );
     }
 
+
+    // Usage
+
     function GetAGlassRectangle(xPosition, yPosition, panelWidth, panelHeight) {
         let position = [xPosition, yPosition, 0]
         return (
+
             <Box args={[panelWidth, panelHeight, 0.07]} position={[...position]}>
                 <meshPhysicalMaterial
                     attach="material"
-                    color="red"
-                    transmission={0.9}
-                    roughness={0.1}
-                    metalness={0.1}
-                    reflectivity={0.1}
-                    clearcoat={1.0}
+                    color={glassColor.length > 0 ? glassColor : 'gray'}
+                    transmission={4.9}
+                    roughness={1.0}
+                    metalness={0.0}
+                    reflectivity={0.7}
+                    clearcoat={0.1}
                     side={DoubleSide}
                 />
             </Box>
         );
     }
-    function createLeftPanel(xPosition) {
-        return <>
-            {GetAGlassRectangle(xPosition , 0, convertMmToDoorWidth(doorSpecs.leftPanel.width), sHeight)}
-        </>
-    }
+
 
 
     // Nested LimitedOrbitControls function
@@ -260,22 +260,77 @@ function DoorScene(props) {
 
         </>
     }
+    function createLeftPanelFrame(xPosition, width) {
+        var thickness = { left: 0.05, right: 0.05, top: 0.05, bottom: 0.05 }
+        var frameDepth = 0.09;
+
+        const LeftFrame =
+            <Box args={[thickness.left, sHeight, frameDepth]}
+                position={[xPosition + -width / 2 - thickness.left / 2, 0, 0]}>
+                <meshStandardMaterial color={frameColor} />
+            </Box>
+        const RightFrame =
+            <Box args={[thickness.right, sHeight, frameDepth]}
+                position={[xPosition + width / 2 + thickness.right / 2, 0, 0]}>
+                <meshStandardMaterial color={frameColor} />
+            </Box>
+        const TopFrame =
+            <Box args={[width + thickness.top * 2, thickness.top, frameDepth]}
+                position={[xPosition, sHeight / 2 + thickness.top / 2, 0]}>
+                <meshStandardMaterial color={frameColor} />
+            </Box>
+        const BottomFrame =
+            <Box args={[width + thickness.bottom * 2, thickness.bottom, frameDepth]}
+                position={[xPosition, -sHeight / 2 - thickness.bottom / 2, 0]}>
+                <meshStandardMaterial color={frameColor} />
+            </Box>
+        return (
+            <>
+                {TopFrame}
+                {LeftFrame}
+                {RightFrame}
+                {BottomFrame}
+            </>
+        );
+    }
+    function createLeftPanel(xPosition) {
+        const width = convertMmToDoorWidth(doorSpecs.leftPanel.width)
+        const x = xPosition - sWidth / 2 - width / 2
+
+        console.log("x", x)
+        console.log("width", width)
+
+        return <>
+            {createLeftPanelFrame(x, width)}
+            {GetAGlassRectangle(x, 0, width, sHeight)}
+        </>
+    }
+
     function GenerateDoors(n) {
+        const doors = []
+        let startX = -(n * sWidth) / (3)
+
+
         if (n === 1 && doorType === 3) {
-            return CreateDoor(1, true)
+            doors.push(CreateDoor(1, true))
+            return <>{doors}</>
         }
         if (n === 1) {
-            return CreateDoor(0, true)
+            if(doorSpecs.leftPanel.width>0){
+                doors.push(createLeftPanel(0))
+            }
+            doors.push(CreateDoor(0, true))
+            return <>{doors}</>
         }
 
         var remainder = 0
         if (doorHandleDirection)
             remainder = 1
 
-        const doors = []
-        let startX = -(n * sWidth) / (3)
         let handleVisible = true
-
+        if(doorSpecs.doorType!=3 && doorSpecs.leftPanel.width>0){
+            doors.push(createLeftPanel(startX))
+        }
         for (let i = 0; i < n; i++) {
             if (i % 2 == remainder)
                 handleVisible = true
@@ -284,6 +339,7 @@ function DoorScene(props) {
             doors.push(CreateDoor(startX, handleVisible))
             startX = startX + sWidth
         }
+
         return <>{doors}</>
     }
 
@@ -294,8 +350,7 @@ function DoorScene(props) {
             <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
 
             {GenerateDoors(numberOfDoors)}
-            {/* {createLeftPanel(xPosition)} */}
-
+            {/* {createLeftPanel()} */}
             <LimitedOrbitControls />
         </Canvas>
     );
