@@ -75,7 +75,7 @@ function Form4(props) {
                 </div>
             </div>
 
-            <div>
+            <div className='mt-2'>
                 <b><h5>Glass Types</h5></b>
                 <div className='d-flex flex-row' >
                     <CircularImage size="10vh" glassType="10" label="Transparent" textureValue="gray" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("gray")}}/>

@@ -195,12 +195,13 @@ function DoorScene(props) {
 
     function GetAGlassRectangle(xPosition, yPosition, panelWidth, panelHeight) {
         let position = [xPosition, yPosition, 0]
+        let color = (glassColor.length > 0 ? glassColor : 'gray')
         return (
 
             <Box args={[panelWidth, panelHeight, 0.07]} position={[...position]}>
                 <meshPhysicalMaterial
                     attach="material"
-                    color={glassColor.length > 0 ? glassColor : 'gray'}
+                    color={color}
                     transmission={4.9}
                     roughness={1.0}
                     metalness={0.0}
@@ -261,7 +262,7 @@ function DoorScene(props) {
     function createPanelFrame(xPosition, yPosition, width, height) {
         var thickness = { left: 0.05, right: 0.05, top: 0.05, bottom: 0.05 }
         var frameDepth = 0.09;
-
+        let frameColor = doorSpecs.frameColor
         const LeftFrame =
             <Box args={[thickness.left, height, frameDepth]}
                 position={[xPosition + -width / 2 - thickness.left / 2, yPosition, 0]}>
@@ -305,31 +306,52 @@ function DoorScene(props) {
         const height = convertMmToDoorHeight(doorSpecs.topPanel.length)
         let y = 0 + sHeight / 2 + height / 2 + 0.09
 
-        let width = doorSpecs.numberOfDoors*sWidth + convertMmToDoorWidth(doorSpecs.leftPanel.width) + convertMmToDoorWidth(doorSpecs.rightPanel.width)+0.03
-        let x=0
+        let width = doorSpecs.numberOfDoors * sWidth + convertMmToDoorWidth(doorSpecs.leftPanel.width) + convertMmToDoorWidth(doorSpecs.rightPanel.width) + 0.03
+        let x = 0
 
-        if(doorSpecs.leftPanel.width>0){
-            width+=0.04
+        if (doorSpecs.leftPanel.width > 0) {
+            width += 0.04
         }
-        if(doorSpecs.rightPanel.width>0){
-            width+=0.04
+        if (doorSpecs.rightPanel.width > 0) {
+            width += 0.04
         }
-        if(doorSpecs.leftPanel.width>0 && doorSpecs.rightPanel.width>0){
-            x=x+convertMmToDoorWidth(doorSpecs.rightPanel.width)/2 -convertMmToDoorWidth(doorSpecs.leftPanel.width)/2
+        if (doorSpecs.leftPanel.width > 0 && doorSpecs.rightPanel.width > 0) {
+            x = x + convertMmToDoorWidth(doorSpecs.rightPanel.width) / 2 - convertMmToDoorWidth(doorSpecs.leftPanel.width) / 2
         }
-        else{
-            if(doorSpecs.leftPanel.width>0){
-                x=x-convertMmToDoorWidth(doorSpecs.leftPanel.width)/2 -0.01
-            }else{
-                x=x+convertMmToDoorWidth(doorSpecs.rightPanel.width)/2+0.01             
+        else {
+            if (doorSpecs.leftPanel.width > 0) {
+                x = x - convertMmToDoorWidth(doorSpecs.leftPanel.width) / 2 - 0.01
+            } else {
+                x = x + convertMmToDoorWidth(doorSpecs.rightPanel.width) / 2 + 0.01
             }
         }
-        if(doorSpecs.leftPanel.width==0 && doorSpecs.rightPanel.width==0){
-            x=x-0.01
+        if (doorSpecs.leftPanel.width == 0 && doorSpecs.rightPanel.width == 0) {
+            x = x - 0.01
         }
         return <>
             {createPanelFrame(x, y, width, height)}
             {GetAGlassRectangle(x, y, width, height)}
+        </>
+    }
+
+    function createBottomSteelPanel() {
+        const height = convertMmToDoorHeight(doorSpecs.bottomSteelPanel.length)
+        let y = 0 - sHeight / 2 + height / 2
+        let width = doorSpecs.numberOfDoors * sWidth
+        let x = 0
+        let position = [x, y, 0]
+        var thickness = { left: 0.05, right: 0.05, top: 0.05, bottom: 0.05 }
+        var frameDepth = 0.09;
+
+        return <>
+
+            <Box args={[width + thickness.bottom * 2, height, frameDepth]}
+                position={[...position]}>
+                <meshStandardMaterial
+                    color={frameColor}
+                    map={doorSpecs.textureImage.length > 0 ? texture : null}
+                />
+            </Box>
         </>
     }
 
@@ -343,55 +365,23 @@ function DoorScene(props) {
         </>
     }
 
-    function createTopPanel() {
-        const height = convertMmToDoorHeight(doorSpecs.topPanel.length)
-        let y = 0 + sHeight / 2 + height / 2 + 0.09
 
-        let width = doorSpecs.numberOfDoors*sWidth + convertMmToDoorWidth(doorSpecs.leftPanel.width) + convertMmToDoorWidth(doorSpecs.rightPanel.width)+0.03
-        let x=0
-
-        if(doorSpecs.leftPanel.width>0){
-            width+=0.04
-        }
-        if(doorSpecs.rightPanel.width>0){
-            width+=0.04
-        }
-        if(doorSpecs.leftPanel.width>0 && doorSpecs.rightPanel.width>0){
-            x=x+convertMmToDoorWidth(doorSpecs.rightPanel.width)/2 -convertMmToDoorWidth(doorSpecs.leftPanel.width)/2
-        }
-        else{
-            if(doorSpecs.leftPanel.width>0){
-                x=x-convertMmToDoorWidth(doorSpecs.leftPanel.width)/2 -0.01
-            }else{
-                x=x+convertMmToDoorWidth(doorSpecs.rightPanel.width)/2+0.01             
-            }
-        }
-        if(doorSpecs.leftPanel.width==0 && doorSpecs.rightPanel.width==0){
-            x=x-0.01
-        }
-        return <>
-            {createPanelFrame(x, y, width, height)}
-            {GetAGlassRectangle(x, y, width, height)}
-        </>
-    }
-
-
-    function getFirstDoorMidX(){
-        let halfTotalWidth=(doorSpecs.numberOfDoors*sWidth)/2
-        let t1=halfTotalWidth-sWidth
-        let firstMidX=t1+sWidth/2
+    function getFirstDoorMidX() {
+        let halfTotalWidth = (doorSpecs.numberOfDoors * sWidth) / 2
+        let t1 = halfTotalWidth - sWidth
+        let firstMidX = t1 + sWidth / 2
         return -firstMidX
     }
     function GenerateDoors(n) {
         const doors = []
-        let startX=getFirstDoorMidX()
+        let startX = getFirstDoorMidX()
 
         if (n === 1 && doorType === 3) {
             doors.push(CreateDoor(1, true))
             return <>{doors}</>
         }
         if (n === 1) {
-            if(doorSpecs.topPanel.include && doorSpecs.topPanel.length>0){
+            if (doorSpecs.topPanel.include && doorSpecs.topPanel.length > 0) {
                 doors.push(createTopPanel())
             }
 
@@ -401,6 +391,10 @@ function DoorScene(props) {
             if (doorSpecs.rightPanel.width > 0) {
                 doors.push(createRightPanel(0))
             }
+            if (doorSpecs.bottomSteelPanel.include && doorSpecs.bottomSteelPanel.length > 0) {
+                doors.push(createBottomSteelPanel())
+            }
+
             doors.push(CreateDoor(0, true))
             return <>{doors}</>
         }
@@ -413,10 +407,10 @@ function DoorScene(props) {
         if (doorSpecs.doorType != 3 && doorSpecs.leftPanel.width > 0) {
             doors.push(createLeftPanel(startX))
         }
-        if(doorSpecs.doorType != 3 && doorSpecs.topPanel.include && doorSpecs.topPanel.length>0){
+        if (doorSpecs.doorType != 3 && doorSpecs.topPanel.include && doorSpecs.topPanel.length > 0) {
             doors.push(createTopPanel())
         }
-        
+
         for (let i = 0; i < n; i++) {
             if (i % 2 == remainder)
                 handleVisible = true
@@ -429,7 +423,12 @@ function DoorScene(props) {
         if (doorSpecs.doorType != 3 && doorSpecs.rightPanel.width > 0) {
             doors.push(createRightPanel(startX))
         }
-        
+
+        if (doorSpecs.bottomSteelPanel.include && doorSpecs.bottomSteelPanel.length > 0) {
+            doors.push(createBottomSteelPanel())
+        }
+
+
         return <>{doors}</>
     }
 

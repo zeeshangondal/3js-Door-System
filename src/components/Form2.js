@@ -73,7 +73,10 @@ function Form2(props) {
     function filpBottomSteelPanelInclude() {
         if (doorSpecs.bottomSteelPanel.include) {
             setBottomSteelPanelLength(0)
+        }else{
+            setBottomSteelPanelLength(300)
         }
+
         setDoorSpecs(pre => {
             return {
                 ...pre,
