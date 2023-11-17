@@ -7,8 +7,6 @@ import LabelWithInput from './LabelWithInput';
 
 function Form2(props) {
     let { doorSpecs, setDoorSpecs, handleGoBack, handleGoNext,
-        // topPanel, setTopPanel, bottomSteelPanel, setBottomSteelPanel, topPanelLength,
-        // setTopPanelLength, bottomSteelPanelLength, setBottomSteelPanelLength,
     } = props
 
 
@@ -59,6 +57,8 @@ function Form2(props) {
     function filpTopPanelInclude() {
         if (doorSpecs.topPanel.include) {
             setTopPanelLength(0)
+        } else {
+            setTopPanelLength(200)
         }
         setDoorSpecs(pre => {
             return {
@@ -91,24 +91,30 @@ function Form2(props) {
             setRightPanelWidth(0)
         }
         if (doorSpecs.panelTypePosition === 2) {
-            setLeftPanelWidth(400)
+            if (doorSpecs.leftPanel.width === 0)
+                setLeftPanelWidth(400)
             setRightPanelWidth(0)
         }
         if (doorSpecs.panelTypePosition === 3) {
-            setRightPanelWidth(400)
+            if (doorSpecs.rightPanel.width === 0)
+                setRightPanelWidth(400)
+
             setLeftPanelWidth(0)
         }
         if (doorSpecs.panelTypePosition === 4) {
-            setRightPanelWidth(400)
-            setLeftPanelWidth(400)
+            if (doorSpecs.leftPanel.width === 0)
+                setLeftPanelWidth(400)
+            if (doorSpecs.rightPanel.width === 0)
+                setRightPanelWidth(400)
+
 
         }
         if (doorSpecs.doorType === 3) {
             setLeftPanelWidth(0)
             setRightPanelWidth(0)
             setTopPanelLength(0)
-            setDoorSpecs(pre=>{
-                return {...pre,topPanel:{...pre.topPanel,include:false}}
+            setDoorSpecs(pre => {
+                return { ...pre, topPanel: { ...pre.topPanel, include: false } }
             })
         }
     }
