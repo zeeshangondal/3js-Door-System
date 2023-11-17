@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/3js-Door-System/static/css/main.e30650bd.css",
-    "main.js": "/3js-Door-System/static/js/main.dac559f6.js",
+    "main.js": "/3js-Door-System/static/js/main.25a1bcc4.js",
     "static/js/139.94d54406.chunk.js": "/3js-Door-System/static/js/139.94d54406.chunk.js",
     "static/js/50.7404948e.chunk.js": "/3js-Door-System/static/js/50.7404948e.chunk.js",
     "static/js/631.f7efd7e1.chunk.js": "/3js-Door-System/static/js/631.f7efd7e1.chunk.js",
@@ -15,12 +15,13 @@
     "static/js/338.07bc2f19.chunk.js": "/3js-Door-System/static/js/338.07bc2f19.chunk.js",
     "static/js/403.5a6c5434.chunk.js": "/3js-Door-System/static/js/403.5a6c5434.chunk.js",
     "static/js/787.cda612ba.chunk.js": "/3js-Door-System/static/js/787.cda612ba.chunk.js",
-    "static/media/cathedral.jpg": "/3js-Door-System/static/media/cathedral.f5ff2428c22afc5ab221.jpg",
-    "static/media/fluted.jpg": "/3js-Door-System/static/media/fluted.a1fb50967d2f62e4a765.jpg",
     "static/media/3.jpg": "/3js-Door-System/static/media/3.7371d9cbe1fd4f328a2a.jpg",
-    "static/media/listral.jpg": "/3js-Door-System/static/media/listral.9d23dfbcac4e6fcd3104.jpg",
+    "static/media/steel-wire-color.png": "/3js-Door-System/static/media/steel-wire-color.25773ed9e61a0876e3b7.png",
+    "static/media/listral.jpg": "/3js-Door-System/static/media/listral.8d137e957b3babfa39e7.jpg",
+    "static/media/fluted.png": "/3js-Door-System/static/media/fluted.5ee39b8ecef079c832be.png",
     "static/media/5.jpg": "/3js-Door-System/static/media/5.410d32c1650b4ff6578f.jpg",
     "static/media/1.jpg": "/3js-Door-System/static/media/1.b050bb0244ed97b93548.jpg",
+    "static/media/cathedral.jpg": "/3js-Door-System/static/media/cathedral.39e1e36ea80c32a53f1c.jpg",
     "static/media/4.jpg": "/3js-Door-System/static/media/4.cc81322a7cec47afb970.jpg",
     "static/media/11.jpg": "/3js-Door-System/static/media/11.5f8af76da1defc814d5b.jpg",
     "static/media/2.jpg": "/3js-Door-System/static/media/2.54b340949d2fddafe540.jpg",
@@ -33,11 +34,11 @@
     "static/media/type1.svg": "/3js-Door-System/static/media/type1.27c8f39eb9e087431e6c4c9f19e17183.svg",
     "static/media/type4.svg": "/3js-Door-System/static/media/type4.81421d11138cb543a484987401676ed1.svg",
     "main.e30650bd.css.map": "/3js-Door-System/static/css/main.e30650bd.css.map",
-    "main.dac559f6.js.map": "/3js-Door-System/static/js/main.dac559f6.js.map",
+    "main.25a1bcc4.js.map": "/3js-Door-System/static/js/main.25a1bcc4.js.map",
     "787.cda612ba.chunk.js.map": "/3js-Door-System/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e30650bd.css",
-    "static/js/main.dac559f6.js"
+    "static/js/main.25a1bcc4.js"
   ]
 }
