@@ -78,24 +78,24 @@ function Form4(props) {
             <div>
                 <b><h5>Glass Types</h5></b>
                 <div className='d-flex flex-row' >
-                    <CircularImage size="8vh" glassType="10" label="Transparent" onClick={()=>{handleGlassColorCodeChange("gray")}}/>
-                    <CircularImage size="8vh" glassType="2" label="Flutes"  onClick={()=>{handleGlassTexture("fluted.jpg")}} />
-                    <CircularImage size="8vh" glassType="3" label="Listral D"  onClick={()=>{handleGlassTexture("listral.jpg")}}/>
-                    <CircularImage size="8vh" glassType="4" label="Kathderaal Max" onClick={()=>{handleGlassTexture("cathedral.jpg")}} />
+                    <CircularImage size="10vh" glassType="10" label="Transparent" textureValue="gray" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("gray")}}/>
+                    <CircularImage size="10vh" glassType="2" label="Flutes"  textureValue="fluted.jpg" clickedTextureValue={doorSpecs.textureImage} onClick={()=>{handleGlassTexture("fluted.jpg")}} />
+                    <CircularImage size="10vh" glassType="3" label="Listral D" textureValue="listral.jpg" clickedTextureValue={doorSpecs.textureImage}  onClick={()=>{handleGlassTexture("listral.jpg")}}/>
+                    <CircularImage size="10vh" glassType="4" label="Kathderaal Max" textureValue="cathedral.jpg" clickedTextureValue={doorSpecs.textureImage} onClick={()=>{handleGlassTexture("cathedral.jpg")}} />
                 </div>
                 <div className='d-flex flex-row' >
 
-                    <CircularImage size="10vh" glassType="5" label="Visiosun" onClick={()=>{handleGlassTexture("clear.png")}}/>
-                    <CircularImage size="10vh" glassType="6" label="Fume Grijis" onClick={()=>{handleGlassColorCodeChange("#4e5660")}} />
-                    <CircularImage size="10vh" glassType="7" label="Fume Bruin" onClick={()=>{handleGlassColorCodeChange("#908377")}} />
-                    <CircularImage size="10vh" glassType="8" label="Dark Gray" onClick={()=>{handleGlassColorCodeChange("#383c44")}} />
+                    <CircularImage size="10vh" glassType="5" label="Visiosun" textureValue="clear.png" clickedTextureValue={doorSpecs.textureImage} onClick={()=>{handleGlassTexture("clear.png")}}/>
+                    <CircularImage size="10vh" glassType="6" label="Fume Grijis" textureValue="#4e5660" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#4e5660")}} />
+                    <CircularImage size="10vh" glassType="7" label="Fume Bruin" textureValue="#908377" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#908377")}} />
+                    <CircularImage size="10vh" glassType="8" label="Dark Gray" textureValue="#383c44" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#383c44")}} />
                 </div>
                 <div className='d-flex flex-row' >
 
-                    <CircularImage size="10vh" glassType="9" label="Melk" onClick={()=>{handleGlassColorCodeChange("#979da2")}} />
-                    <CircularImage size="10vh" glassType="1" label="Staaldraad" onClick={()=>{handleGlassColorCodeChange("#868e97")}} />
-                    <CircularImage size="10vh" glassType="11" label="Black"  onClick={()=>{handleGlassColorCodeChange("#070708")}}/>
-                    <CircularImage size="10vh" glassType="12" label="White" onClick={()=>{handleGlassColorCodeChange("#959ca8")}} />
+                    <CircularImage size="10vh" glassType="9" label="Melk" textureValue="#979da2" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#979da2")}} />
+                    <CircularImage size="10vh" glassType="1" label="Staaldraad" textureValue="#868e97" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#868e97")}} />
+                    <CircularImage size="10vh" glassType="11" label="Black" textureValue="#070708" clickedTextureValue={doorSpecs.glassColor}  onClick={()=>{handleGlassColorCodeChange("#070708")}}/>
+                    <CircularImage size="10vh" glassType="12" label="White" textureValue="#959ca8" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#959ca8")}} />
 
                 </div>
             </div>

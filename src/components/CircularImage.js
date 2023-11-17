@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const CircularImage = ({ size, glassType, label ,onClick}) => {
+const CircularImage = ({ size, glassType, label ,onClick, textureValue,clickedTextureValue}) => {
+  let isClicked=textureValue==clickedTextureValue
   const [imagePath, setImagePath] = useState('');
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const CircularImage = ({ size, glassType, label ,onClick}) => {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundImage: `url(${imagePath})`,
+    boxShadow: isClicked ? '0 0 0 5px white, 0 0 0 6px black' : 'none',
     cursor:'pointer'
   };
 
