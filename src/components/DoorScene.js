@@ -207,7 +207,7 @@ function DoorScene(props) {
     }
     function createLeftPanel(xPosition) {
         return <>
-            {GetAGlassRectangle(xPosition - convertMmToDoorWidth(doorSpecs.leftPanelWidth), 0, convertMmToDoorWidth(doorSpecs.leftPanel.width), sHeight)}
+            {GetAGlassRectangle(xPosition , 0, convertMmToDoorWidth(doorSpecs.leftPanel.width), sHeight)}
         </>
     }
 
@@ -257,7 +257,6 @@ function DoorScene(props) {
             {doorType === 3 ? Frame(xPosition) : Frame(xPosition)}
             {handleVisible ? DoorHandle(xPosition) : ''}
             {GetDoorGlassRectangle(xPosition)}
-            {/* {createLeftPanel(xPosition)} */}
 
         </>
     }
@@ -295,6 +294,7 @@ function DoorScene(props) {
             <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
 
             {GenerateDoors(numberOfDoors)}
+            {/* {createLeftPanel(xPosition)} */}
 
             <LimitedOrbitControls />
         </Canvas>
