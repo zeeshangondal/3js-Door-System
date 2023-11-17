@@ -91,10 +91,17 @@ function Form2(props) {
             setRightPanelWidth(0)
         }
         if (doorSpecs.panelTypePosition === 2) {
+            setLeftPanelWidth(400)
             setRightPanelWidth(0)
         }
         if (doorSpecs.panelTypePosition === 3) {
+            setRightPanelWidth(400)
             setLeftPanelWidth(0)
+        }
+        if (doorSpecs.panelTypePosition === 4) {
+            setRightPanelWidth(400)
+            setLeftPanelWidth(400)
+
         }
         if (doorSpecs.doorType === 3) {
             setLeftPanelWidth(0)
