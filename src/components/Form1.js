@@ -33,7 +33,8 @@ function Form1(props) {
                     ...pre,doorType:typeNumber,
                     leftPanel:{...pre.leftPanel, width:0},
                     rightPanel:{...pre.rightPanel,width:0},
-                    panelTypePosition:1
+                    panelTypePosition:1,
+                    topPanel:{...pre.topPanel, include:false, length:0}
                 }
             })
         }else{

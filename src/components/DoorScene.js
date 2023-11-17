@@ -6,7 +6,7 @@ import { TextureLoader } from 'three';
 import listeralTexture from '../GlassTextures/listral.jpg'
 import cathedralTexture from '../GlassTextures/cathedral.jpg'
 import clearTexture from '../GlassTextures/clear.png'
-import flutedTexture from '../GlassTextures/fluted.jpg'
+import flutedTexture from '../GlassTextures/fluted.png'
 import steelWireColorTexture from '../GlassTextures/steel-wire-color.png'
 
 import * as THREE from 'three';
@@ -33,7 +33,7 @@ function DoorScene(props) {
         if (doorSpecs.textureImage == "clear.png") {
             return clearTexture
         }
-        if (doorSpecs.textureImage == "fluted.jpg") {
+        if (doorSpecs.textureImage == "fluted.png") {
             return flutedTexture
         }
         if (doorSpecs.textureImage == "steel-wire-color.png") {
@@ -54,7 +54,7 @@ function DoorScene(props) {
                 texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
                 texture.wrapS = THREE.RepeatWrapping;
                 texture.wrapT = THREE.RepeatWrapping;
-                texture.repeat.set(90 * doorSpecs.numberOfDoors * doorSpecs.numberOfDoors, 90 * doorSpecs.numberOfDoors * doorSpecs.numberOfDoors); // This will repeat the texture 4 times on each axis
+                // texture.repeat.set(90 * doorSpecs.numberOfDoors * doorSpecs.numberOfDoors, 90 * doorSpecs.numberOfDoors * doorSpecs.numberOfDoors); // This will repeat the texture 4 times on each axis
                 texture.minFilter = THREE.NearestFilter;
                 texture.magFilter = THREE.NearestFilter;
                 setTexture(texture)
@@ -202,12 +202,14 @@ function DoorScene(props) {
                 <meshPhysicalMaterial
                     attach="material"
                     color={color}
+                    map={doorSpecs.textureImage.length > 0 ? texture : null}
                     transmission={4.9}
                     roughness={1.0}
                     metalness={0.0}
                     reflectivity={0.7}
                     clearcoat={0.1}
                     side={DoubleSide}
+
                 />
             </Box>
         );
@@ -349,7 +351,6 @@ function DoorScene(props) {
                 position={[...position]}>
                 <meshStandardMaterial
                     color={frameColor}
-                    map={doorSpecs.textureImage.length > 0 ? texture : null}
                 />
             </Box>
         </>
