@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, useThree, extend } from '@react-three/fiber';
 import { Box, OrbitControls } from '@react-three/drei';
 import { MeshPhysicalMaterial, DoubleSide, DirectionalLight, MeshStandardMaterial } from 'three';
-import { TextureLoader } from 'three';
+import { TextureLoader, Box3, Vector3 } from 'three';
 import listeralTexture from '../GlassTextures/listral.jpg'
 import cathedralTexture from '../GlassTextures/cathedral.jpg'
 import clearTexture from '../GlassTextures/clear.png'
@@ -239,14 +239,6 @@ function DoorScene(props) {
     }
 
 
-    useEffect(() => {
-        if (numberOfDoors < 3) {
-            setZoom(1)
-            return
-        }
-        let zoomLevel = 1 / (1 + 0.2 * numberOfDoors)
-        setZoom(zoomLevel)
-    }, [numberOfDoors])
 
     const lightRef = useRef();
 
@@ -558,15 +550,75 @@ function DoorScene(props) {
         return <>{doors}</>
     }
 
+
+
+
+    function AutoAdjustCamera({ children }) {
+        const { camera, scene } = useThree();
+        const targetPosition = useRef(new Vector3());
+        const targetLookAt = useRef(new Vector3());
+    
+        useEffect(() => {
+            // Calculate the bounding box of the entire scene
+            const bbox = new Box3().setFromObject(scene);
+            const center = bbox.getCenter(new Vector3());
+            const size = bbox.getSize(new Vector3());
+    
+            // Adjust camera
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fov = camera.fov * (Math.PI / 180);
+            let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
+    
+            // Adjust for the camera's min distance and add some margin
+            cameraZ *= 2.6;
+            targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
+    
+            // Adjust the focus point based on the camera's distance
+            const focusShift = cameraZ / maxDim; // Adjust this factor as needed
+            targetLookAt.current.set(center.x, center.y + focusShift, center.z);
+    
+            // Smooth transition
+            const transitionDuration = 500; // Transition duration in ms
+            const startTime = Date.now();
+    
+            const animate = () => {
+                const currentTime = Date.now();
+                const elapsedTime = currentTime - startTime;
+                if (elapsedTime < transitionDuration) {
+                    const alpha = elapsedTime / transitionDuration;
+    
+                    // Interpolate position
+                    camera.position.lerp(targetPosition.current, alpha);
+                    camera.lookAt(targetLookAt.current.lerp(camera.position, alpha));
+                    camera.updateProjectionMatrix();
+    
+                    requestAnimationFrame(animate);
+                }
+            };
+    
+            animate();
+        }, [camera, scene]);
+    
+        return children;
+    }
+    // useEffect(() => {
+    //     if (numberOfDoors < 3) {
+    //         setZoom(1)
+    //         return
+    //     }
+    //     let zoomLevel = 1 / (1 + 0.2 * numberOfDoors)
+    //     setZoom(zoomLevel)
+    // }, [numberOfDoors])
+
     return (
         <Canvas>
             <ambientLight intensity={0.9} />
             {/* <directionalLight ref={lightRef} position={[0, 0, 5]} intensity={2} color="white" />
             <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
-
+            <AutoAdjustCamera>
             {GenerateDoors(numberOfDoors)}
-            {/* {createLeftPanel()} */}
             <LimitedOrbitControls />
+            </AutoAdjustCamera>
         </Canvas>
     );
 }

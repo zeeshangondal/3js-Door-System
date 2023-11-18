@@ -91,7 +91,6 @@ function Form4(props) {
                     <CircularImage size="10vh" glassType="8" label="Dark Gray" textureValue="#383c44" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#383c44")}} />
                 </div>
                 <div className='d-flex flex-row' >
-
                     <CircularImage size="10vh" glassType="9" label="Melk" textureValue="#979da2" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#979da2")}} />
                     <CircularImage size="10vh" glassType="1" label="Staaldraad" textureValue="#868e97" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#868e97")}} />
                     <CircularImage size="10vh" glassType="11" label="Black" textureValue="#070708" clickedTextureValue={doorSpecs.glassColor}  onClick={()=>{handleGlassColorCodeChange("#070708")}}/>
