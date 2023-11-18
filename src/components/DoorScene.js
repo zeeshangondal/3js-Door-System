@@ -209,7 +209,6 @@ function DoorScene(props) {
                     reflectivity={0.7}
                     clearcoat={0.1}
                     side={DoubleSide}
-
                 />
             </Box>
         );
@@ -249,15 +248,51 @@ function DoorScene(props) {
         setZoom(zoomLevel)
     }, [numberOfDoors])
 
-    // Main scene render function
     const lightRef = useRef();
 
-
+    function createBar(xPosition, yPosition,width,height) {
+        var thickness = { left: 0.1, right: 0.1, top: 0.1, bottom: 0.1 }
+        var frameDepth = 0.09;
+        let position=[xPosition,yPosition,0];
+        
+        return <Box args={[width, height, frameDepth]}
+            position={position}>
+            <meshStandardMaterial color={frameColor} />
+        </Box>
+    }
+    
     function CreateDoor(xPosition, handleVisible) {
+        function createVDoorBars(){
+            let rods=[]
+            let startX=xPosition-sWidth/2+ sWidth/5
+            for(let i=0;i<doorSpecs.numberOfVBars; i++){
+                let width=0.04
+                if(i==0 || i==3)
+                    width=0.05
+                rods.push(createBar(startX,0,width, sHeight))                
+                startX+=sWidth/5
+            }
+            return <>{rods}</>
+        }
+        function createHDoorBars(){
+            let rods=[]
+            let startY=0+sHeight/2- sHeight/5
+            for(let i=0;i<doorSpecs.numberOfHBars; i++){
+                let height=0.04
+                if(i==0 || i==3)
+                    height=0.05
+                rods.push(createBar(xPosition,startY,sWidth, height))                
+                startY-=sHeight/5
+            }
+            return <>{rods}</>
+        }
+        
         return <>
-            {doorType === 3 ? Frame(xPosition) : Frame(xPosition)}
+            {Frame(xPosition)}
             {handleVisible ? DoorHandle(xPosition) : ''}
             {GetDoorGlassRectangle(xPosition)}
+            {createVDoorBars()}
+            {createHDoorBars()}
         </>
     }
 
@@ -297,10 +332,40 @@ function DoorScene(props) {
     function createLeftPanel(xPosition) {
         const width = convertMmToDoorWidth(doorSpecs.leftPanel.width)
         const x = xPosition - sWidth / 2 - width / 2 - 0.05
-
+        function createLeftPanelVBars(){
+            if(doorSpecs.leftRightPanelVBars==0)
+                return <></>
+            let leftPanelWidth=width
+            let rods=[]
+            let startX=x-leftPanelWidth/2+ leftPanelWidth/2
+            // for(let i=0;i<doorSpecs.leftRightPanelVBars; i++){
+            //     let width=0.04
+            //     if(i==0 || i==3)
+            //         width=0.05
+            //     rods.push(createBar(startX,0,width, sHeight))                
+            //     startX+=leftPanelWidth/3
+            // }
+            rods.push(createBar(startX,0,0.04, sHeight))                
+            return <>{rods}</>
+        }
+        function createLeftPanelHBars(){
+            let rods=[]
+            let startY=0+sHeight/2- sHeight/5
+            for(let i=0;i<doorSpecs.leftRightPanelHBars; i++){
+                let height=0.04
+                if(i==0 || i==3)
+                    height=0.05
+                rods.push(createBar(x,startY,width, height))                
+                startY-=sHeight/5
+            }
+            return <>{rods}</>
+        }
+    
         return <>
             {createPanelFrame(x, 0, width, sHeight + 0.05)}
             {GetAGlassRectangle(x, 0, width, sHeight + 0.05)}
+            {createLeftPanelVBars()}
+            {createLeftPanelHBars()}
         </>
     }
 
@@ -359,10 +424,40 @@ function DoorScene(props) {
     function createRightPanel(xPosition) {
         const width = convertMmToDoorWidth(doorSpecs.rightPanel.width)
         const x = xPosition + sWidth / 2 + width / 2 + 0.05
+        function createRightPanelVBars(){
+            if(doorSpecs.leftRightPanelVBars==0)
+                return <></>
+            let rightPanelWidth=width
+            let rods=[]
+            let startX=x-rightPanelWidth/2+ rightPanelWidth/2
+            // for(let i=0;i<doorSpecs.leftRightPanelVBars; i++){
+            //     let width=0.04
+            //     if(i==0 || i==3)
+            //         width=0.05
+            //     rods.push(createBar(startX,0,width, sHeight))                
+            //     startX+=rightPanelWidth/3
+            // }
+            rods.push(createBar(startX,0,0.04, sHeight))                
+            return <>{rods}</>
+        }
+        function createRightPanelHBars(){
+            let rods=[]
+            let startY=0+sHeight/2- sHeight/5
+            for(let i=0;i<doorSpecs.leftRightPanelHBars; i++){
+                let height=0.04
+                if(i==0 || i==3)
+                    height=0.05
+                rods.push(createBar(x,startY,width, height))                
+                startY-=sHeight/5
+            }
+            return <>{rods}</>
+        }
 
         return <>
             {createPanelFrame(x, 0, width, sHeight + 0.05)}
             {GetAGlassRectangle(x, 0, width, sHeight + 0.05)}
+            {createRightPanelVBars()}
+            {createRightPanelHBars()}
         </>
     }
 
