@@ -70,8 +70,8 @@ function App() {
             setDoorSpecs({ ...doorSpecs, length: Length })
     }
     const handleWidthChange = (Width) => {
-        if (Width > BaseWidth)
-            Width = BaseWidth
+        if (Width > 2000)
+            Width = 2000
         setDoorSpecs({ ...doorSpecs, width: Width })
     }
     const handleNumberOfDoorsChange = (number) => {

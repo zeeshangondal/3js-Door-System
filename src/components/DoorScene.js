@@ -395,9 +395,39 @@ function DoorScene(props) {
         if (doorSpecs.leftPanel.width == 0 && doorSpecs.rightPanel.width == 0) {
             x = x - 0.01
         }
+
+        function createTopPanelVBars(){
+            let rods=[]
+            let startX=x-sWidth/2+ sWidth/5
+            
+            for(let i=0;i<doorSpecs.topPanel.numberOfVBars; i++){
+                let width=0.04
+                if(i==0 || i==3)
+                    width=0.05
+                rods.push(createBar(startX,y,width, height))                
+                startX+=sWidth/5
+            }
+            return <>{rods}</>
+        }
+        function createTopPanelHBars(){
+            let rods=[]
+            let startY=y+height/2- height/5
+            for(let i=0;i<doorSpecs.topPanel.numberOfHBars; i++){
+                let barHeight=0.04
+                if(i==0 || i==3)
+                    barHeight=0.05
+                rods.push(createBar(x,startY,width, barHeight))                
+                startY-=height/5
+            }
+            return <>{rods}</>
+        }
+
+
         return <>
             {createPanelFrame(x, y, width, height)}
             {GetAGlassRectangle(x, y, width, height)}
+            {createTopPanelVBars()}
+            {createTopPanelHBars()}
         </>
     }
 
