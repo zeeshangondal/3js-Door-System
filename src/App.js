@@ -6,6 +6,7 @@ import Form1 from './components/Form1';
 import Form2 from './components/Form2';
 import Form3 from './components/Form3';
 import Form4 from './components/Form4';
+import logo from './components/logo.png'
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -141,8 +142,7 @@ function App() {
         background: backgroundGradient,
         borderRadius: "2%",
         padding: '1rem',
-        margin:'1vh',
-
+        margin: '-2vh 1vh 1vh 1vh'
     }
     //mobile
     let mobileStyle = {
@@ -150,32 +150,40 @@ function App() {
         background: backgroundGradient,
         borderRadius: "7%",
         padding: '3rem',
-        marginLeft:'2vh',
-        
+        margin: '-2vh 1vh 1vh 1vh',
+        marginLeft: '2vh',
     }
     let styleCss = (window.innerWidth <= 600 ? mobileStyle : desktopStyle)
     return (
-        <div className='d-flex flex-column flex-md-row mt-3'>
-            <div className=' col-11 col-md-9' style={styleCss}>
-                <DoorScene
-                    sWidth={convertMmToDoorWidth(doorSpecs.width)}
-                    sHeight={convertMmToDoorHeight(doorSpecs.length)}
-                    doorHandleVisible={true}
-                    doorSpecs={doorSpecs}
-                    convertMmToDoorHeight={convertMmToDoorHeight}
-                    convertMmToDoorWidth={convertMmToDoorWidth}
-                    backgroundGradient={backgroundGradient}
+        <div>
+            <div style={{ width: '20vh', height: '4vh' , margin:(window.innerWidth<=600? '3px 0px 1px 2vh':'3px 0px 1px 1vh')}}>
+                <img
+                    src={logo}
+                    alt="Your Image"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
             </div>
+            <div className='d-flex flex-column flex-md-row mt-3'>
+                <div className=' col-11 col-md-9' style={styleCss}>
+                    <DoorScene
+                        sWidth={convertMmToDoorWidth(doorSpecs.width)}
+                        sHeight={convertMmToDoorHeight(doorSpecs.length)}
+                        doorHandleVisible={true}
+                        doorSpecs={doorSpecs}
+                        convertMmToDoorHeight={convertMmToDoorHeight}
+                        convertMmToDoorWidth={convertMmToDoorWidth}
+                        backgroundGradient={backgroundGradient}
+                    />
+                </div>
 
-            <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>
-                <div className='container'>
-                    {getForm()}
+                <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>
+                    <div className='container'>
+                        {getForm()}
 
+                    </div>
                 </div>
             </div>
         </div>
-
     )
 }
 
