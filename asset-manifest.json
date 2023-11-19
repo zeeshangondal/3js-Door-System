@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/3js-Door-System/static/css/main.e30650bd.css",
-    "main.js": "/3js-Door-System/static/js/main.3f62d4d9.js",
+    "main.css": "/3js-Door-System/static/css/main.33ce8f53.css",
+    "main.js": "/3js-Door-System/static/js/main.75a9ad9f.js",
     "static/js/139.94d54406.chunk.js": "/3js-Door-System/static/js/139.94d54406.chunk.js",
     "static/js/50.7404948e.chunk.js": "/3js-Door-System/static/js/50.7404948e.chunk.js",
     "static/js/631.f7efd7e1.chunk.js": "/3js-Door-System/static/js/631.f7efd7e1.chunk.js",
@@ -33,12 +33,12 @@
     "static/media/type3.svg": "/3js-Door-System/static/media/type3.e2e41f841c22b30e4fd21402ef6cab56.svg",
     "static/media/type1.svg": "/3js-Door-System/static/media/type1.27c8f39eb9e087431e6c4c9f19e17183.svg",
     "static/media/type4.svg": "/3js-Door-System/static/media/type4.81421d11138cb543a484987401676ed1.svg",
-    "main.e30650bd.css.map": "/3js-Door-System/static/css/main.e30650bd.css.map",
-    "main.3f62d4d9.js.map": "/3js-Door-System/static/js/main.3f62d4d9.js.map",
+    "main.33ce8f53.css.map": "/3js-Door-System/static/css/main.33ce8f53.css.map",
+    "main.75a9ad9f.js.map": "/3js-Door-System/static/js/main.75a9ad9f.js.map",
     "787.cda612ba.chunk.js.map": "/3js-Door-System/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e30650bd.css",
-    "static/js/main.3f62d4d9.js"
+    "static/css/main.33ce8f53.css",
+    "static/js/main.75a9ad9f.js"
   ]
 }
