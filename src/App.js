@@ -89,6 +89,11 @@ function App() {
     }
 
     const handleGoNext = () => {
+        if(stepNumber==4){
+            //open model
+            handleShow()
+            return
+        }
         setStepNumber(prevStepNumber => {
             if (prevStepNumber < 5) {
                 return prevStepNumber + 1;
@@ -156,7 +161,7 @@ function App() {
     }
     let styleCss = (window.innerWidth <= 600 ? mobileStyle : desktopStyle)
 
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
