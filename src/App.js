@@ -7,7 +7,7 @@ import Form2 from './components/Form2';
 import Form3 from './components/Form3';
 import Form4 from './components/Form4';
 import logo from './components/logo.png'
-import Model from './components/Model'
+import { Button, Modal } from 'react-bootstrap';
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -155,9 +155,15 @@ function App() {
         marginLeft: '2vh',
     }
     let styleCss = (window.innerWidth <= 600 ? mobileStyle : desktopStyle)
+
+    const [showModal, setShowModal] = useState(true);
+
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
+
     return (
         <div>
-            <div style={{ width: '20vh', height: '4vh' , margin:(window.innerWidth<=600? '3px 0px 1px 2vh':'3px 0px 1px 1vh')}}>
+            <div style={{ width: '20vh', height: '4vh', margin: (window.innerWidth <= 600 ? '3px 0px 1px 2vh' : '3px 0px 1px 1vh') }}>
                 <img
                     src={logo}
                     alt="Your Image"
@@ -177,20 +183,45 @@ function App() {
                     />
                 </div>
 
-                <div className='col-12 col-md-3  shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem', marginTop:'-2vh' }}>
+                <div className='col-12 col-md-3  shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem', marginTop: '-2vh' }}>
                     <div className='container'>
                         {getForm()}
 
                     </div>
                 </div>
             </div>
-            {/* <Model
-                isOpen={true}
-                title="TITLE"
-                subtitle="Sub title" 
-                paragraph="PAratmessage" 
-                cancelButtonText="Cancel"
-            /> */}
+            <Modal show={showModal} onHide={handleClose} centered size="lg"  className="custom-modal">
+                {/* <Modal.Header>
+                    <Modal.Title>
+                        Offerte aanvragen<br/>
+                        <h6 className="subtitle">Your Subtitle Here</h6>
+                    </Modal.Title>
+                </Modal.Header> */}
+                <Modal.Body>
+                    <>
+                    <div>
+                        <h3>Offerte aanvragen</h3><br/>
+                        <h5>Wilt u de offerte aanvragen of een extra configuratie toevoegen?</h5><br/>
+                    </div>
+                    <div>
+                        <p style={{fontStyle:'italic'}}>Indien u nog geen configuraties heeft opgeslagen, zal de openstaande configuratie verzonden worden. Anders worden enkel de configuraties die opgeslagen zijn verzonden!</p>
+                    </div>
+                    </>
+
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="d-flex justify-content-between w-100">
+                        <Button variant="dark" style={{borderRadius:'10px', padding:'10px'}}>
+                            <b>Offerte aanvragen</b>
+                        </Button>
+
+                        <Button variant="dark" onClick={handleClose} style={{borderRadius:'10px',padding:'10px'}}>
+                            <b>Annuleren</b>
+                        </Button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+
         </div>
     )
 }

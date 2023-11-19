@@ -584,10 +584,12 @@ function DoorScene(props) {
 
 
     function AutoAdjustCamera({ children }) {
+        
         const { camera, scene, size } = useThree();
         const targetPosition = useRef(new Vector3());
         const targetLookAt = useRef(new Vector3());
       
+        
         useEffect(() => {
           // Calculate the bounding box of the entire scene
           const bbox = new Box3().setFromObject(scene);
