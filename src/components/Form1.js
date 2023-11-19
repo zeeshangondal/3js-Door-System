@@ -10,7 +10,7 @@ import LabelWithRange from './LabelWithRange';
 
 
 function Form1(props) {
-    let {doorSpecs,setDoorSpecs, handleLengthChange, handleWidthChange, handleNumberOfDoorsChange, handleGoBack, handleGoNext } = props
+    let { doorSpecs, setDoorSpecs, handleLengthChange, handleWidthChange, handleNumberOfDoorsChange, handleGoBack, handleGoNext } = props
     const doorTypeImages = [doorType1SVG, doorType2SVG, doorType3SVG, doorType4SVG]
     const [showingNumberOfDoors, setShowingNumberOfDoors] = useState([1, 2, 3, 4])
 
@@ -26,23 +26,23 @@ function Form1(props) {
 
     }, [doorSpecs.doorType])
 
-    function handleDoorTypeChange(typeNumber){
-        if(typeNumber==3){
-            setDoorSpecs(pre=> {
+    function handleDoorTypeChange(typeNumber) {
+        if (typeNumber == 3) {
+            setDoorSpecs(pre => {
                 return {
-                    ...pre,doorType:typeNumber,
-                    leftPanel:{...pre.leftPanel, width:0},
-                    rightPanel:{...pre.rightPanel,width:0},
-                    panelTypePosition:1,
-                    topPanel:{...pre.topPanel, include:false, length:0}
+                    ...pre, doorType: typeNumber,
+                    leftPanel: { ...pre.leftPanel, width: 0 },
+                    rightPanel: { ...pre.rightPanel, width: 0 },
+                    panelTypePosition: 1,
+                    topPanel: { ...pre.topPanel, include: false, length: 0 }
                 }
             })
-        }else{
-            setDoorSpecs(pre=> {
+        } else {
+            setDoorSpecs(pre => {
                 return {
-                    ...pre,doorType:typeNumber,
+                    ...pre, doorType: typeNumber,
                 }
-            }) 
+            })
         }
     }
 
@@ -55,18 +55,21 @@ function Form1(props) {
             <div className='mt-4'>
                 <p>Door Type</p>
             </div>
-            <div className="row">
-                {/* Grids */}
-                {doorTypeImages.map((img, index) => (
-                    <div
-                        key={index}
-                        className="grid-hover grid-hover-hover col-6 shadow d-flex align-items-center justify-content-center"
-                        style={{ background: 'white', border: '2px none #dee2e6', height: '110px', borderRadius: "5%" }}
-                        onClick={() => handleDoorTypeChange(index+1)} // Passes the corresponding grid number to setDoorType
-                    >
-                        <img src={img} alt="My SVG Image" />
-                    </div>
-                ))}
+            <div className='container'>
+
+                <div className="row">
+                    {/* Grids */}
+                    {doorTypeImages.map((img, index) => (
+                        <div
+                            key={index}
+                            className="col-4 grid-hover grid-hover-hover col-6 shadow d-flex align-items-center justify-content-center"
+                            style={{ background: 'white', border: '2px none #dee2e6', height: '100px', borderRadius: "10%" }}
+                            onClick={() => handleDoorTypeChange(index + 1)} // Passes the corresponding grid number to setDoorType
+                        >
+                            <img src={img} alt="My SVG Image" />
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <div>
@@ -94,7 +97,7 @@ function Form1(props) {
                     <div className='d-flex align-items-center' style={{ fontWeight: 'normal', marginTop: '-10px' }}>
                         <small>Left</small>
                         <div className='m-2'>
-                            <ToggleSwitch isOn={ doorSpecs.doorHandleDirection} onToggle={() => setDoorSpecs(pre=>{return {...pre,doorHandleDirection:!pre.doorHandleDirection}})} />
+                            <ToggleSwitch isOn={doorSpecs.doorHandleDirection} onToggle={() => setDoorSpecs(pre => { return { ...pre, doorHandleDirection: !pre.doorHandleDirection } })} />
                         </div>
                         <small>Right</small>
                     </div>

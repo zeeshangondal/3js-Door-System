@@ -581,54 +581,63 @@ function DoorScene(props) {
 
 
     function AutoAdjustCamera({ children }) {
-        const { camera, scene } = useThree();
+        const { camera, scene, size } = useThree();
         const targetPosition = useRef(new Vector3());
         const targetLookAt = useRef(new Vector3());
-
+      
         useEffect(() => {
-            // Calculate the bounding box of the entire scene
-            const bbox = new Box3().setFromObject(scene);
-            const center = bbox.getCenter(new Vector3());
-            const size = bbox.getSize(new Vector3());
-
-            // Adjust camera
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const fov = camera.fov * (Math.PI / 180);
-            let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
-
-            // Adjust for the camera's min distance and add some margin
-            cameraZ *= 2.6;
+          // Calculate the bounding box of the entire scene
+          const bbox = new Box3().setFromObject(scene);
+          const center = bbox.getCenter(new Vector3());
+          const size = bbox.getSize(new Vector3());
+      
+          // Adjust camera
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const fov = camera.fov * (Math.PI / 180);
+          let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
+      
+          // Adjust for the camera's min distance and add some margin
+          cameraZ *= 2.6;
+          targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
+      
+          // Adjust the focus point based on the camera's distance
+          const focusShift = cameraZ / maxDim; // Adjust this factor as needed
+          targetLookAt.current.set(center.x, center.y + focusShift, center.z);
+          let sizeWidth= window.innerWidth
+          // If the screen size is small (mobile), zoom in
+          const isMobile = sizeWidth <= 600; // Adjust the threshold as needed
+          
+          if (isMobile) {
+            const zoomInRatio = 0.9; // Adjust this ratio as needed
+            cameraZ *= zoomInRatio;
             targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
-
-            // Adjust the focus point based on the camera's distance
-            const focusShift = cameraZ / maxDim; // Adjust this factor as needed
-            targetLookAt.current.set(center.x, center.y + focusShift, center.z);
-
-            // Smooth transition
-            const transitionDuration = 500; // Transition duration in ms
-            const startTime = Date.now();
-
-            const animate = () => {
-                const currentTime = Date.now();
-                const elapsedTime = currentTime - startTime;
-                if (elapsedTime < transitionDuration) {
-                    const alpha = elapsedTime / transitionDuration;
-
-                    // Interpolate position
-                    camera.position.lerp(targetPosition.current, alpha);
-                    camera.lookAt(targetLookAt.current.lerp(camera.position, alpha));
-                    camera.updateProjectionMatrix();
-
-                    requestAnimationFrame(animate);
-                }
-            };
-
-            animate();
-        }, [camera, scene]);
-
+          }
+      
+          // Smooth transition
+          const transitionDuration = 500; // Transition duration in ms
+          const startTime = Date.now();
+      
+          const animate = () => {
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - startTime;
+            if (elapsedTime < transitionDuration) {
+              const alpha = elapsedTime / transitionDuration;
+      
+              // Interpolate position
+              camera.position.lerp(targetPosition.current, alpha);
+              camera.lookAt(targetLookAt.current.lerp(camera.position, alpha));
+              camera.updateProjectionMatrix();
+      
+              requestAnimationFrame(animate);
+            }
+          };
+      
+          animate();
+        }, [camera, scene, size]);
+      
         return children;
-    }
-
+      }
+      
     return (
         <Canvas>
             <ambientLight intensity={0.9} />
