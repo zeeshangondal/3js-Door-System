@@ -89,7 +89,7 @@ function App() {
     }
 
     const handleGoNext = () => {
-        if(stepNumber==4){
+        if (stepNumber == 4) {
             //open model
             handleShow()
             return
@@ -176,7 +176,7 @@ function App() {
                 />
             </div>
             <div className='d-flex flex-column flex-md-row mt-3'>
-                <div className=' col-11 col-md-9' style={styleCss}>
+                <div className=' col-11 col-md-9' style={{ position: 'relative', ...styleCss }}>
                     <DoorScene
                         sWidth={convertMmToDoorWidth(doorSpecs.width)}
                         sHeight={convertMmToDoorHeight(doorSpecs.length)}
@@ -186,7 +186,26 @@ function App() {
                         convertMmToDoorWidth={convertMmToDoorWidth}
                         backgroundGradient={backgroundGradient}
                     />
+                    <button
+                        type="button"
+                        className={`btn btn-light ${window.innerWidth<=600 ? 'btn-sm':'btn-lg'}`}
+                        style={{
+                            position: 'absolute',
+                            bottom: '0',
+                            right: '0',
+                            marginBottom: '1%',
+                            marginRight: '1%',
+                            padding: (window.innerWidth<=600 ? '1vh':'2vh'),
+                            fontSize:(window.innerWidth<=600 ? '1vh':'2vh'),
+                            borderRadius:'3vh'
+                        }}
+                        // style={{ position: 'absolute', bottom: '0', right: '0', marginBottom: '20px', marginRight: '20px', size:'3vh', borderRadius:'3vh', padding:'20px' }}
+                        onClick={() => handleShow()}
+                    >
+                        Offerte aanvragen
+                    </button>
                 </div>
+
 
                 <div className='col-12 col-md-3  shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem', marginTop: '-2vh' }}>
                     <div className='container'>
@@ -195,32 +214,26 @@ function App() {
                     </div>
                 </div>
             </div>
-            <Modal show={showModal} onHide={handleClose} centered size="lg"  className="custom-modal">
-                {/* <Modal.Header>
-                    <Modal.Title>
-                        Offerte aanvragen<br/>
-                        <h6 className="subtitle">Your Subtitle Here</h6>
-                    </Modal.Title>
-                </Modal.Header> */}
+            <Modal show={showModal} onHide={handleClose} centered size="lg" className="custom-modal">
                 <Modal.Body>
                     <>
-                    <div>
-                        <h3>Offerte aanvragen</h3><br/>
-                        <h5>Wilt u de offerte aanvragen of een extra configuratie toevoegen?</h5><br/>
-                    </div>
-                    <div>
-                        <p style={{fontStyle:'italic'}}>Indien u nog geen configuraties heeft opgeslagen, zal de openstaande configuratie verzonden worden. Anders worden enkel de configuraties die opgeslagen zijn verzonden!</p>
-                    </div>
+                        <div>
+                            <h3>Offerte aanvragen</h3><br />
+                            <h5>Wilt u de offerte aanvragen of een extra configuratie toevoegen?</h5><br />
+                        </div>
+                        <div>
+                            <p style={{ fontStyle: 'italic' }}>Indien u nog geen configuraties heeft opgeslagen, zal de openstaande configuratie verzonden worden. Anders worden enkel de configuraties die opgeslagen zijn verzonden!</p>
+                        </div>
                     </>
 
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="d-flex justify-content-between w-100">
-                        <Button variant="dark" style={{borderRadius:'10px', padding:'10px'}}>
+                        <Button variant="dark" style={{ borderRadius: '10px', padding: '10px' }}>
                             <b>Offerte aanvragen</b>
                         </Button>
 
-                        <Button variant="dark" onClick={handleClose} style={{borderRadius:'10px',padding:'10px'}}>
+                        <Button variant="dark" onClick={handleClose} style={{ borderRadius: '10px', padding: '10px' }}>
                             <b>Annuleren</b>
                         </Button>
                     </div>
