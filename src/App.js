@@ -144,17 +144,16 @@ function App() {
         margin:'1vh',
 
     }
+    //mobile
     let mobileStyle = {
-        height: '60vh',
+        height: '45vh',
         background: backgroundGradient,
         borderRadius: "7%",
         padding: '3rem',
-        marginLeft:'3vh',
+        marginLeft:'2vh',
         
     }
     let styleCss = (window.innerWidth <= 600 ? mobileStyle : desktopStyle)
-
-    //height: 'calc(100vh - 4rem)',
     return (
         <div className='d-flex flex-column flex-md-row mt-3'>
             <div className=' col-11 col-md-9' style={styleCss}>
