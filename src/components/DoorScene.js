@@ -99,7 +99,7 @@ function DoorScene(props) {
                 <meshPhysicalMaterial
                     attach="material"
                     map={doorSpecs.textureImage.length > 0 ? texture : null}
-                    color={glassColor.length > 0 ? glassColor : backgroundGradient}
+                    color={glassColor.length > 0 ? glassColor : ""}
                     transmission={1.0}
                     roughness={0.7}
                     metalness={0.0}
@@ -195,7 +195,7 @@ function DoorScene(props) {
 
     function GetAGlassRectangle(xPosition, yPosition, panelWidth, panelHeight) {
         let position = [xPosition, yPosition, 0]
-        let color = (glassColor.length > 0 ? glassColor : 'gray')
+        let color = (glassColor.length > 0 ? glassColor : '')
         return (
 
             <Box args={[panelWidth, panelHeight, 0.07]} position={[...position]}>
@@ -203,12 +203,11 @@ function DoorScene(props) {
                     attach="material"
                     color={color}
                     map={doorSpecs.textureImage.length > 0 ? texture : null}
-                    transmission={4.9}
-                    roughness={1.0}
+                    transmission={1.0}
+                    roughness={0.7}
                     metalness={0.0}
-                    reflectivity={0.7}
-                    clearcoat={0.1}
-                    side={DoubleSide}
+                    reflectivity={0.2}
+                    clearcoat={0.5}
                 />
             </Box>
         );

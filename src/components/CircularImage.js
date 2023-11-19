@@ -24,13 +24,14 @@ const CircularImage = ({ size, glassType, label ,onClick, textureValue,clickedTe
   const labelStyle = {
     textAlign: 'center',
     marginTop: '2px', // Adjust as needed
-    fontWeight:"normal"
+    fontWeight:"normal",
+    fontSize:'12px'
   };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin:'1vh' }}>
       <div style={imageStyle} onClick={onClick}/>
-      <div style={labelStyle}>{label}</div>
+      <small style={labelStyle}>{label}</small>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import Form4 from './components/Form4';
 
 const BaseWidth = 1000
 const BaseLength = 3000
+const backgroundGradient='linear-gradient(to bottom left, #d9dbe0, #707b86)'
 
 
 let doorObj = {
@@ -23,7 +24,7 @@ let doorObj = {
     leftRightPanelHBars:0,
     leftRightPanelVBars:0,
     frameColor:"black",
-    glassColor:"gray",
+    glassColor:"#959ca8",
     textureImage:'',
     leftPanel:{
         width:0
@@ -42,7 +43,6 @@ let doorObj = {
         length:0
     },
 }
-const backgroundGradient='linear-gradient(to bottom left, #d9dbe0, #707b86)'
 
 function App() {
 
