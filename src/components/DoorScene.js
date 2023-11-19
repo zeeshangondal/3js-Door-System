@@ -17,7 +17,7 @@ import * as THREE from 'three';
 extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
-    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight } = props
+    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight,backgroundGradient } = props
     let { doorType, numberOfDoors, doorHandleDirection, frameColor, glassColor } = doorSpecs
     let [zoom, setZoom] = useState(0.5)
     const [texture, setTexture] = useState('')
@@ -95,17 +95,16 @@ function DoorScene(props) {
 
         let position = [xPosition, y, 0]
         return (
-            <Box args={[sWidth, height, 0.07]} position={[...position]}>
+            <Box args={[sWidth, height, 0.01]} position={[...position]}>
                 <meshPhysicalMaterial
                     attach="material"
                     map={doorSpecs.textureImage.length > 0 ? texture : null}
-                    color={glassColor.length > 0 ? glassColor : 'gray'}
-                    transmission={4.9}
-                    roughness={1.0}
+                    color={glassColor.length > 0 ? glassColor : backgroundGradient}
+                    transmission={1.0}
+                    roughness={0.7}
                     metalness={0.0}
-                    reflectivity={0.7}
-                    clearcoat={0.1}
-                    side={DoubleSide}
+                    reflectivity={0.2}
+                    clearcoat={0.5}
                 />
             </Box>
         );
@@ -629,12 +628,11 @@ function DoorScene(props) {
     return (
         <Canvas>
             <ambientLight intensity={0.9} />
-            {/* <directionalLight ref={lightRef} position={[0, 0, 5]} intensity={2} color="white" />
-            <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
+            <directionalLight ref={lightRef} position={[5, 9, -50]} intensity={0.2} color="white" />
+            {/* <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
             <AutoAdjustCamera>
                 {GenerateDoors(numberOfDoors)}
                 <LimitedOrbitControls />
-                {/* <DraggableBox/> */}
             </AutoAdjustCamera>
 
         </Canvas>

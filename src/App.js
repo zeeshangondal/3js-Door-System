@@ -41,9 +41,8 @@ let doorObj = {
         include:false,
         length:0
     },
-    
-    
 }
+const backgroundGradient='linear-gradient(to bottom left, #d9dbe0, #707b86)'
 
 function App() {
 
@@ -132,6 +131,7 @@ function App() {
                 setDoorSpecs={setDoorSpecs}
                 handleGoBack={handleGoBack}
                 handleGoNext={handleGoNext}
+                backgroundGradient={backgroundGradient}
             />)
         }
         
@@ -140,7 +140,7 @@ function App() {
     //height: 'calc(100vh - 4rem)',
     return (
         <div className='d-flex flex-column flex-md-row mt-3'>
-            <div className='col-12 col-md-9 p-2 m-1' style={{ backgroundColor: 'gray', borderRadius: "2%" }}>
+            <div className='col-12 col-md-9 p-2 m-1' style={{ background: backgroundGradient, borderRadius: "2%" }}>
                 <DoorScene
                     sWidth={convertMmToDoorWidth(doorSpecs.width)}
                     sHeight={convertMmToDoorHeight(doorSpecs.length)}
@@ -148,6 +148,7 @@ function App() {
                     doorSpecs={doorSpecs}
                     convertMmToDoorHeight={convertMmToDoorHeight}
                     convertMmToDoorWidth={convertMmToDoorWidth}
+                    backgroundGradient={backgroundGradient}
                 />
             </div>
             <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>

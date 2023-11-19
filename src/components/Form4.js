@@ -8,7 +8,7 @@ import CircularImage from './CircularImage';
 
 
 function Form4(props) {
-    let { doorSpecs, setDoorSpecs, handleGoBack, handleGoNext } = props
+    let { doorSpecs, setDoorSpecs, handleGoBack, handleGoNext,backgroundGradient } = props
     function setFrameColor(color) {
         setDoorSpecs(pre => {
             return {
@@ -78,7 +78,7 @@ function Form4(props) {
             <div className='mt-2'>
                 <b><h5>Glass Types</h5></b>
                 <div className='d-flex flex-row' >
-                    <CircularImage size="10vh" glassType="10" label="Transparent" textureValue="gray" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("gray")}}/>
+                    <CircularImage size="10vh" glassType="10" label="Transparent" textureValue="#959ca8" clickedTextureValue={doorSpecs.glassColor} onClick={()=>{handleGlassColorCodeChange("#959ca8")}}/>
                     <CircularImage size="10vh" glassType="2" label="Flutes"  textureValue="fluted.png" clickedTextureValue={doorSpecs.textureImage} onClick={()=>{handleGlassTexture("fluted.png")}} />
                     <CircularImage size="10vh" glassType="3" label="Listral D" textureValue="listral.jpg" clickedTextureValue={doorSpecs.textureImage}  onClick={()=>{handleGlassTexture("listral.jpg")}}/>
                     <CircularImage size="10vh" glassType="4" label="Kathderaal Max" textureValue="cathedral.jpg" clickedTextureValue={doorSpecs.textureImage} onClick={()=>{handleGlassTexture("cathedral.jpg")}} />
