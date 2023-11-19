@@ -13,6 +13,7 @@ function Form1(props) {
     let { doorSpecs, setDoorSpecs, handleLengthChange, handleWidthChange, handleNumberOfDoorsChange, handleGoBack, handleGoNext } = props
     const doorTypeImages = [doorType1SVG, doorType2SVG, doorType3SVG, doorType4SVG]
     const [showingNumberOfDoors, setShowingNumberOfDoors] = useState([1, 2, 3, 4])
+    const [isHovered, setIsHovered] = useState(0);
 
     useEffect(() => {
         if (doorSpecs.doorType === 3) {
@@ -45,8 +46,18 @@ function Form1(props) {
             })
         }
     }
+    function getHoverTextFor(type) {
+        if (type == 1)
+            return "Scharnierdeur"
+        if (type == 2)
+            return "Pivotdeur"
+        if (type == 3)
+            return "Schuifdeur"
+        if (type == 4)
+            return "Vast Paneel"
 
-
+    }
+    
     return (
         <div className='col-11'>
             <div>
@@ -56,17 +67,23 @@ function Form1(props) {
                 <p>Door Type</p>
             </div>
             <div className='container'>
-            {/* #dee2e6 */}
+                {/* #dee2e6 */}
                 <div className="row">
                     {/* Grids */}
                     {doorTypeImages.map((img, index) => (
                         <div
                             key={index}
                             className="col-4 grid-hover grid-hover-hover col-6 shadow d-flex align-items-center justify-content-center"
-                            style={{background: 'white', borderBottom: (index+1===doorSpecs.doorType?'4px solid black':''), height: '13vh', borderRadius: "10%", marginBottom:"3px"}}
+                            style={{ background: 'white', borderBottom: (index + 1 === doorSpecs.doorType ? '4px solid black' : ''), height: '13vh', borderRadius: "10%", marginBottom: "3px" }}
                             onClick={() => handleDoorTypeChange(index + 1)} // Passes the corresponding grid number to setDoorType
+                            onMouseEnter={() => setIsHovered(index + 1)}
+                            onMouseLeave={() => setIsHovered(0)}
                         >
+                            {isHovered === index + 1 ?
+                                <h5 style={{color:'white', fontWeight:'normal'}}>{getHoverTextFor(index + 1)}</h5>
+                            :
                             <img src={img} alt="My SVG Image" />
+                            }
                         </div>
                     ))}
                 </div>
