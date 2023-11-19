@@ -17,7 +17,7 @@ import * as THREE from 'three';
 extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
-    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight,backgroundGradient } = props
+    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight, backgroundGradient } = props
     let { doorType, numberOfDoors, doorHandleDirection, frameColor, glassColor } = doorSpecs
     let [zoom, setZoom] = useState(0.5)
     const [texture, setTexture] = useState('')
@@ -132,10 +132,13 @@ function DoorScene(props) {
         frameDepth = frameDepth + numberOfDoors * 0.008
         const TopFrame = () => {
             if (doorType === 1 || doorType === 3 || doorType === 4)
-                return <Box args={[sWidth + thickness.top * 2, thickness.top, frameDepth]}
-                    position={[xPosition, sHeight / 2 + thickness.top / 2, 0]}>
-                    <meshStandardMaterial color={frameColor} />
-                </Box>
+                return <>
+                    <Box args={[sWidth + thickness.top * 2, thickness.top, frameDepth]}
+                        position={[xPosition, sHeight / 2 + thickness.top / 2, 0]}>
+                        <meshStandardMaterial color={frameColor}
+                        />
+                    </Box>
+                </>
             if (doorType === 2)
                 return <Box args={[sWidth + thickness.top * 2 - 0.4, thickness.top, frameDepth + 0.01]}
                     position={[xPosition, sHeight / 2 + thickness.top / 2 - thickness.top, 0]}>
@@ -198,7 +201,7 @@ function DoorScene(props) {
         let color = (glassColor.length > 0 ? glassColor : '')
         return (
 
-            <Box args={[panelWidth, panelHeight, 0.07]} position={[...position]}>
+            <Box args={[panelWidth, panelHeight, 0.01]} position={[...position]}>
                 <meshPhysicalMaterial
                     attach="material"
                     color={color}
@@ -241,13 +244,13 @@ function DoorScene(props) {
 
     const lightRef = useRef();
 
-    function createBar(xPosition, yPosition, width, height, allowX,allowY, maxLeftX,maxRightX, maxTopY,maxBottomY) {
+    function createBar(xPosition, yPosition, width, height, allowX, allowY, maxLeftX, maxRightX, maxTopY, maxBottomY) {
         var frameDepth = 0.09;
         let position = [xPosition, yPosition, 0];
         let args = [width, height, frameDepth];
 
         return (
-            <DraggableBox 
+            <DraggableBox
                 args={args}
                 position={position}
                 frameColor={frameColor}
@@ -275,7 +278,7 @@ function DoorScene(props) {
                 if (i == 0 || i == 3)
                     width = 0.05
                 //maxLeftX,maxRightX, maxTopY,maxBottomY
-                rods.push(createBar(startX, 0, width, sHeight,true,false,xPosition-sWidth/2 +0.05,xPosition+sWidth/2 -0.05))
+                rods.push(createBar(startX, 0, width, sHeight, true, false, xPosition - sWidth / 2 + 0.05, xPosition + sWidth / 2 - 0.05))
                 startX += sWidth / 5
             }
             return <>{rods}</>
@@ -288,7 +291,7 @@ function DoorScene(props) {
                 if (i == 0 || i == 3)
                     height = 0.05
                 //maxLeftX,maxRightX, maxTopY,maxBottomY
-                rods.push(createBar(xPosition, startY, sWidth, height, false,true, null,null,sHeight/2-0.05, -sHeight/2+0.05))
+                rods.push(createBar(xPosition, startY, sWidth, height, false, true, null, null, sHeight / 2 - 0.05, -sHeight / 2 + 0.05))
                 startY -= sHeight / 5
             }
             return <>{rods}</>
@@ -296,6 +299,7 @@ function DoorScene(props) {
 
         return <>
             {Frame(xPosition)}
+
             {handleVisible ? DoorHandle(xPosition) : ''}
             {GetDoorGlassRectangle(xPosition)}
             {createVDoorBars()}
@@ -354,7 +358,7 @@ function DoorScene(props) {
             // }
 
             //maxLeftX,maxRightX, maxTopY,maxBottomY
-            rods.push(createBar(startX, 0, 0.04, sHeight,true,false,startX-leftPanelWidth/2+0.05,startX+leftPanelWidth/2- 0.05))
+            rods.push(createBar(startX, 0, 0.04, sHeight, true, false, startX - leftPanelWidth / 2 + 0.05, startX + leftPanelWidth / 2 - 0.05))
             return <>{rods}</>
         }
         function createLeftPanelHBars() {
@@ -364,8 +368,8 @@ function DoorScene(props) {
                 let height = 0.04
                 if (i == 0 || i == 3)
                     height = 0.05
-            //maxLeftX,maxRightX, maxTopY,maxBottomY
-                rods.push(createBar(x, startY, width, height,false,true,null,null,sHeight/2-0.05,-sHeight/2+0.05))
+                //maxLeftX,maxRightX, maxTopY,maxBottomY
+                rods.push(createBar(x, startY, width, height, false, true, null, null, sHeight / 2 - 0.05, -sHeight / 2 + 0.05))
                 startY -= sHeight / 5
             }
             return <>{rods}</>
@@ -414,7 +418,7 @@ function DoorScene(props) {
                 let width = 0.04
                 if (i == 0 || i == 3)
                     width = 0.05
-                rods.push(createBar(startX, y, width, height,false,false))
+                rods.push(createBar(startX, y, width, height, false, false))
                 startX += sWidth / 5
             }
             return <>{rods}</>
@@ -425,10 +429,10 @@ function DoorScene(props) {
             for (let i = 0; i < doorSpecs.topPanel.numberOfHBars; i++) {
                 let barHeight = 0.04
                 if (i == 0 || i == 3)
-                    barHeight = 0.05        
-                    
+                    barHeight = 0.05
+
                 //maxLeftX,maxRightX, maxTopY,maxBottomY
-                rods.push(createBar(x, startY, width, barHeight,false,true,null,null,y+height/2-0.09,y-height/2+0.09))
+                rods.push(createBar(x, startY, width, barHeight, false, true, null, null, y + height / 2 - 0.09, y - height / 2 + 0.09))
                 startY -= height / 5
             }
             return <>{rods}</>
@@ -480,7 +484,7 @@ function DoorScene(props) {
             //     startX+=rightPanelWidth/3
             // }
             //maxLeftX,maxRightX, maxTopY,maxBottomY
-            rods.push(createBar(startX, 0, 0.04, sHeight,true,false,x-rightPanelWidth/2+0.05,x+rightPanelWidth/2-0.05))
+            rods.push(createBar(startX, 0, 0.04, sHeight, true, false, x - rightPanelWidth / 2 + 0.05, x + rightPanelWidth / 2 - 0.05))
             return <>{rods}</>
         }
         function createRightPanelHBars() {
@@ -490,8 +494,8 @@ function DoorScene(props) {
                 let height = 0.04
                 if (i == 0 || i == 3)
                     height = 0.05
-            
-                rods.push(createBar(x, startY, width, height, false,true,null,null,sHeight/2-0.05,-sHeight/2+0.05))
+
+                rods.push(createBar(x, startY, width, height, false, true, null, null, sHeight / 2 - 0.05, -sHeight / 2 + 0.05))
                 startY -= sHeight / 5
             }
             return <>{rods}</>
@@ -521,6 +525,7 @@ function DoorScene(props) {
             return <>{doors}</>
         }
         if (n === 1) {
+
             if (doorSpecs.topPanel.include && doorSpecs.topPanel.length > 0) {
                 doors.push(createTopPanel())
             }
