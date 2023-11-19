@@ -150,18 +150,18 @@ function Form2(props) {
                     </div>
                     <div className="container">
                         <div className="row">
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 1 ? 'black-background-white-text' : ''}`} onClick={() => setPanelTypePosition(1)} style={{ border: '1px solid black', height: '6vh', borderTopLeftRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 1 ? 'black-background-white-text' : ''}`} onClick={() => setPanelTypePosition(1)} style={{ border: '1px solid black', height: '6vh', borderTopLeftRadius: "15%", cursor: "pointer" }}>
                                 Geen
                             </div>
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 2 ? 'black-background-white-text' : ''}`} onClick={() => setPanelTypePosition(2)} style={{ border: '1px solid black', height: '6vh', borderTopRightRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 2 ? 'black-background-white-text' : ''}`} onClick={() => setPanelTypePosition(2)} style={{ border: '1px solid black', height: '6vh', borderTopRightRadius: "15%", cursor: "pointer" }}>
                                 Links
                             </div>
                         </div>
                         <div className="row">
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 3 ? 'black-background-white-text' : ' '}`} onClick={() => setPanelTypePosition(3)} style={{ border: '1px solid black', height: '6vh', borderBottomLeftRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 3 ? 'black-background-white-text' : ' '}`} onClick={() => setPanelTypePosition(3)} style={{ border: '1px solid black', height: '6vh', borderBottomLeftRadius: "15%", cursor: "pointer" }}>
                                 Rechts
                             </div>
-                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 4 ? 'black-background-white-text' : ' '}`} onClick={() => setPanelTypePosition(4)} style={{ border: '1px solid black', height: '6vh', borderBottomRightRadius: "10%", cursor: "pointer" }}>
+                            <div className={`col-6 d-flex justify-content-center align-items-center ${doorSpecs.panelTypePosition === 4 ? 'black-background-white-text' : ' '}`} onClick={() => setPanelTypePosition(4)} style={{ border: '1px solid black', height: '6vh', borderBottomRightRadius: "15%", cursor: "pointer" }}>
                                 Beide
                             </div>
                         </div>

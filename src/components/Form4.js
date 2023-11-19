@@ -4,6 +4,7 @@ import ToggleSwitch from './ToggleSwitch';
 import LabelWithInput from './LabelWithInput';
 import ColorfulCircle from './ColorfulCircle';
 import CircularImage from './CircularImage';
+import Dropdown from './Dropdown';
 
 
 
@@ -57,23 +58,37 @@ function Form4(props) {
             <div>
                 <h1 style={{ fontWeight: 'bold' }}>Frame</h1>
             </div>
+
+            <div className='mt-1'>
+                <b><h5>Basic Colors</h5></b>
+                <div className='d-flex row' >
+                    <ColorfulCircle color="#0a0a0a" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
+                    <ColorfulCircle color="#f4f4f4" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
+                </div>
+            </div>
+
+
             <div className='mt-1'>
                 <b><h5>Popular Colors</h5></b>
-                <div className='d-flex row' >
-                    <ColorfulCircle color="#293133" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
-                    <ColorfulCircle color="#90EE90" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
+                <div className='d-flex justify-content-between' >
+                    <ColorfulCircle color="#2b3437" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
+                    <ColorfulCircle color="#20784b" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
+                    <ColorfulCircle color="#763c28" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
                     <ColorfulCircle color="#aea04b" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
-                    <ColorfulCircle color="#C0C2C9" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
-                    <ColorfulCircle color="#C04000" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
-                    <ColorfulCircle color="#D2B48C" size="45px" setColor={setFrameColor} chosenColor={doorSpecs.frameColor} />
                 </div>
+            </div>
+
+            <div className='mt-1'>
+                <b><h5>Custom Color</h5></b>
                 <div>
                     <div className='d-flex flex-column mt-1' >
-                        <h6>Color Code</h6>
-                        <input type="text" value={doorSpecs.frameColor} onChange={(e) => handleColorCodeChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%", marginTop: "-1vh" }} />
+                        <h6>RAL Color Code</h6>
+                        {/* <input type="text" value={doorSpecs.frameColor} onChange={(e) => handleColorCodeChange(e.target.value)} className='form-control mt-1' style={{ borderRadius: '7px', width: "95%", marginTop: "-1vh" }} /> */}
+                        <Dropdown setChosenColor={handleColorCodeChange}/>
                     </div>
                 </div>
             </div>
+
 
             <div className='mt-2'>
                 <b><h5>Glass Types</h5></b>
@@ -102,7 +117,7 @@ function Form4(props) {
 
             </div>
 
-            <div>
+            <div >
                 <BackNextComp middleLabel="4/4" nextButtonLabel="Order" onGoBack={handleGoBack} onGoNext={() => alert("Place Order Cancel?")} />
             </div>
         </div>

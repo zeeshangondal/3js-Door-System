@@ -447,11 +447,11 @@ function DoorScene(props) {
         </>
     }
 
-    function createBottomSteelPanel() {
+    function createBottomSteelPanel(tempX=0) {
         const height = convertMmToDoorHeight(doorSpecs.bottomSteelPanel.length)
         let y = 0 - sHeight / 2 + height / 2
         let width = doorSpecs.numberOfDoors * sWidth
-        let x = 0
+        let x = tempX
         let position = [x, y, 0]
         var thickness = { left: 0.05, right: 0.05, top: 0.05, bottom: 0.05 }
         var frameDepth = 0.09;
@@ -522,6 +522,9 @@ function DoorScene(props) {
 
         if (n === 1 && doorType === 3) {
             doors.push(CreateDoor(1, true))
+            if (doorSpecs.bottomSteelPanel.include && doorSpecs.bottomSteelPanel.length > 0) {
+                doors.push(createBottomSteelPanel(1))
+            }    
             return <>{doors}</>
         }
         if (n === 1) {

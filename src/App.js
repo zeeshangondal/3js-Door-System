@@ -7,6 +7,7 @@ import Form2 from './components/Form2';
 import Form3 from './components/Form3';
 import Form4 from './components/Form4';
 import logo from './components/logo.png'
+import Model from './components/Model'
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -176,13 +177,20 @@ function App() {
                     />
                 </div>
 
-                <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>
+                <div className='col-12 col-md-3  shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem', marginTop:'-2vh' }}>
                     <div className='container'>
                         {getForm()}
 
                     </div>
                 </div>
             </div>
+            {/* <Model
+                isOpen={true}
+                title="TITLE"
+                subtitle="Sub title" 
+                paragraph="PAratmessage" 
+                cancelButtonText="Cancel"
+            /> */}
         </div>
     )
 }
