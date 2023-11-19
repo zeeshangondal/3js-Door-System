@@ -597,7 +597,7 @@ function DoorScene(props) {
           let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
       
           // Adjust for the camera's min distance and add some margin
-          cameraZ *= 2.6;
+          cameraZ *= 2.8;
           targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
       
           // Adjust the focus point based on the camera's distance

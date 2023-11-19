@@ -56,14 +56,14 @@ function Form1(props) {
                 <p>Door Type</p>
             </div>
             <div className='container'>
-
+            {/* #dee2e6 */}
                 <div className="row">
                     {/* Grids */}
                     {doorTypeImages.map((img, index) => (
                         <div
                             key={index}
                             className="col-4 grid-hover grid-hover-hover col-6 shadow d-flex align-items-center justify-content-center"
-                            style={{ background: 'white', border: '2px none #dee2e6', height: '100px', borderRadius: "10%" }}
+                            style={{background: 'white', borderBottom: (index+1===doorSpecs.doorType?'4px solid black':''), height: '13vh', borderRadius: "10%", marginBottom:"3px"}}
                             onClick={() => handleDoorTypeChange(index + 1)} // Passes the corresponding grid number to setDoorType
                         >
                             <img src={img} alt="My SVG Image" />

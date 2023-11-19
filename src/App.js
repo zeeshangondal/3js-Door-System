@@ -9,7 +9,7 @@ import Form4 from './components/Form4';
 
 const BaseWidth = 1000
 const BaseLength = 3000
-const backgroundGradient='linear-gradient(to bottom left, #d9dbe0, #707b86)'
+const backgroundGradient = 'linear-gradient(to bottom left, #d9dbe0, #707b86)'
 
 
 let doorObj = {
@@ -18,29 +18,29 @@ let doorObj = {
     doorType: 1,
     numberOfDoors: 1,
     doorHandleDirection: false,
-    panelTypePosition:1,  // 1 to 4 respectively
-    numberOfHBars:0,
-    numberOfVBars:0,
-    leftRightPanelHBars:0,
-    leftRightPanelVBars:0,
-    frameColor:"black",
-    glassColor:"#959ca8",
-    textureImage:'',
-    leftPanel:{
-        width:0
+    panelTypePosition: 1,  // 1 to 4 respectively
+    numberOfHBars: 0,
+    numberOfVBars: 0,
+    leftRightPanelHBars: 0,
+    leftRightPanelVBars: 0,
+    frameColor: "black",
+    glassColor: "#959ca8",
+    textureImage: '',
+    leftPanel: {
+        width: 0
     },
-    rightPanel:{
-        width:0
+    rightPanel: {
+        width: 0
     },
-    topPanel:{
-        include:false,
-        length:0,
-        numberOfHBars:0,
-        numberOfVBars:0,    
+    topPanel: {
+        include: false,
+        length: 0,
+        numberOfHBars: 0,
+        numberOfVBars: 0,
     },
-    bottomSteelPanel:{
-        include:false,
-        length:0
+    bottomSteelPanel: {
+        include: false,
+        length: 0
     },
 }
 
@@ -66,7 +66,7 @@ function App() {
     const handleLengthChange = (Length) => {
         if (Length > BaseLength)
             Length = BaseLength
-            setDoorSpecs({ ...doorSpecs, length: Length })
+        setDoorSpecs({ ...doorSpecs, length: Length })
     }
     const handleWidthChange = (Width) => {
         if (Width > 2000)
@@ -102,7 +102,7 @@ function App() {
                 doorSpecs={doorSpecs}
                 setDoorSpecs={setDoorSpecs}
                 handleLengthChange={handleLengthChange}
-                handleWidthChange={handleWidthChange}                
+                handleWidthChange={handleWidthChange}
                 handleNumberOfDoorsChange={handleNumberOfDoorsChange}
                 handleGoBack={handleGoBack}
                 handleGoNext={handleGoNext}
@@ -134,13 +134,30 @@ function App() {
                 backgroundGradient={backgroundGradient}
             />)
         }
-        
+
+    }
+    let desktopStyle = {
+        height: '105vh',
+        background: backgroundGradient,
+        borderRadius: "2%",
+        padding: '1rem',
+        margin:'1vh',
+
+    }
+    let mobileStyle = {
+        height: '60vh',
+        background: backgroundGradient,
+        borderRadius: "7%",
+        padding: '3rem',
+        marginLeft:'3vh',
         
     }
+    let styleCss = (window.innerWidth <= 600 ? mobileStyle : desktopStyle)
+
     //height: 'calc(100vh - 4rem)',
     return (
         <div className='d-flex flex-column flex-md-row mt-3'>
-            <div className='container col-12 col-md-9 p-2 m-1' style={{ background: backgroundGradient, borderRadius: "2%" }}>
+            <div className=' col-11 col-md-9' style={styleCss}>
                 <DoorScene
                     sWidth={convertMmToDoorWidth(doorSpecs.width)}
                     sHeight={convertMmToDoorHeight(doorSpecs.length)}
@@ -151,9 +168,10 @@ function App() {
                     backgroundGradient={backgroundGradient}
                 />
             </div>
+
             <div className='col-12 col-md-3 p-1 m-2 shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>
                 <div className='container'>
-                {getForm()}
+                    {getForm()}
 
                 </div>
             </div>

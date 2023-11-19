@@ -40,7 +40,6 @@
 .grid-hover {
   cursor: pointer;
   background-color: #f8f9fa; /* Normal state background */
-  border: 1px solid #dee2e6;
   transition: background-color 0.7s ease; /* Smooth transition for background-color */
 }
 
@@ -48,14 +47,7 @@
   background-color: black !important; /* Background color on hover */
 }
 
-
 .black-background-white-text {
   background-color: black;
   color: white;
-}
-
-.left-round-style{
-}
-.right-round-style{
-
 }
