@@ -646,7 +646,7 @@ function DoorScene(props) {
           const isMobile = sizeWidth <= 600; // Adjust the threshold as needed
           
           if (isMobile) {
-            const zoomInRatio = 0.9; // Adjust this ratio as needed
+            const zoomInRatio = 1.0; // Adjust this ratio as needed
             cameraZ *= zoomInRatio;
             targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
           }
