@@ -203,7 +203,7 @@ function App() {
 
     return (
         <div>
-            <div style={{ width: '20vh', height: '6vh', backgroundColor: 'black', margin: (window.innerWidth <= 600 ? '3px 0px 3px 3vh' : '3px 0px 1px 3vh') }}>
+            <div style={{width: (window.innerWidth <= 600 ? '15vh' : '20vh')  , height: (window.innerWidth <= 600 ? '3vh' : '6vh'), backgroundColor: 'black', margin: (window.innerWidth <= 600 ? '1vh 0px 3px 3vh' : '1vh 0px 1px 3vh') }}>
                 <img
                     src={logo}
                     alt="Your Image"
