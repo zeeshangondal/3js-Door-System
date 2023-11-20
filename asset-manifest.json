@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/3js-Door-System/static/css/main.8c2b7d3e.css",
-    "main.js": "/3js-Door-System/static/js/main.712117aa.js",
+    "main.js": "/3js-Door-System/static/js/main.115c55cb.js",
     "static/js/139.94d54406.chunk.js": "/3js-Door-System/static/js/139.94d54406.chunk.js",
     "static/js/50.7404948e.chunk.js": "/3js-Door-System/static/js/50.7404948e.chunk.js",
     "static/js/631.f7efd7e1.chunk.js": "/3js-Door-System/static/js/631.f7efd7e1.chunk.js",
@@ -18,12 +18,12 @@
     "static/media/3.jpg": "/3js-Door-System/static/media/3.7371d9cbe1fd4f328a2a.jpg",
     "static/media/steel-wire-color.png": "/3js-Door-System/static/media/steel-wire-color.25773ed9e61a0876e3b7.png",
     "static/media/listral.jpg": "/3js-Door-System/static/media/listral.8d137e957b3babfa39e7.jpg",
+    "static/media/logo.jpeg": "/3js-Door-System/static/media/logo.42a0726d56aa0fdbab87.jpeg",
     "static/media/fluted.png": "/3js-Door-System/static/media/fluted.5ee39b8ecef079c832be.png",
     "static/media/5.jpg": "/3js-Door-System/static/media/5.410d32c1650b4ff6578f.jpg",
     "static/media/1.jpg": "/3js-Door-System/static/media/1.b050bb0244ed97b93548.jpg",
     "static/media/cathedral.jpg": "/3js-Door-System/static/media/cathedral.39e1e36ea80c32a53f1c.jpg",
     "static/media/4.jpg": "/3js-Door-System/static/media/4.cc81322a7cec47afb970.jpg",
-    "static/media/logo.png": "/3js-Door-System/static/media/logo.3daed069bfa8bee246e0.png",
     "static/media/11.jpg": "/3js-Door-System/static/media/11.5f8af76da1defc814d5b.jpg",
     "static/media/2.jpg": "/3js-Door-System/static/media/2.54b340949d2fddafe540.jpg",
     "static/media/6.jpg": "/3js-Door-System/static/media/6.129bd3b1d06cd2f61200.jpg",
@@ -35,11 +35,11 @@
     "static/media/type1.svg": "/3js-Door-System/static/media/type1.27c8f39eb9e087431e6c4c9f19e17183.svg",
     "static/media/type4.svg": "/3js-Door-System/static/media/type4.81421d11138cb543a484987401676ed1.svg",
     "main.8c2b7d3e.css.map": "/3js-Door-System/static/css/main.8c2b7d3e.css.map",
-    "main.712117aa.js.map": "/3js-Door-System/static/js/main.712117aa.js.map",
+    "main.115c55cb.js.map": "/3js-Door-System/static/js/main.115c55cb.js.map",
     "787.cda612ba.chunk.js.map": "/3js-Door-System/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8c2b7d3e.css",
-    "static/js/main.712117aa.js"
+    "static/js/main.115c55cb.js"
   ]
 }
