@@ -6,7 +6,7 @@ import Form1 from './components/Form1';
 import Form2 from './components/Form2';
 import Form3 from './components/Form3';
 import Form4 from './components/Form4';
-import logo from './components/logo.png'
+import logo from './components/logo.jpeg'
 import { Button, Modal } from 'react-bootstrap';
 import { Form, Row, Col } from 'react-bootstrap';
 
@@ -150,7 +150,7 @@ function App() {
         background: backgroundGradient,
         borderRadius: "2%",
         padding: '1rem',
-        margin: '-2vh 1vh 1vh 1vh'
+        margin: '0vh 1vh 1vh 1vh'
     }
     //mobile
     let mobileStyle = {
@@ -158,7 +158,7 @@ function App() {
         background: backgroundGradient,
         borderRadius: "7%",
         padding: '3rem',
-        margin: '-2vh 1vh 1vh 3vh',
+        margin: '1vh 1vh 1vh 3vh',
         marginLeft: '2vh',
     }
     let styleCss = (window.innerWidth <= 600 ? mobileStyle : desktopStyle)
@@ -203,50 +203,53 @@ function App() {
 
     return (
         <div>
-            <div style={{ width: '20vh', height: '4vh', margin: (window.innerWidth <= 600 ? '3px 0px 1px 3vh' : '3px 0px 1px 1vh') }}>
+            <div style={{ width: '20vh', height: '6vh', backgroundColor: 'black', margin: (window.innerWidth <= 600 ? '3px 0px 3px 3vh' : '3px 0px 1px 3vh') }}>
                 <img
                     src={logo}
                     alt="Your Image"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
             </div>
-            <div className='d-flex flex-column flex-md-row mt-3'>
-                <div className=' col-10 col-md-9' style={{ position: 'relative', ...styleCss }}>
-                    <DoorScene
-                        sWidth={convertMmToDoorWidth(doorSpecs.width)}
-                        sHeight={convertMmToDoorHeight(doorSpecs.length)}
-                        doorHandleVisible={true}
-                        doorSpecs={doorSpecs}
-                        convertMmToDoorHeight={convertMmToDoorHeight}
-                        convertMmToDoorWidth={convertMmToDoorWidth}
-                        backgroundGradient={backgroundGradient}
-                    />
-                    <button
-                        type="button"
-                        className={`btn btn-light grid-hover ${window.innerWidth <= 600 ? 'btn-sm' : 'btn-lg'}`}
-                        style={{
-                            position: 'absolute',
-                            bottom: '0',
-                            right: '0',
-                            marginBottom: (window.innerWidth <= 600 ? '2%' : '2%'),
-                            marginRight: (window.innerWidth <= 600 ? '3%' : '2%'),
-                            padding: (window.innerWidth <= 600 ? '1vh' : '2vh'),
-                            fontSize: (window.innerWidth <= 600 ? '1vh' : '2vh'),
-                            borderRadius: '3vh',
-                            border: 'none'
-                        }}
-                        // style={{ position: 'absolute', bottom: '0', right: '0', marginBottom: '20px', marginRight: '20px', size:'3vh', borderRadius:'3vh', padding:'20px' }}
-                        onClick={() => handleShow()}
-                    >
-                        Offerte aanvragen
-                    </button>
-                </div>
+
+            <div style={{marginTop:'2vh'}}>
+                <div className='d-flex flex-column flex-md-row'>
+                    <div className=' col-10 col-md-9' style={{ position: 'relative', ...styleCss }}>
+                        <DoorScene
+                            sWidth={convertMmToDoorWidth(doorSpecs.width)}
+                            sHeight={convertMmToDoorHeight(doorSpecs.length)}
+                            doorHandleVisible={true}
+                            doorSpecs={doorSpecs}
+                            convertMmToDoorHeight={convertMmToDoorHeight}
+                            convertMmToDoorWidth={convertMmToDoorWidth}
+                            backgroundGradient={backgroundGradient}
+                        />
+                        <button
+                            type="button"
+                            className={`btn btn-light grid-hover ${window.innerWidth <= 600 ? 'btn-sm' : 'btn-lg'}`}
+                            style={{
+                                position: 'absolute',
+                                bottom: '0',
+                                right: '0',
+                                marginBottom: (window.innerWidth <= 600 ? '2%' : '2%'),
+                                marginRight: (window.innerWidth <= 600 ? '3%' : '2%'),
+                                padding: (window.innerWidth <= 600 ? '1vh' : '2vh'),
+                                fontSize: (window.innerWidth <= 600 ? '1vh' : '2vh'),
+                                borderRadius: '3vh',
+                                border: 'none'
+                            }}
+                            // style={{ position: 'absolute', bottom: '0', right: '0', marginBottom: '20px', marginRight: '20px', size:'3vh', borderRadius:'3vh', padding:'20px' }}
+                            onClick={() => handleShow()}
+                        >
+                            Offerte aanvragen
+                        </button>
+                    </div>
 
 
-                <div className='col-12 col-md-3  shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem', marginTop: '-2vh' }}>
-                    <div className='container'>
-                        {getForm()}
+                    <div className='col-12 col-md-3  shadow' style={{ backgroundColor: 'white', fontWeight: 'bold', padding: '1rem' }}>
+                        <div className='container'>
+                            {getForm()}
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -450,10 +453,10 @@ function App() {
                                     </Form.Group>
 
                                     <div>
-                                        <input type="checkbox"  checked={true}/>
+                                        <input type="checkbox" checked={true} />
                                         <label>Ik geef toestemming om de ingestuurde data te verwerken en om een offerte op naam te ontvangen.</label>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div className="d-flex flex-column w-100">
                                         <Button type="submit" variant="dark" style={{ borderRadius: '10px', padding: '10px' }}>
                                             <b>Offerte aanvragen</b>
@@ -476,9 +479,9 @@ function App() {
 
 
             <div style={{ textAlign: 'center', marginTop: '5px' }}>
-                <p style={{ fontStyle: 'italic' }}>
-                    Your footer text goes here. This is in italic form.
-                </p>
+                <h5 style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                    Powerd by Gravitas
+                </h5>
             </div>
         </div>
     )
