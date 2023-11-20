@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect, createContext, useContext } from 'react'
+import React, { useState, useEffect, createContext, useContext, useRef } from 'react'
 import DoorScene from './components/DoorScene';
 
 import Form1 from './components/Form1';
@@ -200,25 +200,30 @@ function App() {
         // Handle form submission logic here
         alert('Form submitted:');
     };
+    
+    const canvasRef = useRef();
+
+    // Your other components and code here
 
     const captureCanvasAsImage = () => {
-        const canvas = document.getElementsByTagName('canvas')[0]; // Get the canvas element
+        const canvas = canvasRef.current; // Use the ref to get the canvas element
         const dataURL = canvas.toDataURL(); // Capture the canvas content as a data URL
 
+        console.log(dataURL)
         // Create a link element and trigger a download
         const link = document.createElement('a');
         link.href = dataURL;
         link.download = 'my_scene_image.png'; // Set the desired image file name
-        link.click();
+        // link.click();
     };
-    
+
     return (
         <div>
-            <div style={{width: (window.innerWidth <= 600 ? '15vh' : '20vh')  , height: (window.innerWidth <= 600 ? '3vh' : '6vh'), backgroundColor: 'black', margin: (window.innerWidth <= 600 ? '1vh 0px 3px 3vh' : '1vh 0px 1px 3vh') }}>
+            <div style={{width: (window.innerWidth <= 600 ? '15vh' : '20vh')  , height: (window.innerWidth <= 600 ? '3vh' : '8vh'), margin: (window.innerWidth <= 600 ? '1vh 0px 3px 3vh' : '1vh 0px 1px 3vh') }}>
                 <img
                     src={logo}
                     alt="Your Image"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    style={{ width: (window.innerWidth <= 600 ? '15vh' : '20vh'), height: (window.innerWidth <= 600 ? '3vh' : '8vh'), objectFit: 'contain' }}
                 />
                 {/* <button onClick={captureCanvasAsImage}>Capture Canvas</button> */}
 
@@ -228,6 +233,7 @@ function App() {
                 <div className='d-flex flex-column flex-md-row'>
                     <div className=' col-10 col-md-9' style={{ position: 'relative', ...styleCss }}>
                         <DoorScene
+                            canvasRef={canvasRef}
                             sWidth={convertMmToDoorWidth(doorSpecs.width)}
                             sHeight={convertMmToDoorHeight(doorSpecs.length)}
                             doorHandleVisible={true}

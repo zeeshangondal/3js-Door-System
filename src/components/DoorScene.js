@@ -17,7 +17,7 @@ import * as THREE from 'three';
 extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
-    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight, backgroundGradient } = props
+    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight, backgroundGradient,canvasRef } = props
     let { doorType, numberOfDoors, doorHandleDirection, frameColor, glassColor } = doorSpecs
     let [zoom, setZoom] = useState(0.5)
     const [texture, setTexture] = useState('')
@@ -243,17 +243,17 @@ function DoorScene(props) {
                 controlsRef.current.enableZoom = false;
                 controlsRef.current.enableRotate = false;
                 controlsRef.current.enablePan = false;
-          
+
                 // Lock the controls to prevent rotation around the y-axis (x-axis movement)
                 const currentAzimuthAngle = controlsRef.current.getAzimuthalAngle();
                 controlsRef.current.minAzimuthAngle = currentAzimuthAngle;
                 controlsRef.current.maxAzimuthAngle = currentAzimuthAngle;
-          
+
                 // Lock polar angle to prevent rotation up/down
                 const currentPolarAngle = controlsRef.current.getPolarAngle();
                 controlsRef.current.minPolarAngle = currentPolarAngle;
                 controlsRef.current.maxPolarAngle = currentPolarAngle;
-              }
+            }
         }, [controlsRef]);
 
         return <OrbitControls ref={controlsRef} args={[camera, gl.domElement]} />;
@@ -262,7 +262,7 @@ function DoorScene(props) {
 
     // function LimitedOrbitControls() {
     //     const { camera, gl } = useThree();
-      
+
     //     // Disable rotation and zoom
     //     const controlsRef = useRef();
     //     useEffect(() => {
@@ -271,7 +271,7 @@ function DoorScene(props) {
     //         controlsRef.current.enableZoom = false;
     //       }
     //     }, [controlsRef]);
-      
+
     //     return <OrbitControls ref={controlsRef} args={[camera, gl.domElement]} />;
     //   }
 
@@ -480,7 +480,7 @@ function DoorScene(props) {
         </>
     }
 
-    function createBottomSteelPanel(tempX=0) {
+    function createBottomSteelPanel(tempX = 0) {
         const height = convertMmToDoorHeight(doorSpecs.bottomSteelPanel.length)
         let y = 0 - sHeight / 2 + height / 2
         let width = doorSpecs.numberOfDoors * sWidth
@@ -557,7 +557,7 @@ function DoorScene(props) {
             doors.push(CreateDoor(1, true))
             if (doorSpecs.bottomSteelPanel.include && doorSpecs.bottomSteelPanel.length > 0) {
                 doors.push(createBottomSteelPanel(1))
-            }    
+            }
             return <>{doors}</>
         }
         if (n === 1) {
@@ -617,67 +617,67 @@ function DoorScene(props) {
 
 
     function AutoAdjustCamera({ children }) {
-        
+
         const { camera, scene, size } = useThree();
         const targetPosition = useRef(new Vector3());
         const targetLookAt = useRef(new Vector3());
-      
-        
+
+
         useEffect(() => {
-          // Calculate the bounding box of the entire scene
-          const bbox = new Box3().setFromObject(scene);
-          const center = bbox.getCenter(new Vector3());
-          const size = bbox.getSize(new Vector3());
-      
-          // Adjust camera
-          const maxDim = Math.max(size.x, size.y, size.z);
-          const fov = camera.fov * (Math.PI / 180);
-          let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
-      
-          // Adjust for the camera's min distance and add some margin
-          cameraZ *= 2.8;
-          targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
-      
-          // Adjust the focus point based on the camera's distance
-          const focusShift = cameraZ / maxDim; // Adjust this factor as needed
-          targetLookAt.current.set(center.x, center.y + focusShift, center.z);
-          let sizeWidth= window.innerWidth
-          // If the screen size is small (mobile), zoom in
-          const isMobile = sizeWidth <= 600; // Adjust the threshold as needed
-          
-          if (isMobile) {
-            const zoomInRatio = 1.0; // Adjust this ratio as needed
-            cameraZ *= zoomInRatio;
+            // Calculate the bounding box of the entire scene
+            const bbox = new Box3().setFromObject(scene);
+            const center = bbox.getCenter(new Vector3());
+            const size = bbox.getSize(new Vector3());
+
+            // Adjust camera
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fov = camera.fov * (Math.PI / 180);
+            let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov * 2));
+
+            // Adjust for the camera's min distance and add some margin
+            cameraZ *= 2.8;
             targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
-          }
-      
-          // Smooth transition
-          const transitionDuration = 500; // Transition duration in ms
-          const startTime = Date.now();
-      
-          const animate = () => {
-            const currentTime = Date.now();
-            const elapsedTime = currentTime - startTime;
-            if (elapsedTime < transitionDuration) {
-              const alpha = elapsedTime / transitionDuration;
-      
-              // Interpolate position
-              camera.position.lerp(targetPosition.current, alpha);
-              camera.lookAt(targetLookAt.current.lerp(camera.position, alpha));
-              camera.updateProjectionMatrix();
-      
-              requestAnimationFrame(animate);
+
+            // Adjust the focus point based on the camera's distance
+            const focusShift = cameraZ / maxDim; // Adjust this factor as needed
+            targetLookAt.current.set(center.x, center.y + focusShift, center.z);
+            let sizeWidth = window.innerWidth
+            // If the screen size is small (mobile), zoom in
+            const isMobile = sizeWidth <= 600; // Adjust the threshold as needed
+
+            if (isMobile) {
+                const zoomInRatio = 1.0; // Adjust this ratio as needed
+                cameraZ *= zoomInRatio;
+                targetPosition.current.set(camera.position.x, camera.position.y, cameraZ);
             }
-          };
-      
-          animate();
+
+            // Smooth transition
+            const transitionDuration = 500; // Transition duration in ms
+            const startTime = Date.now();
+
+            const animate = () => {
+                const currentTime = Date.now();
+                const elapsedTime = currentTime - startTime;
+                if (elapsedTime < transitionDuration) {
+                    const alpha = elapsedTime / transitionDuration;
+
+                    // Interpolate position
+                    camera.position.lerp(targetPosition.current, alpha);
+                    camera.lookAt(targetLookAt.current.lerp(camera.position, alpha));
+                    camera.updateProjectionMatrix();
+
+                    requestAnimationFrame(animate);
+                }
+            };
+
+            animate();
         }, [camera, scene, size]);
-      
+
         return children;
-      }
-    
+    }
+
     return (
-        <Canvas>
+        <Canvas onCreated={({ gl }) => (canvasRef.current = gl.domElement)}>
             <ambientLight intensity={0.9} />
             <directionalLight ref={lightRef} position={[5, 9, -50]} intensity={0.2} color="white" />
             {/* <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
