@@ -45,6 +45,8 @@
 
 .grid-hover:hover {
   background-color: black !important; /* Background color on hover */
+  color: white;
+
 }
 
 .black-background-white-text {
@@ -54,4 +56,19 @@
 
 .custom-modal .modal-content {
   border-radius: 20px;
+}
+
+.custom-input.form-control {
+  height: 50px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  padding: '5px';
+  margin-bottom: 10px;
+}
+
+.custom-input.form-control:focus,
+.custom-input.form-control:active {
+  border-color: #000; /* Change to the desired border color */
+  outline: none;
+  box-shadow: none; /* Optional: Remove the default box shadow */
 }

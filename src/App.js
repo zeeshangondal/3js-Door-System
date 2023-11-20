@@ -8,6 +8,8 @@ import Form3 from './components/Form3';
 import Form4 from './components/Form4';
 import logo from './components/logo.png'
 import { Button, Modal } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
+
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -156,19 +158,52 @@ function App() {
         background: backgroundGradient,
         borderRadius: "7%",
         padding: '3rem',
-        margin: '-2vh 1vh 1vh 1vh',
+        margin: '-2vh 1vh 1vh 3vh',
         marginLeft: '2vh',
     }
     let styleCss = (window.innerWidth <= 600 ? mobileStyle : desktopStyle)
 
     const [showModal, setShowModal] = useState(false);
+    const [formShowModal, setFormShowModal] = useState(false);
 
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
 
+    const handleFormShow = () => setFormShowModal(true);
+    const handleFormClose = () => setFormShowModal(false);
+
+
+    const initialFormState = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        telephone: '',
+        address: '',
+        municipality: '',
+        postcode: '',
+        country: '',
+        vatSystem: '', // Default option
+        companyName: '',
+        vatNumber: '',
+        comments: '',
+    };
+
+
+    const [form, setForm] = useState(initialFormState);
+
+    const handleChange = (field, value) => {
+        setForm((prevForm) => ({ ...prevForm, [field]: value }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle form submission logic here
+        alert('Form submitted:');
+    };
+
     return (
         <div>
-            <div style={{ width: '20vh', height: '4vh', margin: (window.innerWidth <= 600 ? '3px 0px 1px 2vh' : '3px 0px 1px 1vh') }}>
+            <div style={{ width: '20vh', height: '4vh', margin: (window.innerWidth <= 600 ? '3px 0px 1px 3vh' : '3px 0px 1px 1vh') }}>
                 <img
                     src={logo}
                     alt="Your Image"
@@ -176,7 +211,7 @@ function App() {
                 />
             </div>
             <div className='d-flex flex-column flex-md-row mt-3'>
-                <div className=' col-11 col-md-9' style={{ position: 'relative', ...styleCss }}>
+                <div className=' col-10 col-md-9' style={{ position: 'relative', ...styleCss }}>
                     <DoorScene
                         sWidth={convertMmToDoorWidth(doorSpecs.width)}
                         sHeight={convertMmToDoorHeight(doorSpecs.length)}
@@ -188,16 +223,17 @@ function App() {
                     />
                     <button
                         type="button"
-                        className={`btn btn-light ${window.innerWidth<=600 ? 'btn-sm':'btn-lg'}`}
+                        className={`btn btn-light grid-hover ${window.innerWidth <= 600 ? 'btn-sm' : 'btn-lg'}`}
                         style={{
                             position: 'absolute',
                             bottom: '0',
                             right: '0',
-                            marginBottom: '1%',
-                            marginRight: '1%',
-                            padding: (window.innerWidth<=600 ? '1vh':'2vh'),
-                            fontSize:(window.innerWidth<=600 ? '1vh':'2vh'),
-                            borderRadius:'3vh'
+                            marginBottom: (window.innerWidth <= 600 ? '2%' : '2%'),
+                            marginRight: (window.innerWidth <= 600 ? '3%' : '2%'),
+                            padding: (window.innerWidth <= 600 ? '1vh' : '2vh'),
+                            fontSize: (window.innerWidth <= 600 ? '1vh' : '2vh'),
+                            borderRadius: '3vh',
+                            border: 'none'
                         }}
                         // style={{ position: 'absolute', bottom: '0', right: '0', marginBottom: '20px', marginRight: '20px', size:'3vh', borderRadius:'3vh', padding:'20px' }}
                         onClick={() => handleShow()}
@@ -229,7 +265,7 @@ function App() {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="d-flex justify-content-between w-100">
-                        <Button variant="dark" style={{ borderRadius: '10px', padding: '10px' }}>
+                        <Button variant="dark" style={{ borderRadius: '10px', padding: '10px' }} onClick={() => { handleClose(); handleFormShow() }}>
                             <b>Offerte aanvragen</b>
                         </Button>
 
@@ -240,6 +276,210 @@ function App() {
                 </Modal.Footer>
             </Modal>
 
+            <Modal show={formShowModal} onHide={handleFormClose} centered size="lg" className="custom-modal">
+                <Modal.Body>
+                    <>
+                        <div className='container'>
+                            <h3>Contactgegevens</h3>
+                            <h5>Vul jou contactgegevens in zodat we jou persoonlijk design kunnen versturen!</h5>
+                            <br />
+                            <div>
+                                <Form onSubmit={handleSubmit}>
+                                    <Row>
+                                        <Col md={6}>
+                                            <Form.Group>
+                                                <Form.Control
+                                                    type="text"
+                                                    className="custom-input"
+                                                    placeholder="First Name"
+                                                    value={form.firstName}
+                                                    onChange={(e) => handleChange('firstName', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Control
+                                                    className="custom-input"
+
+                                                    type="text"
+                                                    placeholder="Email"
+                                                    value={form.email}
+                                                    onChange={(e) => handleChange('email', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Control
+                                                    className="custom-input"
+
+                                                    type="text"
+                                                    placeholder="Address"
+                                                    value={form.address}
+                                                    onChange={(e) => handleChange('address', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Control
+                                                    className="custom-input"
+
+                                                    type="text"
+                                                    placeholder="Municipality"
+                                                    value={form.municipality}
+                                                    onChange={(e) => handleChange('municipality', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+                                            <Form.Group>
+                                                <Form.Select
+                                                    value={form.vatSystem}
+                                                    className="custom-input"
+
+                                                    onChange={(e) => handleChange('vatSystem', e.target.value)}
+                                                    required
+                                                >
+                                                    <option value="">Selecteer btw stelsel</option>
+                                                    <option value="6% - Renovatie - woning > 10 jaar">{'6% - Renovatie - woning > 10 jaar'}</option>
+                                                    <option value="21% - nieuwbouw - woning < 10 jaar">'{'21% - nieuwbouw - woning < 10 jaar'}</option>
+                                                    <option value="0% - btw verlegd (btw-nummer verplicht!)">{'0% - btw verlegd (btw-nummer verplicht!)'}</option>
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </Col>
+
+                                        <Col md={6}>
+                                            <Form.Group>
+                                                <Form.Control
+                                                    type="text"
+                                                    className="custom-input"
+
+                                                    placeholder="Last Name"
+                                                    value={form.lastName}
+                                                    onChange={(e) => handleChange('lastName', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Control
+                                                    type="text"
+                                                    className="custom-input"
+
+                                                    placeholder="Telephone"
+                                                    value={form.telephone}
+                                                    onChange={(e) => handleChange('telephone', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Control
+                                                    type="text"
+                                                    className="custom-input"
+
+                                                    placeholder="Postcode"
+                                                    value={form.postcode}
+                                                    onChange={(e) => handleChange('postcode', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Control
+                                                    type="text"
+                                                    className="custom-input"
+
+                                                    placeholder="Country"
+                                                    value={form.country}
+                                                    onChange={(e) => handleChange('country', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <br />
+                                    <div className='d-flex flex-row' style={{ alignItems: 'flex-end' }}>
+                                        <h3>Bedrijfsgegevens</h3>
+                                        <h5>(indien van toepassing)</h5>
+                                    </div>
+
+                                    <Row>
+                                        <Col>
+                                            <Form.Group>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Company Name"
+                                                    className="custom-input"
+
+                                                    value={form.companyName}
+                                                    onChange={(e) => handleChange('companyName', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col>
+                                            <Form.Group>
+                                                <Form.Control
+                                                    type="text"
+                                                    className="custom-input"
+
+                                                    placeholder="VAT Number"
+                                                    value={form.vatNumber}
+                                                    onChange={(e) => handleChange('vatNumber', e.target.value)}
+                                                    required
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <br />
+
+                                    <div >
+                                        <h3>Opmerkingen</h3>
+                                    </div>
+                                    <Form.Group>
+                                        <Form.Control
+                                            as="textarea"
+                                            className="custom-input"
+                                            style={{ height: "100px" }}
+                                            placeholder="Type your comments here"
+                                            value={form.comments}
+                                            onChange={(e) => handleChange('comments', e.target.value)}
+                                        />
+                                    </Form.Group>
+
+                                    <div>
+                                        <input type="checkbox"  checked={true}/>
+                                        <label>Ik geef toestemming om de ingestuurde data te verwerken en om een offerte op naam te ontvangen.</label>
+                                    </div>
+                                    <br/>
+                                    <div className="d-flex flex-column w-100">
+                                        <Button type="submit" variant="dark" style={{ borderRadius: '10px', padding: '10px' }}>
+                                            <b>Offerte aanvragen</b>
+                                        </Button>
+                                        <br />
+                                        <Button variant="dark" onClick={handleFormClose} style={{ borderRadius: '10px', padding: '10px' }}>
+                                            <b>Annuleren</b>
+                                        </Button>
+                                    </div>
+                                </Form>
+                            </div>
+                        </div>
+                    </>
+
+                </Modal.Body>
+                <Modal.Footer>
+                </Modal.Footer>
+            </Modal>
+
+
+
+            <div style={{ textAlign: 'center', marginTop: '5px' }}>
+                <p style={{ fontStyle: 'italic' }}>
+                    Your footer text goes here. This is in italic form.
+                </p>
+            </div>
         </div>
     )
 }

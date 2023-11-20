@@ -234,6 +234,8 @@ function DoorScene(props) {
                 const currentPolarAngle = controlsRef.current.getPolarAngle();
                 controlsRef.current.minPolarAngle = currentPolarAngle;
                 controlsRef.current.maxPolarAngle = currentPolarAngle;
+                controlsRef.current.enableZoom = false;
+
             }
         }, [controlsRef]);
 
@@ -241,6 +243,20 @@ function DoorScene(props) {
     }
 
 
+    // function LimitedOrbitControls() {
+    //     const { camera, gl } = useThree();
+      
+    //     // Disable rotation and zoom
+    //     const controlsRef = useRef();
+    //     useEffect(() => {
+    //       if (controlsRef.current) {
+    //         controlsRef.current.enableRotate = false;
+    //         controlsRef.current.enableZoom = false;
+    //       }
+    //     }, [controlsRef]);
+      
+    //     return <OrbitControls ref={controlsRef} args={[camera, gl.domElement]} />;
+    //   }
 
     const lightRef = useRef();
 
