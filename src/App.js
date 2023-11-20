@@ -201,6 +201,17 @@ function App() {
         alert('Form submitted:');
     };
 
+    const captureCanvasAsImage = () => {
+        const canvas = document.getElementsByTagName('canvas')[0]; // Get the canvas element
+        const dataURL = canvas.toDataURL(); // Capture the canvas content as a data URL
+
+        // Create a link element and trigger a download
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'my_scene_image.png'; // Set the desired image file name
+        link.click();
+    };
+    
     return (
         <div>
             <div style={{width: (window.innerWidth <= 600 ? '15vh' : '20vh')  , height: (window.innerWidth <= 600 ? '3vh' : '6vh'), backgroundColor: 'black', margin: (window.innerWidth <= 600 ? '1vh 0px 3px 3vh' : '1vh 0px 1px 3vh') }}>
@@ -209,6 +220,8 @@ function App() {
                     alt="Your Image"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
+                {/* <button onClick={captureCanvasAsImage}>Capture Canvas</button> */}
+
             </div>
 
             <div style={{marginTop:'1vh'}}>

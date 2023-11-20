@@ -675,7 +675,7 @@ function DoorScene(props) {
       
         return children;
       }
-      
+    
     return (
         <Canvas>
             <ambientLight intensity={0.9} />

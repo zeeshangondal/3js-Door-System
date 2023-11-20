@@ -47,7 +47,7 @@ const ColorDropdown = ({ setChosenColor, chosenColor }) => {
           <Dropdown.Item
             key={color.value}
             eventKey={color.value}
-            // active={chosenColor === color.value}
+            active={chosenColor === color.value}
             style={dropdownOptionStyles}
           >
             <div style={{ backgroundColor: color.value, padding: '8px' }}>{color.text}</div>
