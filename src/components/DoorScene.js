@@ -224,19 +224,36 @@ function DoorScene(props) {
         const controlsRef = useRef();
 
         useEffect(() => {
+            // if (controlsRef.current) {
+            //     // Lock the controls to prevent rotation around the y-axis (x-axis movement)
+            //     const currentAzimuthAngle = controlsRef.current.getAzimuthalAngle();
+            //     controlsRef.current.minAzimuthAngle = currentAzimuthAngle;
+            //     controlsRef.current.maxAzimuthAngle = currentAzimuthAngle;
+
+            //     // Lock polar angle to prevent rotation up/down
+            //     const currentPolarAngle = controlsRef.current.getPolarAngle();
+            //     controlsRef.current.minPolarAngle = currentPolarAngle;
+            //     controlsRef.current.maxPolarAngle = currentPolarAngle;
+            //     controlsRef.current.enableZoom = false;
+            //     controlsRef.current.enableRotate = false;
+            // }
+
             if (controlsRef.current) {
+                // Disable all movements along x, y, and z axes
+                controlsRef.current.enableZoom = false;
+                controlsRef.current.enableRotate = false;
+                controlsRef.current.enablePan = false;
+          
                 // Lock the controls to prevent rotation around the y-axis (x-axis movement)
                 const currentAzimuthAngle = controlsRef.current.getAzimuthalAngle();
                 controlsRef.current.minAzimuthAngle = currentAzimuthAngle;
                 controlsRef.current.maxAzimuthAngle = currentAzimuthAngle;
-
+          
                 // Lock polar angle to prevent rotation up/down
                 const currentPolarAngle = controlsRef.current.getPolarAngle();
                 controlsRef.current.minPolarAngle = currentPolarAngle;
                 controlsRef.current.maxPolarAngle = currentPolarAngle;
-                controlsRef.current.enableZoom = false;
-
-            }
+              }
         }, [controlsRef]);
 
         return <OrbitControls ref={controlsRef} args={[camera, gl.domElement]} />;
