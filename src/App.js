@@ -27,7 +27,7 @@ let doorObj = {
     numberOfVBars: 0,
     leftRightPanelHBars: 0,
     leftRightPanelVBars: 0,
-    frameColor: "black",
+    frameColor: "#0A0A0A",
     glassColor: "#959ca8",
     textureImage: '',
     leftPanel: {
@@ -211,7 +211,7 @@ function App() {
                 />
             </div>
 
-            <div style={{marginTop:'2vh'}}>
+            <div style={{marginTop:'1vh'}}>
                 <div className='d-flex flex-column flex-md-row'>
                     <div className=' col-10 col-md-9' style={{ position: 'relative', ...styleCss }}>
                         <DoorScene
