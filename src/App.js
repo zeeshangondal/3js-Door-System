@@ -94,7 +94,7 @@ function App() {
     const handleGoNext = () => {
         if (stepNumber == 4) {
             //open model
-            captureCanvasAsImage()
+            // captureCanvasAsImage()
             handleShow()
             return
         }
@@ -169,7 +169,7 @@ function App() {
     const [formShowModal, setFormShowModal] = useState(false);
 
     const [savedImage, setSavedImage] = useState(null)
-    const handleShow = () => { captureCanvasAsImage(); generatePdf(); setShowModal(true) };
+    const handleShow = () => {  setShowModal(true) };
     const handleClose = () => setShowModal(false);
 
     const handleFormShow = () => setFormShowModal(true);
@@ -217,7 +217,7 @@ function App() {
         image.src = canvas.toDataURL("image/png");
         setSavedImage(url)
         // You can append the image to the DOM or handle it as needed
-        document.body.appendChild(image);
+//        document.body.appendChild(image);
     }
 
     const generatePdf = () => {
