@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect, createContext, useContext, useRef } from 'react'
 import DoorScene from './components/DoorScene';
+import * as THREE from 'three';
 
 import Form1 from './components/Form1';
 import Form2 from './components/Form2';
@@ -9,6 +10,7 @@ import Form4 from './components/Form4';
 import logo from './components/logo.jpeg'
 import { Button, Modal } from 'react-bootstrap';
 import { Form, Row, Col } from 'react-bootstrap';
+import html2canvas from 'html2canvas';
 
 
 const BaseWidth = 1000
@@ -93,6 +95,7 @@ function App() {
     const handleGoNext = () => {
         if (stepNumber == 4) {
             //open model
+            captureCanvasAsImage()
             handleShow()
             return
         }
@@ -166,7 +169,8 @@ function App() {
     const [showModal, setShowModal] = useState(false);
     const [formShowModal, setFormShowModal] = useState(false);
 
-    const handleShow = () => setShowModal(true);
+    const [savedImage,setSavedImage]=useState(null)
+    const handleShow = () => {captureCanvasAsImage();setShowModal(true)};
     const handleClose = () => setShowModal(false);
 
     const handleFormShow = () => setFormShowModal(true);
@@ -200,26 +204,26 @@ function App() {
         // Handle form submission logic here
         alert('Form submitted:');
     };
-    
-    const canvasRef = useRef();
+
+    const rendererRef = useRef();
 
     // Your other components and code here
 
     const captureCanvasAsImage = () => {
-        const canvas = canvasRef.current; // Use the ref to get the canvas element
-        const dataURL = canvas.toDataURL(); // Capture the canvas content as a data URL
+        var canvas = rendererRef.current.domElement;
+        var image = new Image();
+        let url = canvas.toDataURL("image/png");
+        console.log(url)
+        image.src = canvas.toDataURL("image/png");
+        setSavedImage(image)
+        // You can append the image to the DOM or handle it as needed
+        document.body.appendChild(image);
 
-        console.log(dataURL)
-        // Create a link element and trigger a download
-        const link = document.createElement('a');
-        link.href = dataURL;
-        link.download = 'my_scene_image.png'; // Set the desired image file name
-        // link.click();
-    };
+    }
 
     return (
         <div>
-            <div style={{width: (window.innerWidth <= 600 ? '15vh' : '20vh')  , height: (window.innerWidth <= 600 ? '3vh' : '8vh'), margin: (window.innerWidth <= 600 ? '1vh 0px 3px 3vh' : '1vh 0px 1px 3vh') }}>
+            <div style={{ width: (window.innerWidth <= 600 ? '15vh' : '20vh'), height: (window.innerWidth <= 600 ? '3vh' : '8vh'), margin: (window.innerWidth <= 600 ? '1vh 0px 3px 3vh' : '1vh 0px 1px 3vh') }}>
                 <img
                     src={logo}
                     alt="Your Image"
@@ -229,11 +233,11 @@ function App() {
 
             </div>
 
-            <div style={{marginTop:'1vh'}}>
+            <div style={{ marginTop: '1vh' }}>
                 <div className='d-flex flex-column flex-md-row'>
                     <div className=' col-10 col-md-9' style={{ position: 'relative', ...styleCss }}>
                         <DoorScene
-                            canvasRef={canvasRef}
+                            rendererRef={rendererRef}
                             sWidth={convertMmToDoorWidth(doorSpecs.width)}
                             sHeight={convertMmToDoorHeight(doorSpecs.length)}
                             doorHandleVisible={true}

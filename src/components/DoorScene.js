@@ -17,7 +17,7 @@ import * as THREE from 'three';
 extend({ MeshPhysicalMaterial, MeshStandardMaterial });
 
 function DoorScene(props) {
-    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight, backgroundGradient,canvasRef } = props
+    let { sWidth, sHeight, doorHandleVisible, doorSpecs, convertMmToDoorWidth, convertMmToDoorHeight, backgroundGradient,rendererRef } = props
     let { doorType, numberOfDoors, doorHandleDirection, frameColor, glassColor } = doorSpecs
     let [zoom, setZoom] = useState(0.5)
     const [texture, setTexture] = useState('')
@@ -677,7 +677,7 @@ function DoorScene(props) {
     }
 
     return (
-        <Canvas onCreated={({ gl }) => (canvasRef.current = gl.domElement)}>
+        <Canvas  onCreated={({ gl }) => (rendererRef.current = gl)} gl={{ preserveDrawingBuffer: true }} >
             <ambientLight intensity={0.9} />
             <directionalLight ref={lightRef} position={[5, 9, -50]} intensity={0.2} color="white" />
             {/* <directionalLight position={[-5, 0, -5]} intensity={1.5} color="white" /> */}
