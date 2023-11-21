@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState, useEffect, createContext, useContext, useRef } from 'react'
 import DoorScene from './components/DoorScene';
 import * as THREE from 'three';
-
+import jsPDF from 'jspdf';
 import Form1 from './components/Form1';
 import Form2 from './components/Form2';
 import Form3 from './components/Form3';
@@ -10,8 +10,7 @@ import Form4 from './components/Form4';
 import logo from './components/logo.jpeg'
 import { Button, Modal } from 'react-bootstrap';
 import { Form, Row, Col } from 'react-bootstrap';
-import html2canvas from 'html2canvas';
-
+import 'jspdf-autotable';
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -169,8 +168,8 @@ function App() {
     const [showModal, setShowModal] = useState(false);
     const [formShowModal, setFormShowModal] = useState(false);
 
-    const [savedImage,setSavedImage]=useState(null)
-    const handleShow = () => {captureCanvasAsImage();setShowModal(true)};
+    const [savedImage, setSavedImage] = useState(null)
+    const handleShow = () => { captureCanvasAsImage(); generatePdf(); setShowModal(true) };
     const handleClose = () => setShowModal(false);
 
     const handleFormShow = () => setFormShowModal(true);
@@ -208,18 +207,45 @@ function App() {
     const rendererRef = useRef();
 
     // Your other components and code here
-
+    let doorImage=''
     const captureCanvasAsImage = () => {
         var canvas = rendererRef.current.domElement;
         var image = new Image();
         let url = canvas.toDataURL("image/png");
+        doorImage=url
         console.log(url)
         image.src = canvas.toDataURL("image/png");
-        setSavedImage(image)
+        setSavedImage(url)
         // You can append the image to the DOM or handle it as needed
         document.body.appendChild(image);
-
     }
+
+    const generatePdf = () => {
+        // Create a new instance of jsPDF
+        const pdfDoc = new jsPDF();
+
+        // Add text to the PDF
+        pdfDoc.text('Hello, this is a PDF generated with jsPDF!', 10, 10);
+
+        // Add a table to the PDF
+        const columns = ['ID', 'Name', 'Age'];
+        const data = [
+            [1, 'John Doe', 30],
+            [2, 'Jane Doe', 25],
+            [3, 'Bob Smith', 40],
+        ];
+
+        pdfDoc.autoTable({
+            head: [columns],
+            body: data,
+        });
+
+        // Add an image to the PDF
+        pdfDoc.addImage(doorImage, 'PNG', 10, 80,100,50); // Adjust the coordinates and dimensions as needed
+
+        // Save the PDF
+        pdfDoc.save('example.pdf');
+    };
 
     return (
         <div>

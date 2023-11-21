@@ -82,7 +82,7 @@ function Form1(props) {
                             {isHovered === index + 1 ?
                                 <h5 style={{color:'white', fontWeight:'normal'}}>{getHoverTextFor(index + 1)}</h5>
                             :
-                            <img src={img} alt="My SVG Image" />
+                            <img width="110%" src={img} alt="My SVG Image" />
                             }
                         </div>
                     ))}
