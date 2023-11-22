@@ -11,6 +11,7 @@ import logo from './components/logo.jpeg'
 import { Button, Modal } from 'react-bootstrap';
 import { Form, Row, Col } from 'react-bootstrap';
 import 'jspdf-autotable';
+import GeneratePDF from './components/GeneratePDF';
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -213,7 +214,7 @@ function App() {
         var image = new Image();
         let url = canvas.toDataURL("image/png");
         doorImage=url
-        console.log(url)
+        // console.log(url)
         image.src = canvas.toDataURL("image/png");
         setSavedImage(url)
         // You can append the image to the DOM or handle it as needed
@@ -221,30 +222,7 @@ function App() {
     }
 
     const generatePdf = () => {
-        // Create a new instance of jsPDF
-        const pdfDoc = new jsPDF();
-
-        // Add text to the PDF
-        pdfDoc.text('Hello, this is a PDF generated with jsPDF!', 10, 10);
-
-        // Add a table to the PDF
-        const columns = ['ID', 'Name', 'Age'];
-        const data = [
-            [1, 'John Doe', 30],
-            [2, 'Jane Doe', 25],
-            [3, 'Bob Smith', 40],
-        ];
-
-        pdfDoc.autoTable({
-            head: [columns],
-            body: data,
-        });
-
-        // Add an image to the PDF
-        pdfDoc.addImage(doorImage, 'PNG', 10, 80,100,50); // Adjust the coordinates and dimensions as needed
-
-        // Save the PDF
-        pdfDoc.save('example.pdf');
+        GeneratePDF(form,logo,doorImage,doorSpecs,"Footer")
     };
 
     return (
@@ -255,7 +233,7 @@ function App() {
                     alt="Your Image"
                     style={{ width: (window.innerWidth <= 600 ? '15vh' : '20vh'), height: (window.innerWidth <= 600 ? '3vh' : '8vh'), objectFit: 'contain' }}
                 />
-                {/* <button onClick={captureCanvasAsImage}>Capture Canvas</button> */}
+                <button onClick={()=>{captureCanvasAsImage();generatePdf()}}>Capture Canvas</button>
 
             </div>
 
