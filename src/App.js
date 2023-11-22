@@ -2,7 +2,6 @@ import './App.css';
 import React, { useState, useEffect, createContext, useContext, useRef } from 'react'
 import DoorScene from './components/DoorScene';
 import * as THREE from 'three';
-import jsPDF from 'jspdf';
 import Form1 from './components/Form1';
 import Form2 from './components/Form2';
 import Form3 from './components/Form3';
@@ -11,7 +10,11 @@ import logo from './components/logo.jpeg'
 import { Button, Modal } from 'react-bootstrap';
 import { Form, Row, Col } from 'react-bootstrap';
 import 'jspdf-autotable';
-import GeneratePDF from './components/GeneratePDF';
+import jsPDF from 'jspdf';
+import { ColorOptions } from './components/ColorOptionsData';
+
+
+
 
 const BaseWidth = 1000
 const BaseLength = 3000
@@ -170,7 +173,7 @@ function App() {
     const [formShowModal, setFormShowModal] = useState(false);
 
     const [savedImage, setSavedImage] = useState(null)
-    const handleShow = () => {  setShowModal(true) };
+    const handleShow = () => { setShowModal(true) };
     const handleClose = () => setShowModal(false);
 
     const handleFormShow = () => setFormShowModal(true);
@@ -208,21 +211,173 @@ function App() {
     const rendererRef = useRef();
 
     // Your other components and code here
-    let doorImage=''
+    let doorImage = ''
     const captureCanvasAsImage = () => {
         var canvas = rendererRef.current.domElement;
         var image = new Image();
         let url = canvas.toDataURL("image/png");
-        doorImage=url
+        doorImage = url
         // console.log(url)
         image.src = canvas.toDataURL("image/png");
         setSavedImage(url)
         // You can append the image to the DOM or handle it as needed
-//        document.body.appendChild(image);
+        //        document.body.appendChild(image);
     }
 
     const generatePdf = () => {
-        GeneratePDF(form,logo,doorImage,doorSpecs,"Footer")
+        // Assuming you have jsPDF library included in your project
+        const pdf = new jsPDF();
+
+        // Image at the top left with a small margin
+        pdf.addImage(logo, 'PNG', 10, 10, 20, 10);
+
+        // Heading for Client Information
+        pdf.text('Client Information', 10, 30);
+
+        // Form information using auto table
+        pdf.autoTable({
+            startY: 35, // Adjust the starting Y position as needed
+            head: [['Field', 'Value']],
+            body: [
+                ['First Name', form.firstName],
+                ['Last Name', form.lastName],
+                ['Email', form.email],
+                ['Telephone', form.telephone],
+                ['Address', form.address],
+                ['Municipality', form.municipality],
+                ['Postcode', form.postcode],
+                ['Country', form.country],
+                ['VAT System', form.vatSystem],
+                ['Company Name', form.companyName],
+                ['VAT Number', form.vatNumber],
+                ['Comments', form.comments],
+            ],
+            theme: 'striped',
+            margin: { top: 10 },
+        });
+
+        // Heading for Door Image
+        pdf.text('Door Image', 10, pdf.autoTable.previous.finalY + 15);
+
+        // Door Image at the center of the X-axis
+        pdf.addImage(doorImage, 'PNG', 10, pdf.autoTable.previous.finalY + 10, 190, 140);
+
+        // Add a new page
+        pdf.addPage();
+
+        // Door Specification heading
+        pdf.text('Door Specification', 10, 15);
+
+        function fromDoorTypeNumberToName(n) {
+            if (n == 1)
+                return "Scharnierdeur"
+            if (n == 2)
+                return "Pivotdeur"
+            if (n == 3)
+                return "Schuifdeur"
+            if (n == 4)
+                return "Vast Paneel"
+        }
+        function fromPanelPositionNumberToName(n) {
+            if (n == 1)
+                return "Geen"
+            if (n == 2)
+                return "Links"
+            if (n == 3)
+                return "Rechts"
+            if (n == 4)
+                return "Beide"
+        }
+        function fromTextureImageToName(txt) {
+            if (txt == "fluted.png")
+                return "Flutes"
+            if (txt == "listral.jpg")
+                return "Listral D"
+            if (txt == "cathedral.jpg")
+                return "Kathderaal Max"
+            if (txt == "steel-wire-color.png")
+                return "Visiosun"
+        }
+        function fromGlassColorToName(c) {
+            if (c == "#959ca8")
+                return "Transparent"
+            if (c == "#4e5660")
+                return "Fume Grijis"
+            if (c == "#908377")
+                return "Fume Bruin"
+            if (c == "#383c44")
+                return "Dark Gray"
+            if (c == "#979da2")
+                return "Melk"
+            if (c == "#868e97")
+                return "Staaldraad"
+            if (c == "#070708")
+                return "Black"
+            if (c == "#959ca8")
+                return "White"
+        }
+        // Door Specs information on the second page
+        function tableBody() {
+            let body =
+                [
+                    ['Door Type', fromDoorTypeNumberToName(doorSpecs.doorType)],
+                    ['Number of Doors', doorSpecs.numberOfDoors],
+                    ['Door Handle Direction', (doorSpecs.doorHandleDirection ? 'Right' : 'Left')],
+                    ['Length', doorSpecs.length + " mm"],
+                    ['Width', doorSpecs.width + " mm"],
+                    ['Frame Color', ColorOptions.find(colorObj=> colorObj.value==doorSpecs.frameColor).text],
+                    ['Zig Panel Position', fromPanelPositionNumberToName(doorSpecs.panelTypePosition)],
+                ]
+
+            if (doorSpecs.glassColor.length > 0) {
+                body.push(['Glass Type', fromGlassColorToName(doorSpecs.glassColor)])
+            } else {
+                body.push(['Glass Type', fromTextureImageToName(doorSpecs.textureImage)])
+            }
+            if (doorSpecs.numberOfHBars > 0) {
+                body.push(['Door Horizental Bars', doorSpecs.numberOfHBars])
+            }
+            if (doorSpecs.numberOfVBars > 0) {
+                body.push(['Door Vertical Bars', doorSpecs.numberOfVBars])
+            }
+            if (doorSpecs.leftPanel.width > 0) {
+                body.push(['Left Panel Width', doorSpecs.leftPanel.width])
+            }
+            if (doorSpecs.rightPanel.width > 0) {
+                body.push(['Right Panel Width', doorSpecs.rightPanel.width])
+            }
+            if (doorSpecs.leftRightPanelHBars > 0) {
+                body.push(['Side Panels Horizental Bars', doorSpecs.leftRightPanelHBars])
+            }
+            if (doorSpecs.leftRightPanelVBars > 0) {
+                body.push(['Side Panels Vertical Bars', doorSpecs.leftRightPanelVBars])
+            }
+            if (doorSpecs.topPanel.length > 0) {
+                body.push(['Top Panel Length', doorSpecs.topPanel.length])
+            }
+            if (doorSpecs.topPanel.numberOfHBars > 0) {
+                body.push(['Top Panel Horizental Bars', doorSpecs.topPanel.numberOfHBars])
+            }
+            if (doorSpecs.topPanel.numberOfVBars > 0) {
+                body.push(['Top Panel Vertical Bars', doorSpecs.topPanel.numberOfVBars])
+            }
+            if (doorSpecs.bottomSteelPanel.length > 0) {
+                body.push(['Bottom Steel Panel Length', doorSpecs.bottomSteelPanel.length])
+            }
+            return body
+        }
+
+        pdf.autoTable({
+            startY: 20, // Adjust the starting Y position as needed
+            head: [['Property', 'Value']],
+            body: tableBody(),
+            theme: 'striped',
+            margin: { top: 10 },
+        });
+
+        // Save the PDF with the name 'document.pdf'
+        pdf.save('document.pdf');
+
     };
 
     return (
@@ -233,8 +388,7 @@ function App() {
                     alt="Your Image"
                     style={{ width: (window.innerWidth <= 600 ? '15vh' : '20vh'), height: (window.innerWidth <= 600 ? '3vh' : '8vh'), objectFit: 'contain' }}
                 />
-                <button onClick={()=>{captureCanvasAsImage();generatePdf()}}>Capture Canvas</button>
-
+                <button onClick={() => { captureCanvasAsImage(); generatePdf() }}>Capture Canvas</button>
             </div>
 
             <div style={{ marginTop: '1vh' }}>
